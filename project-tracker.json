@@ -19,8 +19,8 @@
     { "key": "S", "name": "Sektör ölçekleme", "moduleRange": "EP20" }
   ],
   "modules": [
-    { "id": "EP01", "phase": "B1", "name": "Teknik temel ve monorepo", "status": "in_progress", "total": 10, "done": 8, "active": 2, "delivered": "Tenant/RLS temeli, LMS veri tabloları, güvenli attempt/session/event deposu, job kanıtı, izole SCORM runtime ve güvenli ZIP inceleme", "next": "Hosted Supabase adaptörü, karantina worker ve harici paket kanıtı" },
-    { "id": "EP02", "phase": "B1", "name": "Kimlik ve organizasyon", "status": "in_progress", "total": 8, "done": 6, "active": 2, "delivered": "Üyelik/rol temeli; hash'li davet/kabul; güvenli rol/statü RPC'leri; doğrudan ekip kapsamı; CSV preview; Supabase SSR cookie/getClaims, login, PKCE, DB rol çözümleme, MFA challenge ve logout", "next": "Gerçek Supabase ortam kabulü, MFA yönetimi/kritik işlem AAL2 ve CSV worker" },
+    { "id": "EP01", "phase": "B1", "name": "Teknik temel ve monorepo", "status": "in_progress", "total": 10, "done": 8, "active": 2, "delivered": "Tenant/RLS temeli, LMS veri tabloları, güvenli attempt/session/event deposu, job kanıtı, izole SCORM runtime, güvenli ZIP inceleme ve gerçek Supabase üzerinde doğrulanmış migration geçmişi", "next": "Hosted veri DAL/route adaptörü, karantina worker ve harici paket kanıtı" },
+    { "id": "EP02", "phase": "B1", "name": "Kimlik ve organizasyon", "status": "in_progress", "total": 8, "done": 6, "active": 2, "delivered": "Üyelik/rol temeli; hash'li davet/kabul; güvenli rol/statü RPC'leri; doğrudan ekip kapsamı; CSV preview; Supabase SSR cookie/getClaims, login, PKCE, DB rol çözümleme, MFA challenge, logout ve gerçek proje ortam bağlantısı", "next": "Gerçek test kullanıcısıyla Auth kabulü, MFA yönetimi/kritik işlem AAL2 ve CSV worker" },
     { "id": "EP03", "phase": "B1", "name": "UI sistemi ve marka", "status": "in_progress", "total": 10, "done": 7, "active": 2, "delivered": "Beş rol navigasyonu, öğrenen ve admin çalışma alanları, responsive açık/koyu tema, hukuk akademisi hero varlığı", "next": "Bileşen kütüphanesi, erişilebilirlik denetimi ve gerçek marka editörü" },
     { "id": "EP04", "phase": "B1", "name": "Portal ve lisans fabrikası", "status": "planned", "total": 7, "done": 0, "active": 0, "delivered": "Plan ve veri sözleşmesi", "next": "Sektör seçimi, tenant kurulum işi, entitlement ve kota" },
     { "id": "EP05", "phase": "B1", "name": "Katalog, asset ve runtime", "status": "in_progress", "total": 10, "done": 2, "active": 2, "delivered": "Sentetik eğitim kataloğu, kaynak görünümü ve SCORM proof", "next": "Storage upload güvenliği, video/PDF runtime ve gerçek kalıcılık" },
@@ -41,19 +41,20 @@
     { "id": "EP20", "phase": "S", "name": "Otelcilik sektör paketi", "status": "planned", "total": 6, "done": 0, "active": 0, "delivered": "Sektör paket mimarisi", "next": "Otelcilik terminolojisi, vardiya, işbaşı ve şablon paketi" }
   ],
   "priorities": [
-    { "order": 1, "title": "Hosted kimlik kabulü", "detail": "Gerçek Supabase ortam testi, MFA enroll/unenroll, kritik işlem AAL2 ve CSV worker", "module": "EP02" },
-    { "order": 2, "title": "Runtime'ı hosted Supabase'e bağla", "detail": "DAL/route adaptörü, gerçek oturum ve SCORM event gönderimi", "module": "EP01/EP05" },
+    { "order": 1, "title": "Hosted kimlik kabulü", "detail": "Bağlı Supabase projesinde test kullanıcısı, MFA enroll/unenroll, kritik işlem AAL2 ve CSV worker", "module": "EP02" },
+    { "order": 2, "title": "Runtime'ı hosted veriye bağla", "detail": "DAL/route adaptörü, gerçek oturum ve SCORM event gönderimi", "module": "EP01/EP05" },
     { "order": 3, "title": "UI'ı gerçek veriye bağla", "detail": "Atama, enrollment, program ve kaynak ekranlarını Supabase sorgularına taşı", "module": "EP05/EP06" },
     { "order": 4, "title": "Portal kurulum fabrikası", "detail": "Sektör şablonu, marka, modül, kota ve admin kurulum işi", "module": "EP04" },
     { "order": 5, "title": "Pilot yayın kapıları", "detail": "UAT, erişilebilirlik, yük, yedek geri dönüş ve izleme", "module": "EP15" }
   ],
   "dependencies": [
-    "Supabase proje/region, Auth ve Storage ortam değişkenleri henüz bağlanmadı.",
-    "GitHub uzak deposu, Vercel projesi ve lms.respongo.com DNS kurulumu henüz yapılmadı.",
+    "Supabase proje ve public web anahtarı bağlandı; Auth test kullanıcısı, Storage bucket/policy kabulü ve üretim secret yönetimi tamamlanmalı.",
+    "GitHub uzak deposu ve main dalı bağlandı; Vercel projesi ile lms.respongo.com DNS kurulumu henüz yapılmadı.",
     "Teams, Zoom, GoTo, isEazy ve SCORM Cloud test hesapları/sözleşmeleri gerekli.",
     "Gerçek hukuk eğitim içerikleri, kullanım hakları ve uzman onayları müşteriyle tamamlanmalı."
   ],
   "recent": [
+    { "date": "2026-09-24", "text": "GitHub main dalı yayımlandı; gerçek Supabase proje ayarları bağlandı ve beş migration uzak veritabanına uygulanıp geçmiş eşitliği doğrulandı." },
     { "date": "2026-09-24", "text": "Next.js 16 Supabase SSR proxy, güvenli login/PKCE/logout, DB rol çözümleme ve MFA challenge eklendi; 6 auth policy testi geçti." },
     { "date": "2026-09-24", "text": "Line manager erişimi doğrudan ekip üyeleriyle sınırlandı; revision korumalı ekip komutu ve 1 MB/2.000 satırlık CSV import preview eklendi; 11 yeni test geçti." },
     { "date": "2026-09-24", "text": "Hash'li davet, e-posta eşleşmeli kabul, güvenli rol/statü komutları, session iptali ve redacted audit eklendi; 6 yeni PostgreSQL testi geçti." },

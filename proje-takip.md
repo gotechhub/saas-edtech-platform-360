@@ -33,8 +33,8 @@
 
 | Modül | Faz | Durum | Görev | İlerleme | Yapılan | Sıradaki |
 |---|---|---|---:|---:|---|---|
-| EP01 · Teknik temel ve monorepo | B1 | Devam ediyor | 8/10 | %80 | Tenant/RLS temeli, LMS veri tabloları, güvenli attempt/session/event deposu, job kanıtı, izole SCORM runtime ve güvenli ZIP inceleme | Hosted Supabase adaptörü, karantina worker ve harici paket kanıtı |
-| EP02 · Kimlik ve organizasyon | B1 | Devam ediyor | 6/8 | %75 | Üyelik/rol temeli; hash'li davet/kabul; güvenli rol/statü RPC'leri; doğrudan ekip kapsamı; CSV preview; Supabase SSR cookie/getClaims, login, PKCE, DB rol çözümleme, MFA challenge ve logout | Gerçek Supabase ortam kabulü, MFA yönetimi/kritik işlem AAL2 ve CSV worker |
+| EP01 · Teknik temel ve monorepo | B1 | Devam ediyor | 8/10 | %80 | Tenant/RLS temeli, LMS veri tabloları, güvenli attempt/session/event deposu, job kanıtı, izole SCORM runtime, güvenli ZIP inceleme ve gerçek Supabase üzerinde doğrulanmış migration geçmişi | Hosted veri DAL/route adaptörü, karantina worker ve harici paket kanıtı |
+| EP02 · Kimlik ve organizasyon | B1 | Devam ediyor | 6/8 | %75 | Üyelik/rol temeli; hash'li davet/kabul; güvenli rol/statü RPC'leri; doğrudan ekip kapsamı; CSV preview; Supabase SSR cookie/getClaims, login, PKCE, DB rol çözümleme, MFA challenge, logout ve gerçek proje ortam bağlantısı | Gerçek test kullanıcısıyla Auth kabulü, MFA yönetimi/kritik işlem AAL2 ve CSV worker |
 | EP03 · UI sistemi ve marka | B1 | Devam ediyor | 7/10 | %70 | Beş rol navigasyonu, öğrenen ve admin çalışma alanları, responsive açık/koyu tema, hukuk akademisi hero varlığı | Bileşen kütüphanesi, erişilebilirlik denetimi ve gerçek marka editörü |
 | EP04 · Portal ve lisans fabrikası | B1 | Planlandı | 0/7 | %0 | Plan ve veri sözleşmesi | Sektör seçimi, tenant kurulum işi, entitlement ve kota |
 | EP05 · Katalog, asset ve runtime | B1 | Devam ediyor | 2/10 | %20 | Sentetik eğitim kataloğu, kaynak görünümü ve SCORM proof | Storage upload güvenliği, video/PDF runtime ve gerçek kalıcılık |
@@ -57,8 +57,8 @@
 ## Sıradaki öncelikler
 
 1. **Hosted kimlik kabulü** · EP02
-   Gerçek Supabase ortam testi, MFA enroll/unenroll, kritik işlem AAL2 ve CSV worker
-2. **Runtime'ı hosted Supabase'e bağla** · EP01/EP05
+   Bağlı Supabase projesinde test kullanıcısı, MFA enroll/unenroll, kritik işlem AAL2 ve CSV worker
+2. **Runtime'ı hosted veriye bağla** · EP01/EP05
    DAL/route adaptörü, gerçek oturum ve SCORM event gönderimi
 3. **UI'ı gerçek veriye bağla** · EP05/EP06
    Atama, enrollment, program ve kaynak ekranlarını Supabase sorgularına taşı
@@ -69,8 +69,8 @@
 
 ## Dış bağımlılıklar ve karar girdileri
 
-- Supabase proje/region, Auth ve Storage ortam değişkenleri henüz bağlanmadı.
-- GitHub uzak deposu, Vercel projesi ve lms.respongo.com DNS kurulumu henüz yapılmadı.
+- Supabase proje ve public web anahtarı bağlandı; Auth test kullanıcısı, Storage bucket/policy kabulü ve üretim secret yönetimi tamamlanmalı.
+- GitHub uzak deposu ve main dalı bağlandı; Vercel projesi ile lms.respongo.com DNS kurulumu henüz yapılmadı.
 - Teams, Zoom, GoTo, isEazy ve SCORM Cloud test hesapları/sözleşmeleri gerekli.
 - Gerçek hukuk eğitim içerikleri, kullanım hakları ve uzman onayları müşteriyle tamamlanmalı.
 
@@ -84,6 +84,7 @@
 
 ## Son değişiklikler
 
+- **2026-09-24:** GitHub main dalı yayımlandı; gerçek Supabase proje ayarları bağlandı ve beş migration uzak veritabanına uygulanıp geçmiş eşitliği doğrulandı.
 - **2026-09-24:** Next.js 16 Supabase SSR proxy, güvenli login/PKCE/logout, DB rol çözümleme ve MFA challenge eklendi; 6 auth policy testi geçti.
 - **2026-09-24:** Line manager erişimi doğrudan ekip üyeleriyle sınırlandı; revision korumalı ekip komutu ve 1 MB/2.000 satırlık CSV import preview eklendi; 11 yeni test geçti.
 - **2026-09-24:** Hash'li davet, e-posta eşleşmeli kabul, güvenli rol/statü komutları, session iptali ve redacted audit eklendi; 6 yeni PostgreSQL testi geçti.
