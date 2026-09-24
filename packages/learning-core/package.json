@@ -1,0 +1,17 @@
+{
+  "name": "@respongo/learning-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./scorm": "./src/scorm.ts",
+    "./authoring": "./src/authoring.ts",
+    "./archive": "./src/archive.ts",
+    "./member-import": "./src/member-import.ts"
+  },
+  "dependencies": {
+    "fast-xml-parser": "5.11.1",
+    "fflate": "0.8.3",
+    "yauzl": "3.4.0"
+  }
+}

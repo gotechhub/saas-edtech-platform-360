@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.env*
+!.env.example
+.pnpm-store/
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
+upsidelms-saas-screenshot/
+docs/planning/research/screenshot-*.csv
+docs/planning/research/*.png
+docs/planning/research/*.jpg

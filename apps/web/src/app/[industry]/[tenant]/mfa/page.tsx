@@ -1,0 +1,4 @@
+import { notFound, redirect } from "next/navigation";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { MfaForm } from "./mfa-form";
+export default async function MfaPage({params}:{params:Promise<{industry:string;tenant:string}>}){const {industry,tenant}=await params;if(industry!=="avukat"||tenant!=="oguzlawacademy")notFound();const path=`/${industry}/${tenant}`;const supabase=await createSupabaseServerClient();if(!supabase)redirect(`${path}/giris`);const claims=await supabase.auth.getClaims();if(!claims.data?.claims?.sub)redirect(`${path}/giris`);const aal=await supabase.auth.mfa.getAuthenticatorAssuranceLevel();if(aal.data?.currentLevel==="aal2")redirect(path);return <main className="auth-page"><section className="auth-card"><p className="auth-kicker">EK GÜVENLİK ADIMI</p><h1>Kimliğini doğrula</h1><p>Authenticator uygulamandaki güncel kodu gir.</p><MfaForm returnPath={path}/></section></main>}

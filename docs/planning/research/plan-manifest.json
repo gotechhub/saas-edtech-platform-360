@@ -1,0 +1,78 @@
+[
+  {
+    "file": "01-arastirma.md",
+    "sha256": "694d5878ab8e3ca3d0328d0472cf9ae140e5197584cbd2c0893c576fed9fdd21"
+  },
+  {
+    "file": "02-urun-kapsami.md",
+    "sha256": "1267af7d990c20625222f57166c43436b5f8bdc6aee03eef779758c1482bbda5"
+  },
+  {
+    "file": "03-mimari.md",
+    "sha256": "0fe38d6191cdcfb4ad3f7eb6f0add1396c34175525d5f762f9d18bfba30431c4"
+  },
+  {
+    "file": "04-deneyim-ve-assets.md",
+    "sha256": "bb46187b8f61a8e95191e980f192c2961e68996ac6610baffee9660fb06a2815"
+  },
+  {
+    "file": "05-entegrasyon-ve-goauthoring.md",
+    "sha256": "d3a92a43dabf1f323825f52edda6084b0e748ce5d4834c0e64724f00b8e648c3"
+  },
+  {
+    "file": "06-sektorler-ve-akislar.md",
+    "sha256": "96adabb4c4ded86b7d61af95382d31a0cd4f6c9b67c6a11f31dc424addef25dd"
+  },
+  {
+    "file": "07-teslimat-ve-kararlar.md",
+    "sha256": "a15877710da4538517b86e58936c012bca0000a2a50c5d7d1050a7197a432035"
+  },
+  {
+    "file": "08-final-kararlar.md",
+    "sha256": "3e71a5fabb2bad445a71d4be6fe34637a5b2a9586ef580b749ac9ccd90399432"
+  },
+  {
+    "file": "09-veri-sozlesmesi.md",
+    "sha256": "3867ce904bbd18e61daac219decd7b92f4daff1726bf2c6cc33f396776eee903"
+  },
+  {
+    "file": "10-yetki-ve-tehdit-modeli.md",
+    "sha256": "2fc3e49f30f6ab98a92e01b82cd9c8aedec455cd49f6f7acdf989652bd17ac79"
+  },
+  {
+    "file": "11-api-ve-olay-sozlesmesi.md",
+    "sha256": "99692d6a59b8edcd885f96a72514bc30816a1112f782dcb6a54c7fc0a8601980"
+  },
+  {
+    "file": "12-ekran-akis-sozlesmesi.md",
+    "sha256": "000e3bf51285f1e3cd5960c8253b33db78975c8c0c29f50fda50d8f1042b75b8"
+  },
+  {
+    "file": "13-maliyet-ve-isletim.md",
+    "sha256": "092fcb21b58539c1447390acf7cf7db559d84d0443dae1a164b06b807dc0a480"
+  },
+  {
+    "file": "14-is-paketleri.md",
+    "sha256": "de93d1b49da86b9c3631c7c51b1e269ebabb0b830a743843ca17e2d222a55af3"
+  },
+  {
+    "file": "15-final-kontrol.md",
+    "sha256": "75d9cd7877f39f78ca984c2021a01ccdee4c63548434a4fe8a071bda58f4319c"
+  },
+  {
+    "file": "README.md",
+    "sha256": "85e6e926234f06a85832eb726002985249885284f0c014d121ece1d16d826bb4"
+  },
+  {
+    "file": "contracts/openapi.json",
+    "sha256": "8c34c57b9eaa914c1e82156b01090601128b0f29b55da95bcfab45f40f5797a3"
+  },
+  {
+    "file": "contracts/permissions.csv",
+    "sha256": "dbd19299a5705b7ef286e0d99645656d64e98173998c6aa917b25974754bf7b1"
+  },
+  {
+    "file": "contracts/requirements-traceability.csv",
+    "sha256": "cc9f36e80bfed9920f60b68c93d3e079b3e01fbe2705431f15bd4a1bc7f8e58a"
+  }
+]

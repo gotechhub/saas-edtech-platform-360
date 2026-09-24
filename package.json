@@ -1,0 +1,30 @@
+{
+  "name": "respongo-learning",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.19.0",
+  "scripts": {
+    "dev": "pnpm --filter @respongo/web dev",
+    "content:proof": "pnpm --filter @respongo/content-proof start",
+    "build": "pnpm --filter @respongo/web build",
+    "typecheck": "pnpm --filter @respongo/web typecheck && tsc -p tsconfig.core.json",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:production-gate": "node scripts/check-production-gate.mjs",
+    "tracker:update": "node scripts/update-project-tracker.mjs",
+    "tracker:check": "node scripts/update-project-tracker.mjs --check",
+    "format": "prettier --write apps/web/src packages tests",
+    "check": "pnpm test && pnpm typecheck && pnpm build"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.10.1",
+    "@types/yauzl": "2.10.3",
+    "esbuild": "0.28.2",
+    "fflate": "0.8.3",
+    "prettier": "3.6.2",
+    "typescript": "5.9.3",
+    "vitest": "5.0.1"
+  }
+}

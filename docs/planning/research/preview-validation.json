@@ -1,0 +1,78 @@
+{
+  "syntax": "passed",
+  "checks": [
+    {
+      "width": 390,
+      "role": "learner",
+      "title": "Bugün kendin için bir adım.",
+      "overflow": false,
+      "flow": "passed"
+    },
+    {
+      "width": 390,
+      "role": "admin",
+      "title": "Akademinin bugünkü öncelikleri.",
+      "overflow": false,
+      "flow": "passed"
+    },
+    {
+      "width": 390,
+      "role": "instructor",
+      "title": "Uzmanlığını gelişime dönüştür.",
+      "overflow": false,
+      "flow": "passed"
+    },
+    {
+      "width": 390,
+      "role": "manager",
+      "title": "Ekibinin gelişimini görünür kıl.",
+      "overflow": false,
+      "flow": "passed"
+    },
+    {
+      "width": 390,
+      "role": "platform",
+      "title": "Her akademi, tek merkezden.",
+      "overflow": false,
+      "flow": "passed"
+    },
+    {
+      "width": 1024,
+      "role": "learner",
+      "title": "Bugün kendin için bir adım.",
+      "overflow": false,
+      "flow": "passed"
+    },
+    {
+      "width": 1024,
+      "role": "admin",
+      "title": "Akademinin bugünkü öncelikleri.",
+      "overflow": false,
+      "flow": "passed"
+    },
+    {
+      "width": 1024,
+      "role": "instructor",
+      "title": "Uzmanlığını gelişime dönüştür.",
+      "overflow": false,
+      "flow": "passed"
+    },
+    {
+      "width": 1024,
+      "role": "manager",
+      "title": "Ekibinin gelişimini görünür kıl.",
+      "overflow": false,
+      "flow": "passed"
+    },
+    {
+      "width": 1024,
+      "role": "platform",
+      "title": "Her akademi, tek merkezden.",
+      "overflow": false,
+      "flow": "passed"
+    }
+  ],
+  "pageErrors": [],
+  "darkScreenshot": "preview-dark.png",
+  "scope": "Planning mockup; not product UAT or WCAG certification"
+}

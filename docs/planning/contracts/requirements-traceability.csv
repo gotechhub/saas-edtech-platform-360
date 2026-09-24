@@ -1,0 +1,41 @@
+requirement,first_release,epic,screens,tests,acceptance,status
+"R01","B1","EP04","UX23","T04","Aynı istekle tek portal; sektör paketi ve admin daveti",planned
+"R02","B1","EP04","UX25","T22","Modül ve kota sunucuda; deneme bitişi veri silmez",planned
+"R03","B1","EP02","UX01","T02;T03;T24","Davet/MFA/üyelik iptali; SAML B2 EP16",planned
+"R04","B1","EP02","UX02","T05","Aydınlatma/rıza ayrı; kesilen onboarding devam eder",planned
+"R05","B1","EP02","UX13;UX22","T03;T24;T27","CSV validate/apply; kişi ve ekip scope korunur",planned
+"R06","B1","EP05","UX04","T01;T07","Katalog sürümü ve lisanslı erişim",planned
+"R07","B1","EP05","UX06","T06;T11","Desteklenen format resume ve doğru kaynak etiketi",planned
+"R08","B1","EP06","UX05;UX14","T05;T07","Önkoşul döngüsü yok; immutable program",planned
+"R09","B1","EP06","UX15","T05;T10","Gerekli hedef/son tarih/istisna açık",planned
+"R10","B1","EP07","UX07;UX21","T09","Server grade/deneme/rubrik",planned
+"R11","B1","EP07","UX08;UX22","T03;T09","Öz beyan ve doğrulanmış beceri ayrı",planned
+"R12","B1","EP08","UX08;UX18","T10","Belge snapshot ve iptal; editör gelişimi B2",planned
+"R13","B1","EP08","UX08;UX22","T10;T27","Dış belge onayı ve tarihsel kayıt",planned
+"R14","B1","EP10","UX03;UX04","T05","Kaldığın yer ve gerekçeli öneri",planned
+"R15","B1","EP08","UX08","T08","Tekil XP ve kurum içi aylık sıralama",planned
+"R16","B1","EP14","UX10","T14;T25","Manuel takvim/yoklama; üç API B2 EP16",planned
+"R17","B1","EP10","UX09","T11","Yayın/yorum/moderasyon hedef kitlesi",planned
+"R18","B1","EP10","UX09;UX21","T17","Ders soruları; bireysel/grup chat B2 EP17",planned
+"R19","B1","EP07","UX07;UX20","T15","Kimlikli form; anonim mod B2 EP17",planned
+"R20","B1","EP11","UX03;UX20","T08;T28","In-app+eposta; push B2 EP17",planned
+"R21","B1","EP11","UX20","T08;T28","Preset ve retry; görsel editör B2 EP17",planned
+"R22","B1","EP03","UX12","T18","Logo/tema/banner/login önizleme",planned
+"R23","B1","EP11","UX20","T28","Şablon değişkeni ve teslim/suppression",planned
+"R24","B1","EP13","UX19","T16","İzinli metrik/export; özel zamanlama B2 EP17",planned
+"R25","B2","EP17","UX19;UX22","T21","Şema izinli AI rapor; SQL üretilmez",planned
+"R26","B1","EP13","UX16","T05","Gerekli asset/checklist ve ayrı hazır yüzdesi",planned
+"R27","B1","EP05","UX14","T06;T13","isEazy gerçek paket fixture; API senkronu yok",planned
+"R28","B1","EP09","UX17","T12;T13","Yerel yayın+SCORM12 ZIP+interaction rapor",planned
+"R29","B1","EP04","UX25","T22","Trial ve satın alma talebi; checkout G EP19",planned
+"R30","B1","EP12","UX11","T17","Tenant talep/yanıt/aktarım/kapanış",planned
+"R31","B1","EP12","UX24","T17","Platform metadata+scope grant+SLA",planned
+"R32","B1","EP03","UX03;UX21;UX22;UX26","T18;T19","Beş rol görev dashboardları",planned
+"R33","B1","EP02","UX08","T02;T24","Profil tercihleri doğru üyelikte",planned
+"R34","B1","EP03","UX01;UX03;UX06","T18","Responsive/tema/reduced motion",planned
+"R35","B1","EP15","UX26","T01;T11;T20","Audit+restore+retention gate",planned
+"R36","B1","EP04","UX23","T23","Hukuk paketinden kurulum; otelcilik S EP20",planned
+"R37","G","EP19","UX25","T29","Gerçek checkout/iade/entitlement doğrulaması",planned
+"R38","B1","EP15","UX26","T19;T20","Kuyruk/kullanım/sağlık ve incident",planned
+"R39","B2","EP16","UX10","T25","Mekan/ekipman çakışmaz; maliyet/supplier",planned
+"R40","B1","EP12","UX11","T26","Rol bazlı aranan SSS ve ticket geçişi",planned

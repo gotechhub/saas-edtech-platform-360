@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-21",
+  "scope": "Static planning consistency; not runtime or security validation",
+  "status": "passed",
+  "counts": {
+    "documents": 16,
+    "requirements": 40,
+    "permissions": 67,
+    "operations": 89,
+    "schemas": 73,
+    "localRefs": 817,
+    "localLinks": 47,
+    "acceptanceTests": 29
+  },
+  "errors": []
+}

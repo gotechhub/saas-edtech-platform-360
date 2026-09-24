@@ -1,0 +1,123 @@
+Oguz Law Academy için bir LMS + LXP + Gamification + eğitim portalı yazmak istiyorum. Portal tamamen avukat sektörüne özel olarak kurgulansın tüm yapı ve modüller.
+
+İçinde + LMS + LXP + gamification olsun. Netflix basitliğinde çok iyi kullanıcı ve admin ux ve ui kullanıcı dostu ekranlar olacak. portal ilk beta olarak yayına çıkacağız. 
+
+müşteri sistemi kullanabilir test edebilecek hale getirmeliyiz. 
+İlk müşterimiz Oguz Law Academy için yapacağız. 
+
+Super admin olacak - avukatlar için hemen hızlı demo veya tam sürüm portal oluşturma ve tüm sistem ayarları yönetimi olacak.
+
+admin olacak müşteri yönetimi
+learner
+instructor
+line manager
+
+ms teams + zoom + gototraining entegrasyonları
+eğitim programları
+öğrenme yolculuklar learning path ve bir çok şey olması gerekiyor. 
+uyumluluk
+yetkinlik
+sertifika
+gamification
+kaynaklar
+sohbet
+sosyal öğrenme
+instagram gibi akışlar videolar kaynaklar haberler bloglar
+topluluklar
+formlar
+anketler
+kullanıcı çok iyi tasarlanmış dashboard ve basit net kaliteli ikonlar
+push özellikleri
+bildirim 
+otomatik eposta yönetimi
+her portal için markalama banner login ekran tasarımları hazır şablonlar
+logo yükleme ve editleme büyültme küçültme ayarlama
+banner yönetimi
+portal renk yönetimi
+sisteme giriş kvkk onayı ve ilk giriş 
+sertifika tasarım editörü
+zorunlu eğitim akışları
+zorunlu değil programla düzenleme sıra değiştirme zorunluluk ayarlar
+sertifika ekleme
+scorm ve xapi ve diğer alt yapılar
+sso şirketler için alt yapı hazırlanması
+
+çok basit netflix kalitesinde
+efekler tamaladıkça animasyonlar 
+renkli uyarırlar
+sistem bildirimleri
+efektler
+görsel kalite
+assest için güçlü planlama ve görsel ağırlıklı
+kaliteli svg iconlar 
+menüler
+kolay admin paneli
+admin dashboard anlık trafik ve olması gereken diğer widgetler dashobard için güçlü planlama. 
+
+bu sistemi supabase + vercel + github bağlayacağız. 
+
+lms.respongo.com şeklinde yapacağız. 
+
+fakat ekran tasarımlar büyük ekranlar alphallar açık mod koyu mod tema ayarları
+profil özellikleri
+ilerleme için sürekli yönlendirmeler hatırlatmalar
+gerçekten eski yapı gibi değil öğrenmey yolculuğu için sürekli teşvik etme olacak. 
+lxp için basit kolay yapı avukatlar için onboarding 
+diğer eğitimler bir çok eğitim modülü iş eğitimleri kişisel gelişim eğitimi
+avukatlık master class eğitim yolcuğuluğu akışı 
+
+eski yapı gibi değil hem admin hem kullanıcı hem eğitmen hem line manager için hazır ekranları yönlendirmeler yapılacaklar fikri ve yapması için öneriler ve ilerleme raporları baisc ai ile sistemde otomatik isteğine göre özel rapor çekebilme. 
+
+[https://www.invince.ai/upsidelms](https://www.invince.ai/upsidelms)
+[https://www.invince.ai/invince-lxp-ai-powered-learning-experience-platform](https://www.invince.ai/invince-lxp-ai-powered-learning-experience-platform)
+[https://www.docebo.com/learning-platform/](https://www.docebo.com/learning-platform/)
+
+bu rakipleri incele onlardaki olan ve olmayan onlara fark yaratacak en iyi özellikler alacaksın.
+ona göre tüm modülleri kuracaksın. 
+
+D:\Claude\Projeler\avukat-saas-egitim-portali\upsidelms-saas-screenshot
+bu klasör içinde upsidelms ürününe ait ekranlar var tasarımlını dikkate alma çok kötü tasarım ekranları sen modülleri için fayda sağlar belki diye ilettim incele en azından araştırma sürecinde kendi projeni yazarken faydası olur diye gönderdim. tamamen sen çok daha iyisini kuracaksın. 
+
+projeyi ilk avuklar için yapacağız. sonra otelcilik için öyle öyle tüm sektörlere göre olacak. 
+super admin kurarken ona göre kur. yeni portal eklerken sektör seçip ona göre hazır markalama ve o sektöre özel kurulum akışı olacak. ve her sektöre göre hedef kitlemizin ve her kurumsal şirkete özel istekleri kapsayacak şekilde olacak. 
+
+zorunlu eğitimler isg gibi eğitimler çok önemli. 
+üretilmesi gereken eğitimler + hazır katalog eğitim ihtiyaç listesi 
+eğitimleri satın alıp veya ürettikçe şriketler chekc list olacak ve gerekli varlıklar öğrenme kaynakları tamamlama yüzde oranları olacak. geriye kalanlar güncellenmesi gerekenler gibi admine kolaylık olacak sektörü için ai yönlendirme ve admini tüm hayatını kolaylaştıracak basitlikle modüller alt menüler menüler tasarlanacak. iconlar
+
+raporlama standartları
+özel raporlama oluşturma
+otomatik rapor gönderme workflowlrı oluşturma
+sistem eposta şablonları özelleştirme standart şablonlar sistemde default gelecek kullanıcı hayatını kolaylaştıracak. 
+
+tüm sistemi en iyi şekilde saas mimarisini kur. 
+super adminde ilk müşteri adayımız lms.respongo.com/avukat/oguzlawacademy  gibi olacak 
+ilk portal bu olacak pivot çalışma. 
+
+super admin bütün ayarları sistemi yönetecek tüm modüller olsun. hiç bir eksik olmasın. 
+
+saas mimari 20 yıllık uzman gibi davran.
+20 yıllık yazılım uzmanı + güvenlik uzmanı + proje yöneticisi + proje akış faz ilerlemesi
+araştırma geliştirme 
+
+Önce araştırma ve tüm sistem mimarisini bitireceğiz sonra kodlamaya geçeceğiz. önce planlamayı yap tüm projeyi planla. 
+
+oluşturman gereken tüm assest klasörünü sistem super admin admin şablon görselleri tasarımları iiconlar görseller hepsini planla. 
+
+tüm proje planı eksiksiz hazırl olunca kodlama geçeceğiz. 
+hatasız bir planlama istiyorum. araştırma iyi yap tüm lms sistemleri global
+tüm sektörlere göre senaryolar akışlar
+incelemeler her şeyi planla. 
+tüm şirketlerin ik departmanlarının hayatını kolalşatıracak dış kaynakar bakşa ayrı tedarikçiler ile çalışmadan 360 derece yapı ile sistemi kuracağız. 
+
+iseazy author entegrasyon sağlayacağız. 
+bizimde kendi minik eğitim yazarlık aracı admin içinde ek ürün modül olarak demo deneme ve satın alma yapacak halde olacak. iseazy author gibi goauthoring diye mimi bir beta uygulama yaz. bizim sistemde scrom oluşturup hemen lms içinde gözükecek şekilde senktron çalışacak. anket quiz sürükle bırak gibi etkileşimleri bizim raporlamada olacak şekilde olacak. iseazy author içinde eğitimler oluyor fakat etkişelimler kaydedilemiyor raporlanamıyor. onlar olacak. 
+
+leader board olacak lms sisteminde. tüm eğitim içerikleri ile uyumlu akış ve puanlama sistemi olacak. 
+kullanıcılar program akışlarında öğrenme kendi kendilerine öğrenme geliştirme dış kaynaklı sertifikasyonları sisteme ekleme
+
+mini bir destek merkezi son kullnaıcılar ile admin arasında. bizde supar adminden bu talepleri görebilme müdahal edebilme. admini aşan bir konu ise bize ticket yönlendirme. destek merkezinden destek talep et gibi bir düğme olacak admin çözemediği teknik konuları bize pasylayacak veya kendi kullanıcı ile ticiketler yönetip kapatabilecek. biz super adminden tüm portallardan gelen talepleri yöneteceğimiz daha kapsamlı bir suppor modülü gelişmiş ve detaylı. 
+
+hiç bir eksik kalmasın. her şeyi en ince detayına kadar düşün ve planla.
+%100 her şey olunca üretime o zaman geçeceğiz. 
+

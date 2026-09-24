@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-24",
+  "stage": "EP01 tenant, learning-domain and persistent event-runtime foundation; EP03 learner/admin UI and first EP09 authoring slice; not production acceptance",
+  "checks": {
+    "vitest": {"passed":57,"failed":0,"scope":"Supabase SSR environment/auth policy, safe redirects, AAL decisions, tenant and LMS catalog/enrollment RLS, direct line-manager team scope, CSV member-import preview, invitation/member/role commands and audit, jobs, learning attempt/session/event idempotency and isolation, limited SCORM API and interactions, ZIP export/inspection and package safety"},
+    "playwright": {"passed":15,"failed":0,"browser":"Chromium 153.0.8010.12","scope":"Learner assignment/resource flows, admin users and assignment wizard, academy regression, author draft/save/ZIP download/inspection, cross-origin API discovery/resume/quiz, forged message rejection, HTTP origin/body size guards, responsive screens"},
+    "typescript":"passed",
+    "nextProductionBuild":"passed",
+    "productionDemoDisabledByDefault":"passed",
+    "dependencyAudit":{"critical":0,"high":0,"moderate":0,"low":0}
+  },
+  "notVerified":["Hosted Supabase Auth/Storage/Realtime integration","SCORM conformance and external LMS export","Real provider integrations","WCAG audit","500/100 load target","Customer UAT","Disaster recovery","GitHub-hosted CI"],
+  "data":"Synthetic only; UI state stored locally in browser"
+}
