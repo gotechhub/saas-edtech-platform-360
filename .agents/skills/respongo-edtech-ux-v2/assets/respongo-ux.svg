@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Respongo EdTech UX</title>
+  <rect width="128" height="128" rx="30" fill="#173a63"/>
+  <path d="M28 37h72v12H28zm0 21h44v12H28zm0 21h58v12H28z" fill="#f7f1e7"/>
+  <circle cx="98" cy="85" r="15" fill="#c7a96b"/>
+  <path d="m91 85 5 5 10-12" fill="none" stroke="#173a63" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+

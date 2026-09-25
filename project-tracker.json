@@ -1,51 +1,292 @@
 {
   "project": "Respongo Learning · Oguz Law Academy",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "updatedAt": "2026-09-25",
-  "stage": "Geliştirme · Beta öncesi",
+  "stage": "Geliştirme · UX/UI V2 programı",
   "planningProgress": 100,
   "method": "Ürün yüzdesi, tamamlanmış kabul görevlerinin toplam izlenen kabul görevlerine oranıdır. Devam eden görevler tamamlanmış sayılmaz. Planlama yüzdesi ürün geliştirme yüzdesine dahil değildir.",
   "evidence": {
-    "unitAndDatabaseTests": 57,
-    "browserTests": 15,
-    "typecheck": "Geçti",
-    "productionBuild": "Geçti",
+    "unitAndDatabaseTests": 62,
+    "browserTests": 17,
+    "typecheck": "Web + mobil geçti",
+    "productionBuild": "Geçti · V2 API ve rotalar dahil",
     "securityAudit": "Son taramada bildirilen açık yok"
   },
   "phases": [
-    { "key": "B1", "name": "İlk kullanılabilir beta", "moduleRange": "EP01–EP15" },
-    { "key": "B2", "name": "Genişletilmiş beta", "moduleRange": "EP16–EP18" },
-    { "key": "G", "name": "Genel sürüm", "moduleRange": "EP19" },
-    { "key": "S", "name": "Sektör ölçekleme", "moduleRange": "EP20" }
+    {
+      "key": "B1",
+      "name": "İlk kullanılabilir beta",
+      "moduleRange": "EP01–EP15"
+    },
+    {
+      "key": "B2",
+      "name": "Genişletilmiş beta",
+      "moduleRange": "EP16–EP18"
+    },
+    {
+      "key": "G",
+      "name": "Genel sürüm",
+      "moduleRange": "EP19"
+    },
+    {
+      "key": "S",
+      "name": "Sektör ölçekleme",
+      "moduleRange": "EP20"
+    }
   ],
   "modules": [
-    { "id": "EP01", "phase": "B1", "name": "Teknik temel ve monorepo", "status": "in_progress", "total": 10, "done": 8, "active": 2, "delivered": "Tenant/RLS temeli, LMS veri tabloları, güvenli attempt/session/event deposu, job kanıtı, izole SCORM runtime, güvenli ZIP inceleme ve gerçek Supabase üzerinde doğrulanmış migration geçmişi", "next": "Hosted veri DAL/route adaptörü, karantina worker ve harici paket kanıtı" },
-    { "id": "EP02", "phase": "B1", "name": "Kimlik ve organizasyon", "status": "in_progress", "total": 8, "done": 7, "active": 1, "delivered": "Üyelik/rol temeli; hash'li davet/kabul; güvenli rol/statü RPC'leri; doğrudan ekip kapsamı; CSV preview; Supabase SSR cookie/getClaims, login, PKCE, DB rol çözümleme, MFA challenge, logout, gerçek proje bağlantısı ve tarayıcıdan doğrulanmış hosted Auth kabulü", "next": "MFA yönetimi/kritik işlem AAL2 ve CSV worker" },
-    { "id": "EP03", "phase": "B1", "name": "UI sistemi ve marka", "status": "in_progress", "total": 10, "done": 7, "active": 2, "delivered": "Beş rol navigasyonu, öğrenen ve admin çalışma alanları, responsive açık/koyu tema, hukuk akademisi hero varlığı ve RLS üzerinden canlı admin dashboard metrikleri, gerçek kullanıcı tablosu ve yetkili rol görünümü önizlemesi", "next": "Bileşen kütüphanesi, erişilebilirlik denetimi ve gerçek marka editörü" },
-    { "id": "EP04", "phase": "B1", "name": "Portal ve lisans fabrikası", "status": "planned", "total": 7, "done": 0, "active": 0, "delivered": "Plan ve veri sözleşmesi", "next": "Sektör seçimi, tenant kurulum işi, entitlement ve kota" },
-    { "id": "EP05", "phase": "B1", "name": "Katalog, asset ve runtime", "status": "in_progress", "total": 10, "done": 2, "active": 2, "delivered": "Sentetik eğitim kataloğu, kaynak görünümü ve SCORM proof", "next": "Storage upload güvenliği, video/PDF runtime ve gerçek kalıcılık" },
-    { "id": "EP06", "phase": "B1", "name": "Program, atama ve uyumluluk", "status": "in_progress", "total": 9, "done": 2, "active": 2, "delivered": "Program/atama/enrollment şeması ve dört adımlı admin atama demosu", "next": "Sunucu komutları, hedef kitle çözümleme, sürüm ve zorunluluk motoru" },
-    { "id": "EP07", "phase": "B1", "name": "Sınav, vaka ve yetkinlik", "status": "planned", "total": 8, "done": 0, "active": 0, "delivered": "Plan ve veri sözleşmesi", "next": "Sunucu puanlama, deneme politikası, rubrik ve yetkinlik kanıtı" },
-    { "id": "EP08", "phase": "B1", "name": "Sertifika ve gamification", "status": "planned", "total": 8, "done": 0, "active": 0, "delivered": "Plan ve ekran akışları", "next": "Sertifika snapshot/PDF, doğrulama, XP, rozet ve leaderboard" },
-    { "id": "EP09", "phase": "B1", "name": "GoAuthoring", "status": "in_progress", "total": 10, "done": 4, "active": 3, "delivered": "Metin bölümleri, sıralama, quiz, yerel taslak, SCORM 1.2 ZIP export ve inceleme", "next": "Kalıcı yayın, blok editörü, medya, lisans ve etkileşim analitiği" },
-    { "id": "EP10", "phase": "B1", "name": "LXP ve sosyal temel", "status": "planned", "total": 8, "done": 0, "active": 0, "delivered": "Plan ve ekran sözleşmesi", "next": "Öneriler, akış, koleksiyonlar, topluluk, yorum ve moderasyon" },
-    { "id": "EP11", "phase": "B1", "name": "E-posta ve otomasyon", "status": "planned", "total": 7, "done": 0, "active": 0, "delivered": "Outbox/job teknik temeli", "next": "Şablonlar, zamanlama, retry, tercih ve iptal kuralları" },
-    { "id": "EP12", "phase": "B1", "name": "Destek ve bilgi bankası", "status": "in_progress", "total": 7, "done": 1, "active": 1, "delivered": "Yerel kullanıcı → admin → platform ticket eskalasyon akışı", "next": "Kalıcı ticket, iç not, SLA, erişim grant'i ve bilgi bankası" },
-    { "id": "EP13", "phase": "B1", "name": "Rapor ve içerik operasyonu", "status": "in_progress", "total": 8, "done": 1, "active": 1, "delivered": "Admin rapor, uyumluluk ve içerik sağlığı arayüzleri", "next": "Rapor datasetleri, özel rapor builder, planlı gönderim ve içerik checklist'i" },
-    { "id": "EP14", "phase": "B1", "name": "Manuel canlı eğitim", "status": "planned", "total": 6, "done": 0, "active": 0, "delivered": "Plan ve entegrasyon sözleşmesi", "next": "Takvim, kontenjan, kayıt, oturum ve manuel yoklama" },
-    { "id": "EP15", "phase": "B1", "name": "Pilot sertleştirme", "status": "in_progress", "total": 10, "done": 2, "active": 2, "delivered": "28 çekirdek/PostgreSQL ve 15 tarayıcı testi; üretim derlemesi", "next": "UAT, erişilebilirlik, yük, restore, gözlemleme ve release kapıları" },
-    { "id": "EP16", "phase": "B2", "name": "Canlı API, SSO ve bağlayıcılar", "status": "planned", "total": 9, "done": 0, "active": 0, "delivered": "Mimari ve sağlayıcı planı", "next": "Teams, Zoom, GoTo, SAML/OIDC ve kurum bağlayıcıları" },
-    { "id": "EP17", "phase": "B2", "name": "Rapor/workflow/AI ve sosyal genişleme", "status": "planned", "total": 10, "done": 0, "active": 0, "delivered": "Kapsam ve güvenlik sınırları", "next": "Builder, workflow, push, sohbet, form/anket ve kontrollü AI raporları" },
-    { "id": "EP18", "phase": "B2", "name": "Geniş öğrenme standartları", "status": "planned", "total": 8, "done": 0, "active": 0, "delivered": "SCORM Cloud yaklaşımı ve kabul planı", "next": "SCORM 2004, multi-SCO, xAPI/LRS ve cmi5 sağlayıcı adaptörü" },
-    { "id": "EP19", "phase": "G", "name": "Ticaret ve kurumsal ölçek", "status": "planned", "total": 9, "done": 0, "active": 0, "delivered": "Kapsam ve maliyet senaryoları", "next": "Checkout, SCIM/HRIS, özel domain/roller ve kapasite ölçekleme" },
-    { "id": "EP20", "phase": "S", "name": "Otelcilik sektör paketi", "status": "planned", "total": 6, "done": 0, "active": 0, "delivered": "Sektör paket mimarisi", "next": "Otelcilik terminolojisi, vardiya, işbaşı ve şablon paketi" }
+    {
+      "id": "EP01",
+      "phase": "B1",
+      "name": "Teknik temel ve monorepo",
+      "status": "in_progress",
+      "total": 10,
+      "done": 8,
+      "active": 2,
+      "delivered": "Tenant/RLS temeli, LMS veri tabloları, güvenli attempt/session/event deposu, job kanıtı, izole SCORM runtime, güvenli ZIP inceleme ve gerçek Supabase üzerinde doğrulanmış migration geçmişi",
+      "next": "Hosted veri DAL/route adaptörü, karantina worker ve harici paket kanıtı"
+    },
+    {
+      "id": "EP02",
+      "phase": "B1",
+      "name": "Kimlik ve organizasyon",
+      "status": "in_progress",
+      "total": 8,
+      "done": 7,
+      "active": 1,
+      "delivered": "Üyelik/rol temeli; hash'li davet/kabul; güvenli rol/statü RPC'leri; doğrudan ekip kapsamı; CSV preview; Supabase SSR cookie/getClaims, login, PKCE, DB rol çözümleme, MFA challenge, logout, gerçek proje bağlantısı ve tarayıcıdan doğrulanmış hosted Auth kabulü",
+      "next": "MFA yönetimi/kritik işlem AAL2 ve CSV worker"
+    },
+    {
+      "id": "EP03",
+      "phase": "B1",
+      "name": "UI sistemi ve marka",
+      "status": "in_progress",
+      "total": 10,
+      "done": 7,
+      "active": 2,
+      "delivered": "Beş rol navigasyonu, öğrenen ve admin çalışma alanları, responsive açık/koyu tema, hukuk akademisi hero varlığı ve RLS üzerinden canlı admin dashboard metrikleri, gerçek kullanıcı tablosu ve yetkili rol görünümü önizlemesi",
+      "next": "Bileşen kütüphanesi, erişilebilirlik denetimi ve gerçek marka editörü"
+    },
+    {
+      "id": "EP04",
+      "phase": "B1",
+      "name": "Portal ve lisans fabrikası",
+      "status": "planned",
+      "total": 7,
+      "done": 0,
+      "active": 0,
+      "delivered": "Plan ve veri sözleşmesi",
+      "next": "Sektör seçimi, tenant kurulum işi, entitlement ve kota"
+    },
+    {
+      "id": "EP05",
+      "phase": "B1",
+      "name": "Katalog, asset ve runtime",
+      "status": "in_progress",
+      "total": 10,
+      "done": 2,
+      "active": 2,
+      "delivered": "Sentetik eğitim kataloğu, kaynak görünümü ve SCORM proof",
+      "next": "Storage upload güvenliği, video/PDF runtime ve gerçek kalıcılık"
+    },
+    {
+      "id": "EP06",
+      "phase": "B1",
+      "name": "Program, atama ve uyumluluk",
+      "status": "in_progress",
+      "total": 9,
+      "done": 2,
+      "active": 2,
+      "delivered": "Program/atama/enrollment şeması ve dört adımlı admin atama demosu",
+      "next": "Sunucu komutları, hedef kitle çözümleme, sürüm ve zorunluluk motoru"
+    },
+    {
+      "id": "EP07",
+      "phase": "B1",
+      "name": "Sınav, vaka ve yetkinlik",
+      "status": "planned",
+      "total": 8,
+      "done": 0,
+      "active": 0,
+      "delivered": "Plan ve veri sözleşmesi",
+      "next": "Sunucu puanlama, deneme politikası, rubrik ve yetkinlik kanıtı"
+    },
+    {
+      "id": "EP08",
+      "phase": "B1",
+      "name": "Sertifika ve gamification",
+      "status": "planned",
+      "total": 8,
+      "done": 0,
+      "active": 0,
+      "delivered": "Plan ve ekran akışları",
+      "next": "Sertifika snapshot/PDF, doğrulama, XP, rozet ve leaderboard"
+    },
+    {
+      "id": "EP09",
+      "phase": "B1",
+      "name": "GoAuthoring",
+      "status": "in_progress",
+      "total": 10,
+      "done": 4,
+      "active": 3,
+      "delivered": "Metin bölümleri, sıralama, quiz, yerel taslak, SCORM 1.2 ZIP export ve inceleme",
+      "next": "Kalıcı yayın, blok editörü, medya, lisans ve etkileşim analitiği"
+    },
+    {
+      "id": "EP10",
+      "phase": "B1",
+      "name": "LXP ve sosyal temel",
+      "status": "planned",
+      "total": 8,
+      "done": 0,
+      "active": 0,
+      "delivered": "Plan ve ekran sözleşmesi",
+      "next": "Öneriler, akış, koleksiyonlar, topluluk, yorum ve moderasyon"
+    },
+    {
+      "id": "EP11",
+      "phase": "B1",
+      "name": "E-posta ve otomasyon",
+      "status": "planned",
+      "total": 7,
+      "done": 0,
+      "active": 0,
+      "delivered": "Outbox/job teknik temeli",
+      "next": "Şablonlar, zamanlama, retry, tercih ve iptal kuralları"
+    },
+    {
+      "id": "EP12",
+      "phase": "B1",
+      "name": "Destek ve bilgi bankası",
+      "status": "in_progress",
+      "total": 7,
+      "done": 1,
+      "active": 1,
+      "delivered": "Yerel kullanıcı → admin → platform ticket eskalasyon akışı",
+      "next": "Kalıcı ticket, iç not, SLA, erişim grant'i ve bilgi bankası"
+    },
+    {
+      "id": "EP13",
+      "phase": "B1",
+      "name": "Rapor ve içerik operasyonu",
+      "status": "in_progress",
+      "total": 8,
+      "done": 1,
+      "active": 1,
+      "delivered": "Admin rapor, uyumluluk ve içerik sağlığı arayüzleri",
+      "next": "Rapor datasetleri, özel rapor builder, planlı gönderim ve içerik checklist'i"
+    },
+    {
+      "id": "EP14",
+      "phase": "B1",
+      "name": "Manuel canlı eğitim",
+      "status": "planned",
+      "total": 6,
+      "done": 0,
+      "active": 0,
+      "delivered": "Plan ve entegrasyon sözleşmesi",
+      "next": "Takvim, kontenjan, kayıt, oturum ve manuel yoklama"
+    },
+    {
+      "id": "EP15",
+      "phase": "B1",
+      "name": "Pilot sertleştirme",
+      "status": "in_progress",
+      "total": 10,
+      "done": 2,
+      "active": 2,
+      "delivered": "28 çekirdek/PostgreSQL ve 17 tarayıcı testi; üretim derlemesi",
+      "next": "UAT, erişilebilirlik, yük, restore, gözlemleme ve release kapıları"
+    },
+    {
+      "id": "EP16",
+      "phase": "B2",
+      "name": "Canlı API, SSO ve bağlayıcılar",
+      "status": "planned",
+      "total": 9,
+      "done": 0,
+      "active": 0,
+      "delivered": "Mimari ve sağlayıcı planı",
+      "next": "Teams, Zoom, GoTo, SAML/OIDC ve kurum bağlayıcıları"
+    },
+    {
+      "id": "EP17",
+      "phase": "B2",
+      "name": "Rapor/workflow/AI ve sosyal genişleme",
+      "status": "planned",
+      "total": 10,
+      "done": 0,
+      "active": 0,
+      "delivered": "Kapsam ve güvenlik sınırları",
+      "next": "Builder, workflow, push, sohbet, form/anket ve kontrollü AI raporları"
+    },
+    {
+      "id": "EP18",
+      "phase": "B2",
+      "name": "Geniş öğrenme standartları",
+      "status": "planned",
+      "total": 8,
+      "done": 0,
+      "active": 0,
+      "delivered": "SCORM Cloud yaklaşımı ve kabul planı",
+      "next": "SCORM 2004, multi-SCO, xAPI/LRS ve cmi5 sağlayıcı adaptörü"
+    },
+    {
+      "id": "EP19",
+      "phase": "G",
+      "name": "Ticaret ve kurumsal ölçek",
+      "status": "planned",
+      "total": 9,
+      "done": 0,
+      "active": 0,
+      "delivered": "Kapsam ve maliyet senaryoları",
+      "next": "Checkout, SCIM/HRIS, özel domain/roller ve kapasite ölçekleme"
+    },
+    {
+      "id": "EP20",
+      "phase": "S",
+      "name": "Otelcilik sektör paketi",
+      "status": "planned",
+      "total": 6,
+      "done": 0,
+      "active": 0,
+      "delivered": "Sektör paket mimarisi",
+      "next": "Otelcilik terminolojisi, vardiya, işbaşı ve şablon paketi"
+    }
   ],
   "priorities": [
-    { "order": 1, "title": "Hosted kimlik kabulü", "detail": "Bağlı Supabase projesinde test kullanıcısı, MFA enroll/unenroll, kritik işlem AAL2 ve CSV worker", "module": "EP02" },
-    { "order": 2, "title": "Runtime'ı hosted veriye bağla", "detail": "DAL/route adaptörü, gerçek oturum ve SCORM event gönderimi", "module": "EP01/EP05" },
-    { "order": 3, "title": "UI'ı gerçek veriye bağla", "detail": "Atama, enrollment, program ve kaynak ekranlarını Supabase sorgularına taşı", "module": "EP05/EP06" },
-    { "order": 4, "title": "Portal kurulum fabrikası", "detail": "Sektör şablonu, marka, modül, kota ve admin kurulum işi", "module": "EP04" },
-    { "order": 5, "title": "Pilot yayın kapıları", "detail": "UAT, erişilebilirlik, yük, yedek geri dönüş ve izleme", "module": "EP15" }
+    {
+      "order": 1,
+      "title": "UXV2 kalite temeli",
+      "detail": "Storybook, sekiz durum sözleşmesi, 360–1920 responsive ve axe/görsel regresyon",
+      "module": "UXV2/EP03"
+    },
+    {
+      "order": 2,
+      "title": "Dashboard read modelleri",
+      "detail": "Beş rol dashboardunu aynı RLS kontrollü BFF sözleşmelerine bağla",
+      "module": "UXV2/EP01"
+    },
+    {
+      "order": 3,
+      "title": "Kritik öğrenme ve admin akışları",
+      "detail": "Öğrenen devam akışı ile eğitim → program → atama akışını işlevsel kabul et",
+      "module": "UXV2/EP05/EP06"
+    },
+    {
+      "order": 4,
+      "title": "Native mobil kabul",
+      "detail": "Push, deep link, offline, güvenli editör geçişi ve Android/iOS smoke",
+      "module": "UXV2-07"
+    },
+    {
+      "order": 5,
+      "title": "Pilot yayın kapıları",
+      "detail": "Oguz Law Academy pilot grubu, telemetri, UAT ve rollback",
+      "module": "UXV2-08/EP15"
+    }
   ],
   "dependencies": [
     "Supabase proje, public web anahtarı ve gerçek admin Auth kabulü tamamlandı; Storage bucket/policy kabulü ve üretim secret yönetimi tamamlanmalı.",
@@ -54,17 +295,181 @@
     "Gerçek hukuk eğitim içerikleri, kullanım hakları ve uzman onayları müşteriyle tamamlanmalı."
   ],
   "recent": [
-    { "date": "2026-09-25", "text": "Tenant admin için yetki yükseltmeyen beş rol görünümü seçicisi ve Supabase üyelik/rol/ekip/enrollment verili canlı kullanıcı tablosu tamamlandı." },
-    { "date": "2026-09-25", "text": "Admin genel bakış kartları üyelik, eğitim, program, enrollment ve zorunlu uyum metriklerini canlı Supabase/RLS verisinden almaya başladı." },
-    { "date": "2026-09-25", "text": "Oguz Law Academy için dolu beta veri paketi, gerçek geçici tenant admin hesabı ve tarayıcıdan canlı Supabase giriş/RLS kabulü tamamlandı." },
-    { "date": "2026-09-24", "text": "GitHub main dalı yayımlandı; gerçek Supabase proje ayarları bağlandı ve beş migration uzak veritabanına uygulanıp geçmiş eşitliği doğrulandı." },
-    { "date": "2026-09-24", "text": "Next.js 16 Supabase SSR proxy, güvenli login/PKCE/logout, DB rol çözümleme ve MFA challenge eklendi; 6 auth policy testi geçti." },
-    { "date": "2026-09-24", "text": "Line manager erişimi doğrudan ekip üyeleriyle sınırlandı; revision korumalı ekip komutu ve 1 MB/2.000 satırlık CSV import preview eklendi; 11 yeni test geçti." },
-    { "date": "2026-09-24", "text": "Hash'li davet, e-posta eşleşmeli kabul, güvenli rol/statü komutları, session iptali ve redacted audit eklendi; 6 yeni PostgreSQL testi geçti." },
-    { "date": "2026-09-24", "text": "Tenant bağlı attempt, hash'lenmiş learning session, idempotent event ve interaction/progress deposu eklendi; 6 yeni PostgreSQL testi geçti." },
-    { "date": "2026-09-24", "text": "Proje takip sistemi ve tek kaynaklı MD/HTML üretimi eklendi." },
-    { "date": "2026-09-21", "text": "Öğrenen atama/kaynak akışları ve kapsamlı admin çalışma alanları eklendi." },
-    { "date": "2026-09-21", "text": "LMS domain migration'ı ve tenant bağlı RLS testi eklendi." },
-    { "date": "2026-09-21", "text": "GoAuthoring ve ayrı origin SCORM proof akışı doğrulandı." }
+    {
+      "date": "2026-09-25",
+      "text": "V2 temel migrationı uzak Supabase projesine uygulandı; beş rol, koyu tema ve 390 px mobil görünüm için Playwright kabul paketi 2/2 geçti ve görsel baselinelar kaydedildi."
+    },
+    {
+      "date": "2026-09-25",
+      "text": "Expo Doctor 21/21, web ve mobil typecheck, Next.js üretim derlemesi, 62/62 test ve proje skill doğrulaması geçti; resmî yedi 21st skill’i kuruldu."
+    },
+    {
+      "date": "2026-09-25",
+      "text": "UXV2 programı açıldı; proje skill’i, ortak tasarım paketleri, beş rol web dashboardu, gerçek URL mimarisi, deneyim API temeli ve Expo SDK 57 mobil kabuk tamamlandı."
+    },
+    {
+      "date": "2026-09-25",
+      "text": "Tenant admin için yetki yükseltmeyen beş rol görünümü seçicisi ve Supabase üyelik/rol/ekip/enrollment verili canlı kullanıcı tablosu tamamlandı."
+    },
+    {
+      "date": "2026-09-25",
+      "text": "Admin genel bakış kartları üyelik, eğitim, program, enrollment ve zorunlu uyum metriklerini canlı Supabase/RLS verisinden almaya başladı."
+    },
+    {
+      "date": "2026-09-25",
+      "text": "Oguz Law Academy için dolu beta veri paketi, gerçek geçici tenant admin hesabı ve tarayıcıdan canlı Supabase giriş/RLS kabulü tamamlandı."
+    },
+    {
+      "date": "2026-09-24",
+      "text": "GitHub main dalı yayımlandı; gerçek Supabase proje ayarları bağlandı ve beş migration uzak veritabanına uygulanıp geçmiş eşitliği doğrulandı."
+    },
+    {
+      "date": "2026-09-24",
+      "text": "Next.js 16 Supabase SSR proxy, güvenli login/PKCE/logout, DB rol çözümleme ve MFA challenge eklendi; 6 auth policy testi geçti."
+    },
+    {
+      "date": "2026-09-24",
+      "text": "Line manager erişimi doğrudan ekip üyeleriyle sınırlandı; revision korumalı ekip komutu ve 1 MB/2.000 satırlık CSV import preview eklendi; 11 yeni test geçti."
+    },
+    {
+      "date": "2026-09-24",
+      "text": "Hash'li davet, e-posta eşleşmeli kabul, güvenli rol/statü komutları, session iptali ve redacted audit eklendi; 6 yeni PostgreSQL testi geçti."
+    },
+    {
+      "date": "2026-09-24",
+      "text": "Tenant bağlı attempt, hash'lenmiş learning session, idempotent event ve interaction/progress deposu eklendi; 6 yeni PostgreSQL testi geçti."
+    },
+    {
+      "date": "2026-09-24",
+      "text": "Proje takip sistemi ve tek kaynaklı MD/HTML üretimi eklendi."
+    },
+    {
+      "date": "2026-09-21",
+      "text": "Öğrenen atama/kaynak akışları ve kapsamlı admin çalışma alanları eklendi."
+    },
+    {
+      "date": "2026-09-21",
+      "text": "LMS domain migration'ı ve tenant bağlı RLS testi eklendi."
+    },
+    {
+      "date": "2026-09-21",
+      "text": "GoAuthoring ve ayrı origin SCORM proof akışı doğrulandı."
+    }
+  ],
+  "programs": [
+    {
+      "id": "UXV2",
+      "parent": "EP03",
+      "phase": "B1",
+      "name": "SaaS EdTech UX/UI Design V2",
+      "status": "in_progress",
+      "total": 93,
+      "done": 32,
+      "active": 18,
+      "delivered": "V1 korunarak bağımsız V2 dalı; resmî 21st skill paketi ve MCP kaydı; Respongo proje skilli; ortak design token, ui-web ve ui-native paketleri; gerçek URL mimarisi; beş rol dashboardu; responsive web kabuğu; asset manifest/SVG çekirdeği; güvenli deneyim APIleri; Expo SDK 57 native uygulama kabuğu; uzak Supabase V2 migrationı ve tarayıcı kabul baselineları",
+      "next": "Görsel baseline ve regresyon; kalan ekran durumları; asset manifest/kapak seti; Storybook; canlı rol read modelleri; push/offline; pilot feature flag ve UAT",
+      "workPackages": [
+        {
+          "id": "UXV2-00",
+          "name": "Mevcut sistemi koruma ve baseline",
+          "total": 6,
+          "done": 4,
+          "active": 1,
+          "status": "in_progress",
+          "evidence": "V1 erişimi korundu, codex/ux-ui-v2 dalı açıldı, V2 rotaları ayrıldı; 1440 koyu admin ve 390 mobil öğrenen görsel baseline kaydedildi",
+          "next": "Beş rol × tema × ölçü baseline görüntüleri ve sorun envanteri"
+        },
+        {
+          "id": "UXV2-01",
+          "name": "21st bağlantısı ve proje skill’i",
+          "total": 6,
+          "done": 4,
+          "active": 2,
+          "status": "in_progress",
+          "evidence": "Gizli anahtar içermeyen MCP yapılandırması, yedi referanslı proje skill’i ve kullanım sınırları",
+          "next": "API_KEY_21ST ile bağlantı kabulü, üç tasarım yönü ve puan kartı"
+        },
+        {
+          "id": "UXV2-02",
+          "name": "Tokenlar ve temel bileşenler",
+          "total": 14,
+          "done": 5,
+          "active": 2,
+          "status": "in_progress",
+          "evidence": "Semantik tokenlar, web/native paketleri, buton/yüzey/durum/ilerleme primitive’leri, açık-koyu tema",
+          "next": "Form, overlay, tablo, state ve Storybook kabul matrisi"
+        },
+        {
+          "id": "UXV2-03",
+          "name": "Kabuk ve bilgi mimarisi",
+          "total": 10,
+          "done": 5,
+          "active": 2,
+          "status": "in_progress",
+          "evidence": "Paylaşılabilir V2 URL’leri, beş rol navigasyonu, drawer, mobil alt menü, arama komutu ve yetki yükseltmeyen rol önizlemesi",
+          "next": "Breadcrumb, tenant değişimi, route manifest testi ve focus kabulü"
+        },
+        {
+          "id": "UXV2-04",
+          "name": "Rol dashboardları",
+          "total": 10,
+          "done": 2,
+          "active": 3,
+          "status": "in_progress",
+          "evidence": "Beş rol için ayrı web/native dashboard düzeni; admin canlı metrik/kullanıcı bağlantısı",
+          "next": "Her rolü canlı read model, loading/empty/error/stale ve görsel regresyonla kabul et"
+        },
+        {
+          "id": "UXV2-05",
+          "name": "26 ekran ailesi dönüşümü",
+          "total": 15,
+          "done": 1,
+          "active": 2,
+          "status": "in_progress",
+          "evidence": "Ana modül çalışma alanları ve örnek dolu veri görünümleri oluşturuldu",
+          "next": "Ekran ailelerini işlev, sekiz durum ve uçtan uca görev akışlarıyla tek tek kabul et"
+        },
+        {
+          "id": "UXV2-06",
+          "name": "Asset sistemi",
+          "total": 8,
+          "done": 2,
+          "active": 1,
+          "status": "in_progress",
+          "evidence": "Oguz Law Academy lacivert/beyaz logo varyantları ve hukuk hero varlığı bağlandı",
+          "next": "Asset manifesti, eğitim kapakları, sentetik avatarlar, rozetler ve lisans kayıtları"
+        },
+        {
+          "id": "UXV2-07",
+          "name": "Native mobil uygulama",
+          "total": 10,
+          "done": 3,
+          "active": 2,
+          "status": "in_progress",
+          "evidence": "Expo Router SDK 57, beş rol kabuğu, tablet düzeni, SecureStore/PKCE oturumu ve modül listeleri",
+          "next": "Gerçek deneyim API’si, push, deep link, offline, WebView editör ve Android/iOS smoke"
+        },
+        {
+          "id": "UXV2-08",
+          "name": "Paralel yayın ve geçiş",
+          "total": 6,
+          "done": 1,
+          "active": 1,
+          "status": "in_progress",
+          "evidence": "Experience version, tema, asset ve editör session migrationı uzak Supabase projesine uygulandı",
+          "next": "Pilot grup feature flag, telemetri ve rollback tatbikatı"
+        },
+        {
+          "id": "UXV2-QA",
+          "name": "Kalite ve ürün kabulü",
+          "total": 8,
+          "done": 5,
+          "active": 2,
+          "status": "in_progress",
+          "evidence": "Web/mobil strict TypeScript, Expo Doctor 21/21, Next.js üretim derlemesi, 62/62 test ve beş rol/tema/responsive Playwright kabulü geçti",
+          "next": "Axe tam matris, performans, Android/iOS cihaz smoke ve beş kullanıcı UAT"
+        }
+      ]
+    }
   ]
 }

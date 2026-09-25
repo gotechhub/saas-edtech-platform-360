@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Respongo asset manifest",
+  "type": "object",
+  "required": ["version", "updatedAt", "assets"],
+  "properties": {
+    "version": { "type": "string" },
+    "updatedAt": { "type": "string", "format": "date" },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "license", "usage", "format", "dimensions", "alt", "focus", "themes", "version", "status"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "status": { "enum": ["planned", "draft", "approved", "retired"] }
+        }
+      }
+    }
+  }
+}

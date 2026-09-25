@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Respongo Learning",
+    "slug": "respongo-learning",
+    "scheme": "respongo",
+    "version": "0.1.0",
+    "orientation": "default",
+    "userInterfaceStyle": "automatic",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.respongo.learning"
+    },
+    "android": {
+      "package": "com.respongo.learning",
+      "adaptiveIcon": {
+        "backgroundColor": "#102A4F"
+      },
+      "predictiveBackGestureEnabled": true
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": true,
+          "faceIDPermission": "Respongo Learning güvenli oturumunuzu doğrulamak için Face ID kullanır."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#102A4F",
+          "defaultChannel": "learning-reminders"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "portalIndustry": "avukat",
+      "portalTenant": "oguzlawacademy"
+    }
+  }
+}

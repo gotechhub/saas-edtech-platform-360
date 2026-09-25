@@ -4,17 +4,17 @@
   "private": true,
   "packageManager": "pnpm@11.19.0",
   "scripts": {
-    "dev": "pnpm --filter @respongo/web dev",
-    "content:proof": "pnpm --filter @respongo/content-proof start",
-    "build": "pnpm --filter @respongo/web build",
-    "typecheck": "pnpm --filter @respongo/web typecheck && tsc -p tsconfig.core.json",
+    "dev": "corepack pnpm --filter @respongo/web dev",
+    "content:proof": "corepack pnpm --filter @respongo/content-proof start",
+    "build": "corepack pnpm --filter @respongo/web build",
+    "typecheck": "corepack pnpm --filter @respongo/web typecheck && tsc -p tsconfig.core.json",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:production-gate": "node scripts/check-production-gate.mjs",
     "tracker:update": "node scripts/update-project-tracker.mjs",
     "tracker:check": "node scripts/update-project-tracker.mjs --check",
     "format": "prettier --write apps/web/src packages tests",
-    "check": "pnpm test && pnpm typecheck && pnpm build"
+    "check": "corepack pnpm test && corepack pnpm typecheck && corepack pnpm build"
   },
   "devDependencies": {
     "@electric-sql/pglite": "0.5.8",

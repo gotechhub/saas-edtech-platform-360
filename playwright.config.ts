@@ -8,14 +8,14 @@ export default defineConfig({
   },
   webServer: [
     {
-      command: "pnpm --dir apps/web dev --port 3015",
+      command: "corepack pnpm --dir apps/web dev --port 3015",
       url: "http://127.0.0.1:3015",
       reuseExistingServer: !process.env.CI,
       env: { RESPONGO_DEMO_ENABLED: "true" },
       timeout: 60000,
     },
     {
-      command: "pnpm content:proof",
+      command: "corepack pnpm content:proof",
       url: "http://localhost:3101/health",
       reuseExistingServer: !process.env.CI,
       env: { RESPONGO_PARENT_ORIGIN: "http://127.0.0.1:3015" },

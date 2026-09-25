@@ -1,1 +1,39 @@
-{"name":"@respongo/web","version":"0.1.0","private":true,"scripts":{"dev":"next dev --hostname 127.0.0.1","build":"next build","start":"next start --hostname 127.0.0.1","typecheck":"tsc --noEmit"},"dependencies":{"@respongo/learning-core":"workspace:*","@supabase/ssr":"^0.12.7","@supabase/supabase-js":"^2.117.1","lucide-react":"0.468.0","next":"16.3.5","react":"19.3.0","react-dom":"19.3.0"},"devDependencies":{"@types/react":"19.2.7","@types/react-dom":"19.2.3","typescript":"5.9.3"}}
+{
+  "name": "@respongo/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.23",
+    "@radix-ui/react-dropdown-menu": "^2.1.24",
+    "@radix-ui/react-tabs": "^1.1.21",
+    "@respongo/learning-core": "workspace:*",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.1",
+    "@tanstack/react-table": "^8.21.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "0.468.0",
+    "motion": "^13.4.2",
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "recharts": "^3.10.1",
+    "tailwind-merge": "^3.7.0",
+    "@respongo/design-tokens": "workspace:*",
+    "@respongo/ui-web": "workspace:*"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "tailwindcss": "^4.3.3",
+    "typescript": "5.9.3"
+  }
+}

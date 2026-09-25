@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./studio.css";
+import "./v2.css";
 export const metadata: Metadata = {
   title: "Oguz Law Academy · Respongo",
   description: "Hukuk profesyonelleri için öğrenme deneyimi. Sentetik demo.",

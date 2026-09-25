@@ -1,0 +1,72 @@
+:root {
+  --rv2-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --rv2-font-editorial: "Source Serif 4", Georgia, serif;
+  --rv2-bg: #f4f5f7;
+  --rv2-bg-subtle: #eceff2;
+  --rv2-surface: #ffffff;
+  --rv2-surface-raised: #ffffff;
+  --rv2-surface-strong: #173a63;
+  --rv2-text: #14233a;
+  --rv2-text-soft: #5e6d7e;
+  --rv2-text-inverse: #f8f5ee;
+  --rv2-border: #dfe4e9;
+  --rv2-border-strong: #c9d1da;
+  --rv2-primary: #173a63;
+  --rv2-primary-hover: #102c4d;
+  --rv2-primary-soft: #e8eff7;
+  --rv2-accent: #c6a66a;
+  --rv2-accent-soft: #f6f0e4;
+  --rv2-success: #167257;
+  --rv2-success-soft: #e4f4ee;
+  --rv2-warning: #a85c16;
+  --rv2-warning-soft: #fff1dc;
+  --rv2-danger: #b43a45;
+  --rv2-danger-soft: #fde9eb;
+  --rv2-info: #2466a8;
+  --rv2-info-soft: #e7f1fb;
+  --rv2-shadow-sm: 0 1px 2px rgb(18 35 58 / 6%), 0 4px 16px rgb(18 35 58 / 4%);
+  --rv2-shadow-md: 0 18px 55px rgb(18 35 58 / 10%);
+  --rv2-radius-control: 10px;
+  --rv2-radius-card: 17px;
+  --rv2-radius-feature: 26px;
+  --rv2-motion-interface: 180ms;
+  --rv2-motion-emphasis: 420ms;
+  color-scheme: light;
+}
+
+[data-v2-theme="dark"] {
+  --rv2-bg: #0c1420;
+  --rv2-bg-subtle: #121d2b;
+  --rv2-surface: #111c2a;
+  --rv2-surface-raised: #182536;
+  --rv2-surface-strong: #dbe8f6;
+  --rv2-text: #f0f4f8;
+  --rv2-text-soft: #9eacbd;
+  --rv2-text-inverse: #102139;
+  --rv2-border: #263548;
+  --rv2-border-strong: #3a4a5e;
+  --rv2-primary: #d3e5f8;
+  --rv2-primary-hover: #ffffff;
+  --rv2-primary-soft: #1d3148;
+  --rv2-accent: #ddc48d;
+  --rv2-accent-soft: #302a20;
+  --rv2-success: #72d1b2;
+  --rv2-success-soft: #15372e;
+  --rv2-warning: #f2b76b;
+  --rv2-warning-soft: #3b2a17;
+  --rv2-danger: #ff9ca6;
+  --rv2-danger-soft: #3e2027;
+  --rv2-info: #83bdf2;
+  --rv2-info-soft: #18334d;
+  --rv2-shadow-sm: 0 1px 2px rgb(0 0 0 / 20%);
+  --rv2-shadow-md: 0 18px 55px rgb(0 0 0 / 28%);
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --rv2-motion-interface: 0ms;
+    --rv2-motion-emphasis: 0ms;
+  }
+}
+

@@ -1,0 +1,17 @@
+interface:
+  display_name: "Respongo EdTech UX V2"
+  short_description: "Role-aware LMS/LXP design and UI delivery"
+  icon_small: "./assets/respongo-ux.svg"
+  icon_large: "./assets/respongo-ux.svg"
+  brand_color: "#173A63"
+  default_prompt: "Use $respongo-edtech-ux-v2 to design and implement this LMS/LXP screen with the project quality gates."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "21st"
+      description: "21st.dev component discovery and UI generation"
+      transport: "streamable_http"
+      url: "https://21st.dev/api/mcp"
+policy:
+  allow_implicit_invocation: true
+
