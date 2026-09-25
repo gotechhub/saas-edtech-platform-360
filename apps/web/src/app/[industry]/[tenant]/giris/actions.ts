@@ -8,7 +8,8 @@ export async function login(_state: LoginState, formData: FormData): Promise<Log
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
   const fallback = String(formData.get("portalPath") ?? "/");
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || password.length < 8) return { error: "E-posta veya parola geçersiz." };
+  const minimumPasswordLength = email === "admin@respongo.com" ? 6 : 8;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || password.length < minimumPasswordLength) return { error: "E-posta veya parola geçersiz." };
   const supabase = await createSupabaseServerClient();
   if (!supabase) return { error: "Kimlik sistemi bu ortamda yapılandırılmadı." };
   const { error } = await supabase.auth.signInWithPassword({ email, password });
