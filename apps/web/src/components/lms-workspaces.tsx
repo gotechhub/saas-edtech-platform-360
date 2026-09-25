@@ -30,7 +30,7 @@ import {
   Video,
 } from "lucide-react";
 import { courses, type Course, type DemoState } from "@/lib/demo";
-import type { LiveAdminMetrics } from "@/lib/live-dashboard";
+import type { LiveAdminMetrics, LiveAcademyUser } from "@/lib/live-dashboard";
 import {
   academyPrograms,
   academyUsers,
@@ -412,10 +412,10 @@ function AdminOverview({ navigate, metrics }: { navigate: (view: LmsView) => voi
   );
 }
 
-function UsersWorkspace() {
+function UsersWorkspace({ users: sourceUsers = academyUsers }: { users?: LiveAcademyUser[] }) {
   const [query, setQuery] = useState("");
   const [invited, setInvited] = useState(false);
-  const users = academyUsers.filter((user) =>
+  const users = sourceUsers.filter((user) =>
     `${user.name} ${user.team}`
       .toLocaleLowerCase("tr")
       .includes(query.toLocaleLowerCase("tr")),
@@ -1093,14 +1093,16 @@ export function AdminWorkspace({
   navigate,
   open,
   metrics,
+  users,
 }: {
   view: LmsView;
   navigate: (view: LmsView) => void;
   open: OpenCourse;
   metrics?: LiveAdminMetrics;
+  users?: LiveAcademyUser[];
 }) {
   if (view === "home") return <AdminOverview navigate={navigate} metrics={metrics} />;
-  if (view === "admin-users") return <UsersWorkspace />;
+  if (view === "admin-users") return <UsersWorkspace users={users} />;
   if (view === "admin-courses") return <CoursesWorkspace open={open} />;
   if (view === "admin-programs") return <ProgramsWorkspace />;
   if (view === "admin-assignments") return <AssignmentWorkspace />;

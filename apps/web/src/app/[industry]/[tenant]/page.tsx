@@ -2,7 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { Academy } from "@/components/academy";
 import { readSupabasePublicConfig } from "@/lib/supabase/config";
 import { getPortalSession } from "@/lib/auth/session";
-import { getLiveAdminMetrics } from "@/lib/live-dashboard";
+import { getLiveAdminMetrics, getLiveAdminUsers } from "@/lib/live-dashboard";
 export const dynamic = "force-dynamic";
 export default async function Portal({
   params,
@@ -18,8 +18,8 @@ export default async function Portal({
     if (result.kind === "mfa_required") redirect(`${path}/mfa`);
     if (result.kind === "forbidden") notFound();
     if (result.kind !== "ready") notFound();
-    const liveAdminMetrics = result.session.role === "admin" ? await getLiveAdminMetrics(result.session.tenantId) : undefined;
-    return <Academy initialRole={result.session.role} preview={false} accountLabel={result.session.email || "Kurum hesabı"} liveAdminMetrics={liveAdminMetrics} />;
+    const [liveAdminMetrics, liveAdminUsers] = result.session.role === "admin" ? await Promise.all([getLiveAdminMetrics(result.session.tenantId), getLiveAdminUsers(result.session.tenantId)]) : [undefined, undefined];
+    return <Academy initialRole={result.session.role} preview={false} accountLabel={result.session.email || "Kurum hesabı"} liveAdminMetrics={liveAdminMetrics} liveAdminUsers={liveAdminUsers} canPreviewRoles={result.session.roleKeys.includes("tenant_admin")} />;
   }
   if (
     process.env.NODE_ENV === "production" &&

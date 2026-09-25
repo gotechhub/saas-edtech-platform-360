@@ -35,7 +35,7 @@
 |---|---|---|---:|---:|---|---|
 | EP01 · Teknik temel ve monorepo | B1 | Devam ediyor | 8/10 | %80 | Tenant/RLS temeli, LMS veri tabloları, güvenli attempt/session/event deposu, job kanıtı, izole SCORM runtime, güvenli ZIP inceleme ve gerçek Supabase üzerinde doğrulanmış migration geçmişi | Hosted veri DAL/route adaptörü, karantina worker ve harici paket kanıtı |
 | EP02 · Kimlik ve organizasyon | B1 | Devam ediyor | 7/8 | %88 | Üyelik/rol temeli; hash'li davet/kabul; güvenli rol/statü RPC'leri; doğrudan ekip kapsamı; CSV preview; Supabase SSR cookie/getClaims, login, PKCE, DB rol çözümleme, MFA challenge, logout, gerçek proje bağlantısı ve tarayıcıdan doğrulanmış hosted Auth kabulü | MFA yönetimi/kritik işlem AAL2 ve CSV worker |
-| EP03 · UI sistemi ve marka | B1 | Devam ediyor | 7/10 | %70 | Beş rol navigasyonu, öğrenen ve admin çalışma alanları, responsive açık/koyu tema, hukuk akademisi hero varlığı ve RLS üzerinden canlı admin dashboard metrikleri | Bileşen kütüphanesi, erişilebilirlik denetimi ve gerçek marka editörü |
+| EP03 · UI sistemi ve marka | B1 | Devam ediyor | 7/10 | %70 | Beş rol navigasyonu, öğrenen ve admin çalışma alanları, responsive açık/koyu tema, hukuk akademisi hero varlığı ve RLS üzerinden canlı admin dashboard metrikleri, gerçek kullanıcı tablosu ve yetkili rol görünümü önizlemesi | Bileşen kütüphanesi, erişilebilirlik denetimi ve gerçek marka editörü |
 | EP04 · Portal ve lisans fabrikası | B1 | Planlandı | 0/7 | %0 | Plan ve veri sözleşmesi | Sektör seçimi, tenant kurulum işi, entitlement ve kota |
 | EP05 · Katalog, asset ve runtime | B1 | Devam ediyor | 2/10 | %20 | Sentetik eğitim kataloğu, kaynak görünümü ve SCORM proof | Storage upload güvenliği, video/PDF runtime ve gerçek kalıcılık |
 | EP06 · Program, atama ve uyumluluk | B1 | Devam ediyor | 2/9 | %22 | Program/atama/enrollment şeması ve dört adımlı admin atama demosu | Sunucu komutları, hedef kitle çözümleme, sürüm ve zorunluluk motoru |
@@ -84,6 +84,7 @@
 
 ## Son değişiklikler
 
+- **2026-09-25:** Tenant admin için yetki yükseltmeyen beş rol görünümü seçicisi ve Supabase üyelik/rol/ekip/enrollment verili canlı kullanıcı tablosu tamamlandı.
 - **2026-09-25:** Admin genel bakış kartları üyelik, eğitim, program, enrollment ve zorunlu uyum metriklerini canlı Supabase/RLS verisinden almaya başladı.
 - **2026-09-25:** Oguz Law Academy için dolu beta veri paketi, gerçek geçici tenant admin hesabı ve tarayıcıdan canlı Supabase giriş/RLS kabulü tamamlandı.
 - **2026-09-24:** GitHub main dalı yayımlandı; gerçek Supabase proje ayarları bağlandı ve beş migration uzak veritabanına uygulanıp geçmiş eşitliği doğrulandı.

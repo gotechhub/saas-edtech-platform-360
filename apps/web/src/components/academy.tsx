@@ -43,7 +43,7 @@ import {
   type DemoState,
   type Role,
 } from "@/lib/demo";
-import type { LiveAdminMetrics } from "@/lib/live-dashboard";
+import type { LiveAdminMetrics, LiveAcademyUser } from "@/lib/live-dashboard";
 import {
   AdminWorkspace,
   LearnerCollection,
@@ -51,7 +51,7 @@ import {
   type LmsView as View,
 } from "@/components/lms-workspaces";
 const key = "respongo:oguzlawacademy:demo:v1";
-export function Academy({ initialRole = "learner", preview = true, accountLabel = "Demo profil", liveAdminMetrics }: { initialRole?: Role; preview?: boolean; accountLabel?: string; liveAdminMetrics?: LiveAdminMetrics }) {
+export function Academy({ initialRole = "learner", preview = true, accountLabel = "Demo profil", liveAdminMetrics, liveAdminUsers, canPreviewRoles = false }: { initialRole?: Role; preview?: boolean; accountLabel?: string; liveAdminMetrics?: LiveAdminMetrics; liveAdminUsers?: LiveAcademyUser[]; canPreviewRoles?: boolean }) {
   const [role, setRole] = useState<Role>(initialRole),
     [view, setView] = useState<View>("home"),
     [state, setState] = useState<DemoState>(initialState),
@@ -394,12 +394,12 @@ export function Academy({ initialRole = "learner", preview = true, accountLabel 
           <div className="demo-bar">
             <span>
               <ShieldCheck size={15} />
-              {preview ? "Sentetik demo · Değişiklikler yalnızca bu tarayıcıda saklanır." : "Güvenli kurum oturumu · Yetkiler üyeliğinizden alınır."}
+              {preview ? "Sentetik demo · Değişiklikler yalnızca bu tarayıcıda saklanır." : role !== initialRole ? "Yönetici rol önizlemesi · Gerçek hesap yetkiniz değişmedi." : "Güvenli kurum oturumu · Yetkiler üyeliğinizden alınır."}
             </span>
-            {preview && <label>
-              Rol önizlemesi{" "}
+            {(preview || canPreviewRoles) && <label>
+              {preview ? "Rol önizlemesi" : "Rol görünümü"}{" "}
               <select
-                aria-label="Rol önizlemesi"
+                aria-label={preview ? "Rol önizlemesi" : "Rol görünümü"}
                 value={role}
                 onChange={(e) => {
                   setRole(e.target.value as Role);
@@ -413,6 +413,9 @@ export function Academy({ initialRole = "learner", preview = true, accountLabel 
                 ))}
               </select>
             </label>}
+            {!preview && canPreviewRoles && role !== initialRole && (
+              <button className="text-button" onClick={() => { setRole(initialRole); go("home"); }}>Gerçek role dön</button>
+            )}
           </div>
           <div
             role="status"
@@ -607,7 +610,7 @@ export function Academy({ initialRole = "learner", preview = true, accountLabel 
               view !== "resources" &&
               view !== "support") ||
             (role !== "learner" && view.startsWith("admin-")) ? (
-            <AdminWorkspace view={view} navigate={go} open={open} metrics={liveAdminMetrics} />
+            <AdminWorkspace view={view} navigate={go} open={open} metrics={liveAdminMetrics} users={liveAdminUsers} />
           ) : (
             <>
               {view === "home" && (
