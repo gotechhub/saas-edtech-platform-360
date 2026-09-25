@@ -30,6 +30,7 @@ import {
   Video,
 } from "lucide-react";
 import { courses, type Course, type DemoState } from "@/lib/demo";
+import type { LiveAdminMetrics } from "@/lib/live-dashboard";
 import {
   academyPrograms,
   academyUsers,
@@ -280,7 +281,7 @@ export function ResourcesWorkspace() {
   );
 }
 
-function AdminOverview({ navigate }: { navigate: (view: LmsView) => void }) {
+function AdminOverview({ navigate, metrics }: { navigate: (view: LmsView) => void; metrics?: LiveAdminMetrics }) {
   return (
     <>
       <PageTitle
@@ -301,29 +302,29 @@ function AdminOverview({ navigate }: { navigate: (view: LmsView) => void }) {
           <span>
             <Users size={16} /> Aktif kullanıcı
           </span>
-          <strong>42</strong>
-          <small className="trend up">+6 bu ay</small>
+          <strong>{metrics?.activeUsers ?? 42}</strong>
+          <small className="trend up">{metrics ? `${metrics.enrollments} aktif kayıt` : "+6 bu ay"}</small>
         </div>
         <div className="metric">
           <span>
             <CircleGauge size={16} /> Genel tamamlama
           </span>
-          <strong>%76</strong>
-          <small className="trend up">+8 puan</small>
+          <strong>%{metrics?.averageCompletion ?? 76}</strong>
+          <small className="trend up">{metrics ? "Canlı enrollment verisi" : "+8 puan"}</small>
         </div>
         <div className="metric">
           <span>
             <ShieldCheck size={16} /> Uyum oranı
           </span>
-          <strong>%84</strong>
-          <small className="trend warn">4 kişi riskte</small>
+          <strong>%{metrics?.complianceRate ?? 84}</strong>
+          <small className="trend warn">{metrics ? `${metrics.overdueCount} gecikmiş kayıt` : "4 kişi riskte"}</small>
         </div>
         <div className="metric">
           <span>
             <BookOpen size={16} /> Yayındaki eğitim
           </span>
-          <strong>18</strong>
-          <small className="trend">3 taslak</small>
+          <strong>{metrics?.publishedCourses ?? 18}</strong>
+          <small className="trend">{metrics ? `${metrics.publishedPrograms} yayındaki program` : "3 taslak"}</small>
         </div>
       </div>
       <div className="admin-dashboard-grid">
@@ -1091,12 +1092,14 @@ export function AdminWorkspace({
   view,
   navigate,
   open,
+  metrics,
 }: {
   view: LmsView;
   navigate: (view: LmsView) => void;
   open: OpenCourse;
+  metrics?: LiveAdminMetrics;
 }) {
-  if (view === "home") return <AdminOverview navigate={navigate} />;
+  if (view === "home") return <AdminOverview navigate={navigate} metrics={metrics} />;
   if (view === "admin-users") return <UsersWorkspace />;
   if (view === "admin-courses") return <CoursesWorkspace open={open} />;
   if (view === "admin-programs") return <ProgramsWorkspace />;
@@ -1104,5 +1107,5 @@ export function AdminWorkspace({
   if (view === "admin-compliance") return <ComplianceWorkspace />;
   if (view === "admin-reports") return <ReportsWorkspace />;
   if (view === "admin-settings") return <SettingsWorkspace />;
-  return <AdminOverview navigate={navigate} />;
+  return <AdminOverview navigate={navigate} metrics={metrics} />;
 }

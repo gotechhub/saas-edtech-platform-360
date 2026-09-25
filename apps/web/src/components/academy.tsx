@@ -43,6 +43,7 @@ import {
   type DemoState,
   type Role,
 } from "@/lib/demo";
+import type { LiveAdminMetrics } from "@/lib/live-dashboard";
 import {
   AdminWorkspace,
   LearnerCollection,
@@ -50,7 +51,7 @@ import {
   type LmsView as View,
 } from "@/components/lms-workspaces";
 const key = "respongo:oguzlawacademy:demo:v1";
-export function Academy({ initialRole = "learner", preview = true, accountLabel = "Demo profil" }: { initialRole?: Role; preview?: boolean; accountLabel?: string }) {
+export function Academy({ initialRole = "learner", preview = true, accountLabel = "Demo profil", liveAdminMetrics }: { initialRole?: Role; preview?: boolean; accountLabel?: string; liveAdminMetrics?: LiveAdminMetrics }) {
   const [role, setRole] = useState<Role>(initialRole),
     [view, setView] = useState<View>("home"),
     [state, setState] = useState<DemoState>(initialState),
@@ -606,7 +607,7 @@ export function Academy({ initialRole = "learner", preview = true, accountLabel 
               view !== "resources" &&
               view !== "support") ||
             (role !== "learner" && view.startsWith("admin-")) ? (
-            <AdminWorkspace view={view} navigate={go} open={open} />
+            <AdminWorkspace view={view} navigate={go} open={open} metrics={liveAdminMetrics} />
           ) : (
             <>
               {view === "home" && (
