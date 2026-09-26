@@ -94,12 +94,12 @@
       "id": "EP06",
       "phase": "B1",
       "name": "Program, atama ve uyumluluk",
-      "status": "in_progress",
+      "status": "verified",
       "total": 9,
-      "done": 8,
-      "active": 1,
-      "delivered": "Program/atama/enrollment şeması; program listeleme ve arama; içerik editörleri; immutable sürüm/yayın RPC'leri; idempotent hedef kitle ataması; kullanıcı bazlı kalıcı enrollment ve ilerleme; admin→öğrenen yaşam döngüsü; geçmişi değiştirmeyen rollback taslağı; gerekçeli muafiyet yaşam döngüsü; canlı kullanıcı bazlı uyum merkezi",
-      "next": "Gelişmiş dinamik hedef kitle önizleme ve kural oluşturucu"
+      "done": 9,
+      "active": 0,
+      "delivered": "Program/atama/enrollment şeması; program listeleme ve arama; içerik editörleri; immutable sürüm/yayın RPC'leri; idempotent atama; kullanıcı bazlı kalıcı ilerleme; admin→öğrenen yaşam döngüsü; geçmişi değiştirmeyen rollback taslağı; gerekçeli muafiyet yaşam döngüsü; canlı uyum merkezi; rol, kıdem ve ekip verisinden kesin hedef kitle önizlemesi ve denetlenebilir üye snapshot'ı",
+      "next": "EP07 sunucu puanlama, deneme politikası ve değerlendirme yaşam döngüsü"
     },
     {
       "id": "EP07",
@@ -297,7 +297,7 @@
   "recent": [
     {
       "date": "2026-09-26",
-      "text": "EP06 Atama ve Uyum Merkezi canlı Supabase verisine bağlandı; kullanıcı bazlı ilerleme, filtreleme, gecikme riski, audit kayıtlı muafiyet verme/kaldırma ve geçmişi değiştirmeyen sürüm geri alma taslağı E2E ve WCAG kabulünden geçti."
+      "text": "EP06 %100 kabul edildi: Atama ve Uyum Merkezi canlı Supabase verisine bağlandı; kullanıcı bazlı ilerleme, filtreleme, gecikme riski, audit kayıtlı muafiyet, geçmişi değiştirmeyen sürüm geri alma ve rol/kıdem/ekip tabanlı kesin hedef kitle önizlemesi E2E ve WCAG kabulünden geçti."
     },
     {
       "date": "2026-09-26",

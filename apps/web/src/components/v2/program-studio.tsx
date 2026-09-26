@@ -46,6 +46,13 @@ type Assignment = {
   learners: number;
   completed: number;
 };
+type AudienceDirectory = {
+  memberships: Array<{ id: string; display_name: string | null; job_title: string | null; professional_level: string | null }>;
+  roles: Array<{ id: string; key: string; label: string }>;
+  roleAssignments: Array<{ membership_id: string; role_id: string; valid_until: string | null }>;
+  teams: Array<{ id: string; code: string; name: string }>;
+  teamMembers: Array<{ team_id: string; membership_id: string; valid_until: string | null }>;
+};
 type ProgramStep = {
   id: string;
   kind: StepKind;
@@ -79,6 +86,7 @@ type View = "list" | "editor" | "assign" | "report";
 const programsKey = "respongo:oguz-law:programs:v3";
 const programsApi = "/api/v2/programs";
 const portalQuery = "industry=avukat&tenant=oguzlawacademy";
+const emptyAudienceDirectory: AudienceDirectory = { memberships: [], roles: [], roleAssignments: [], teams: [], teamMembers: [] };
 const meta: Record<
   StepKind,
   { label: string; icon: typeof FileArchive; detail: string }
@@ -178,6 +186,31 @@ function readPrograms() {
     if (value) return JSON.parse(value) as Program[];
   } catch {}
   return seeded;
+}
+
+function resolveAudience(selected: Set<string>, directory: AudienceDirectory) {
+  if (selected.has("Tüm avukatlar"))
+    return { type: "everyone", rule: {}, members: directory.memberships };
+  const ids = new Set<string>();
+  const activeRoleAssignments = directory.roleAssignments.filter(
+    (item) => !item.valid_until || new Date(item.valid_until).getTime() > Date.now(),
+  );
+  const addByLevel = (level: string) => directory.memberships.filter((item) => item.professional_level === level).forEach((item) => ids.add(item.id));
+  if (selected.has("Yeni başlayanlar")) addByLevel("Başlangıç");
+  if (selected.has("Kıdemli avukatlar")) addByLevel("Kıdemli");
+  if (selected.has("Eğitmenler")) {
+    const role = directory.roles.find((item) => item.key === "instructor");
+    if (role) activeRoleAssignments.filter((item) => item.role_id === role.id).forEach((item) => ids.add(item.membership_id));
+  }
+  for (const team of directory.teams) {
+    if (selected.has(team.name)) directory.teamMembers.filter((item) => item.team_id === team.id && (!item.valid_until || new Date(item.valid_until).getTime() > Date.now())).forEach((item) => ids.add(item.membership_id));
+  }
+  const members = directory.memberships.filter((item) => ids.has(item.id));
+  return {
+    type: "membership",
+    rule: { membership_ids: members.map((item) => item.id), label: [...selected].join(", "), snapshot_at: new Date().toISOString() },
+    members,
+  };
 }
 
 async function programCommand(payload: Record<string, unknown>) {
@@ -305,6 +338,7 @@ export function ProgramStudio() {
   );
   const [dueDate, setDueDate] = useState("2026-10-31");
   const [assignmentRequired, setAssignmentRequired] = useState(true);
+  const [audienceDirectory, setAudienceDirectory] = useState<AudienceDirectory>(emptyAudienceDirectory);
   const fileRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     setPrograms(readPrograms());
@@ -314,6 +348,13 @@ export function ProgramStudio() {
         return response.json();
       })
       .then((payload) => {
+        setAudienceDirectory({
+          memberships: payload.memberships ?? [],
+          roles: payload.roles ?? [],
+          roleAssignments: payload.roleAssignments ?? [],
+          teams: payload.teams ?? [],
+          teamMembers: payload.teamMembers ?? [],
+        });
         const live = programsFromApi(payload);
         if (live.length) {
           setPrograms(live);
@@ -541,22 +582,19 @@ export function ProgramStudio() {
     }
     const idempotencyKey = crypto.randomUUID();
     let assignmentId = idempotencyKey;
-    let learnerCount = selectedAudience.has("Tüm avukatlar")
-      ? 42
-      : selectedAudience.size * 8;
+    const audience = resolveAudience(selectedAudience, audienceDirectory);
+    if (!audience.members.length) {
+      setNotice("Seçilen kurallara uyan aktif kullanıcı bulunamadı.");
+      return;
+    }
+    let learnerCount = audience.members.length;
     try {
       if (!current.serverId) throw new Error("PROGRAM_NOT_SYNCED");
-      const audienceType = selectedAudience.has("Tüm avukatlar")
-        ? "everyone"
-        : "role";
       const result = await programCommand({
         action: "assign",
         programId: current.serverId,
-        audienceType,
-        audienceRule:
-          audienceType === "everyone"
-            ? {}
-            : { role: "learner", label: [...selectedAudience].join(", ") },
+        audienceType: audience.type,
+        audienceRule: audience.rule,
         required: assignmentRequired,
         dueAt: new Date(`${dueDate}T23:59:59.000Z`).toISOString(),
         passScore: current.passScore,
@@ -611,6 +649,7 @@ export function ProgramStudio() {
         notice={notice}
         back={() => setView("list")}
         assign={assign}
+        directory={audienceDirectory}
       />
     );
   if (view === "report")
@@ -1289,6 +1328,7 @@ function AssignmentView({
   notice,
   back,
   assign,
+  directory,
 }: {
   program: Program;
   selected: Set<string>;
@@ -1300,13 +1340,16 @@ function AssignmentView({
   notice: string;
   back: () => void;
   assign: () => void | Promise<void>;
+  directory: AudienceDirectory;
 }) {
   const audiences = [
     "Tüm avukatlar",
     "Yeni başlayanlar",
     "Kıdemli avukatlar",
     "Eğitmenler",
+    ...directory.teams.map((team) => team.name),
   ];
+  const preview = resolveAudience(selected, directory);
   return (
     <div className="rv2-program-studio">
       <header className="rv2-page-header">
@@ -1356,8 +1399,8 @@ function AssignmentView({
                   <strong>{name}</strong>
                   <small>
                     {name === "Tüm avukatlar"
-                      ? "42 aktif kullanıcı"
-                      : "Rol ve ekip koşuluyla dinamik kitle"}
+                      ? `${directory.memberships.length} aktif kullanıcı`
+                      : `${resolveAudience(new Set([name]), directory).members.length} eşleşen kullanıcı`}
                   </small>
                 </span>
               </label>
@@ -1379,15 +1422,17 @@ function AssignmentView({
             onChange={(e) => setRequired(e.target.checked)}
           />
           <div className="rv2-assignment-preview">
-            <strong>
-              {selected.has("Tüm avukatlar") ? 42 : selected.size * 8}
-            </strong>
-            <span>tahmini kullanıcı</span>
+            <strong>{preview.members.length}</strong>
+            <span>eşleşen aktif kullanıcı</span>
             <small>
               {program.steps.length} içerik · Geçme %{program.passScore}
             </small>
+            <ul aria-label="Hedef kitle önizlemesi">
+              {preview.members.slice(0, 5).map((member) => <li key={member.id}>{member.display_name || "Kullanıcı"}<span>{member.job_title || member.professional_level || "Üye"}</span></li>)}
+            </ul>
+            {preview.members.length > 5 ? <small>+{preview.members.length - 5} kullanıcı daha</small> : null}
           </div>
-          <Button onClick={assign}>
+          <Button onClick={assign} disabled={!preview.members.length}>
             <Send size={16} /> Atamayı başlat
           </Button>
         </Surface>

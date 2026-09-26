@@ -79,7 +79,7 @@ export async function GET(request: Request) {
   const context = await portalContext(request, new URL(request.url));
   if ("response" in context) return context.response;
   const { supabase, session } = context;
-  const [programs, versions, assignments, enrollments, memberships] =
+  const [programs, versions, assignments, enrollments, memberships, roles, roleAssignments, teams, teamMembers] =
     await Promise.all([
     supabase
       .from("programs")
@@ -112,8 +112,12 @@ export async function GET(request: Request) {
       .select("id,display_name,job_title,professional_level,status")
       .eq("tenant_id", session.tenantId)
       .eq("status", "active"),
+    supabase.from("roles").select("id,key,label").eq("tenant_id", session.tenantId),
+    supabase.from("role_assignments").select("membership_id,role_id,valid_until").eq("tenant_id", session.tenantId),
+    supabase.from("teams").select("id,code,name,status").eq("tenant_id", session.tenantId).eq("status", "active"),
+    supabase.from("team_members").select("team_id,membership_id,valid_until").eq("tenant_id", session.tenantId),
   ]);
-  const failed = [programs, versions, assignments, enrollments, memberships].find(
+  const failed = [programs, versions, assignments, enrollments, memberships, roles, roleAssignments, teams, teamMembers].find(
     (result) => result.error,
   );
   if (failed?.error) return commandError(failed.error);
@@ -124,6 +128,10 @@ export async function GET(request: Request) {
       assignments: assignments.data ?? [],
       enrollments: enrollments.data ?? [],
       memberships: memberships.data ?? [],
+      roles: roles.data ?? [],
+      roleAssignments: roleAssignments.data ?? [],
+      teams: teams.data ?? [],
+      teamMembers: teamMembers.data ?? [],
       membershipId: session.membershipId,
     },
     { headers: noStore },

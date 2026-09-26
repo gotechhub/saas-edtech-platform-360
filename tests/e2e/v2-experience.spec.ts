@@ -210,6 +210,8 @@ test.describe("Experience V2", () => {
     await expect(
       page.getByRole("heading", { name: programTitle }),
     ).toBeVisible();
+    await expect(page.getByText("eşleşen aktif kullanıcı")).toBeVisible();
+    await expect(page.getByRole("list", { name: "Hedef kitle önizlemesi" })).toBeVisible();
     await page.getByRole("button", { name: "Atamayı başlat" }).click();
     await expect(
       page.getByText("Atama oluşturuldu. Rapor ekranından izleyebilirsiniz."),

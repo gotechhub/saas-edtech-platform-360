@@ -4135,6 +4135,32 @@
   border-radius: 13px;
   background: var(--rv2-bg);
 }
+.rv2-assignment-preview ul {
+  width: 100%;
+  display: grid;
+  gap: 0;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+.rv2-assignment-preview li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 0;
+  border-top: 1px solid var(--rv2-border);
+  color: var(--rv2-text);
+  font-size: 8px;
+  font-weight: 700;
+}
+.rv2-assignment-preview li span {
+  color: var(--rv2-text-soft);
+  font-size: 7px;
+  font-weight: 500;
+  text-align: right;
+}
 .rv2-assignment-preview strong {
   font-size: 30px;
 }

@@ -121,6 +121,23 @@ describe("program, assignment and progress commands", () => {
         [first.rows[0].assignment_id, LEARNER_MEMBER],
       )
     ).rows[0].id;
+
+    const targeted = await asUser(ADMIN, () =>
+      db.query<{ enrollment_count: number }>(
+        "select * from assign_program($1,$2,$3,$4,$5,$6,$7,$8)",
+        [
+          TENANT,
+          programId,
+          "membership",
+          { membership_ids: [LEARNER_MEMBER], label: "Başlangıç seviyesi" },
+          true,
+          "2030-11-30T20:59:59.000Z",
+          80,
+          "27000000-0000-4000-8000-000000000002",
+        ],
+      ),
+    );
+    expect(targeted.rows[0].enrollment_count).toBe(1);
   });
 
   it("records monotonic learner progress and completes the enrollment", async () => {

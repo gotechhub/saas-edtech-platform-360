@@ -10,9 +10,9 @@
 | Kalan | **%67** |
 | Planlama baz çizgisi | **%100** |
 | Toplam izlenen kabul görevi | **261** |
-| Tamamlanan görev | **86** |
-| Devam eden görev | **33** |
-| Kalan görev | **175** |
+| Tamamlanan görev | **87** |
+| Devam eden görev | **32** |
+| Kalan görev | **174** |
 | Ana modül | **20** |
 | Bağımsız program | **1** |
 
@@ -22,7 +22,7 @@
 
 | Faz | Kapsam | Görev | İlerleme |
 |---|---|---:|---:|
-| B1 · İlk kullanılabilir beta | EP01–EP15 | 86/219 | **%39** |
+| B1 · İlk kullanılabilir beta | EP01–EP15 | 87/219 | **%40** |
 | B2 · Genişletilmiş beta | EP16–EP18 | 0/27 | **%0** |
 | G · Genel sürüm | EP19 | 0/9 | **%0** |
 | S · Sektör ölçekleme | EP20 | 0/6 | **%0** |
@@ -53,7 +53,7 @@ Ana modül: **EP03** · İlerleme: **%47** · Görev: **44/93** · Aktif: **18**
 | EP03 · UI sistemi ve marka | B1 | Devam ediyor | 8/10 | %80 | Beş rol navigasyonu, öğrenen ve admin çalışma alanları, responsive açık/koyu tema, Manrope tırnaksız tipografi sistemi, hukuk akademisi hero varlığı, canlı dashboard metrikleri, gerçek kullanıcı tablosu ve yetkili rol görünümü önizlemesi | Overlay ve ileri veri bileşenleri ile gerçek marka editörü |
 | EP04 · Portal ve lisans fabrikası | B1 | Planlandı | 0/7 | %0 | Plan ve veri sözleşmesi | Sektör seçimi, tenant kurulum işi, entitlement ve kota |
 | EP05 · Katalog, asset ve runtime | B1 | Devam ediyor | 3/10 | %30 | Sentetik eğitim kataloğu, kaynak görünümü, SCORM 1.2/2004 güvenli ZIP doğrulaması ve gerçek Zenefit 2004 paket kabulü | Storage karantina/yayın hattı, video/PDF runtime ve kalıcı paket deposu |
-| EP06 · Program, atama ve uyumluluk | B1 | Devam ediyor | 8/9 | %89 | Program/atama/enrollment şeması; program listeleme ve arama; içerik editörleri; immutable sürüm/yayın RPC'leri; idempotent hedef kitle ataması; kullanıcı bazlı kalıcı enrollment ve ilerleme; admin→öğrenen yaşam döngüsü; geçmişi değiştirmeyen rollback taslağı; gerekçeli muafiyet yaşam döngüsü; canlı kullanıcı bazlı uyum merkezi | Gelişmiş dinamik hedef kitle önizleme ve kural oluşturucu |
+| EP06 · Program, atama ve uyumluluk | B1 | Doğrulandı | 9/9 | %100 | Program/atama/enrollment şeması; program listeleme ve arama; içerik editörleri; immutable sürüm/yayın RPC'leri; idempotent atama; kullanıcı bazlı kalıcı ilerleme; admin→öğrenen yaşam döngüsü; geçmişi değiştirmeyen rollback taslağı; gerekçeli muafiyet yaşam döngüsü; canlı uyum merkezi; rol, kıdem ve ekip verisinden kesin hedef kitle önizlemesi ve denetlenebilir üye snapshot'ı | EP07 sunucu puanlama, deneme politikası ve değerlendirme yaşam döngüsü |
 | EP07 · Sınav, vaka ve yetkinlik | B1 | Planlandı | 0/8 | %0 | Plan ve veri sözleşmesi | Sunucu puanlama, deneme politikası, rubrik ve yetkinlik kanıtı |
 | EP08 · Sertifika ve gamification | B1 | Planlandı | 0/8 | %0 | Plan ve ekran akışları | Sertifika snapshot/PDF, doğrulama, XP, rozet ve leaderboard |
 | EP09 · GoAuthoring | B1 | Devam ediyor | 4/10 | %40 | Metin bölümleri, sıralama, quiz, yerel taslak, SCORM 1.2 ZIP export ve inceleme | Kalıcı yayın, blok editörü, medya, lisans ve etkileşim analitiği |
@@ -99,7 +99,7 @@ Ana modül: **EP03** · İlerleme: **%47** · Görev: **44/93** · Aktif: **18**
 
 ## Son değişiklikler
 
-- **2026-09-26:** EP06 Atama ve Uyum Merkezi canlı Supabase verisine bağlandı; kullanıcı bazlı ilerleme, filtreleme, gecikme riski, audit kayıtlı muafiyet verme/kaldırma ve geçmişi değiştirmeyen sürüm geri alma taslağı E2E ve WCAG kabulünden geçti.
+- **2026-09-26:** EP06 %100 kabul edildi: Atama ve Uyum Merkezi canlı Supabase verisine bağlandı; kullanıcı bazlı ilerleme, filtreleme, gecikme riski, audit kayıtlı muafiyet, geçmişi değiştirmeyen sürüm geri alma ve rol/kıdem/ekip tabanlı kesin hedef kitle önizlemesi E2E ve WCAG kabulünden geçti.
 - **2026-09-26:** EP06 program yaşam döngüsü Supabase'e taşındı; sürümlü taslak/yayın, idempotent atama, gerçek enrollment üretimi ve kullanıcı bazlı kalıcı ilerleme gerçek Zenefit SCORM paketiyle uçtan uca geçti.
 - **2026-09-26:** Admin program ataması öğrenen rolüne bağlandı; dashboard ve Öğrenmem alanında atanan program görünümü, SCORM önizleme, adım tamamlama ve kalıcı ilerleme akışı uçtan uca doğrulandı.
 - **2026-09-26:** Program modülü listeleme → yeni program → içerik ayrıntıları → yayın → atama → rapor yaşam döngüsüne dönüştürüldü; gerçek Zenefit SCORM yüklemesi ve WCAG A/AA kontrollü Playwright kabulü geçti.
