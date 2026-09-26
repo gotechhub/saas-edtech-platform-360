@@ -29,6 +29,7 @@ beforeAll(async () => {
     "supabase/migrations/202609240005_team_scope.sql",
     "supabase/migrations/202609260013_program_assignment_commands.sql",
     "supabase/migrations/202609260014_program_command_digest_fix.sql",
+    "supabase/migrations/202609260015_program_compliance_controls.sql",
   ])
     await db.exec(readFileSync(file, "utf8"));
   await db.exec(`
@@ -131,7 +132,7 @@ describe("program, assignment and progress commands", () => {
     );
     expect(Number(half.rows[0].progress)).toBe(50);
     const done = await asUser(LEARNER, () =>
-      db.query<{ state: string; progress: number }>(
+      db.query<{ state: string; progress: number; revision: number }>(
         "select * from record_enrollment_progress($1,$2,$3,$4,$5,$6)",
         [TENANT, enrollmentId, ["scorm", "exam"], 2, 88, half.rows[0].revision],
       ),
@@ -146,6 +147,68 @@ describe("program, assignment and progress commands", () => {
         ),
       ).rejects.toThrow(/ENROLLMENT_PROGRESS_REGRESSION/);
     });
+  });
+
+  it("creates a new rollback draft without mutating published history", async () => {
+    const restored = await asUser(ADMIN, () =>
+      db.query<{ revision: number; version: number; restored_from_version: number }>(
+        "select * from rollback_program_version($1,$2,$3,$4,$5)",
+        [TENANT, programId, 1, programRevision, "Önceki onaylı akışa dönüş"],
+      ),
+    );
+    programRevision = restored.rows[0].revision;
+    expect(restored.rows[0].restored_from_version).toBe(1);
+    expect(restored.rows[0].version).toBe(2);
+    const versions = await db.query<{ version: number; state: string }>(
+      "select version,state from program_versions where program_id=$1 order by version",
+      [programId],
+    );
+    expect(versions.rows).toEqual([
+      { version: 1, state: "published" },
+      { version: 2, state: "draft" },
+    ]);
+    await asUser(ADMIN, async () => {
+      await expect(
+        db.query("select * from rollback_program_version($1,$2,$3,$4,$5)", [
+          TENANT,
+          programId,
+          1,
+          programRevision - 1,
+          "Eski revizyon denemesi",
+        ]),
+      ).rejects.toThrow(/REVISION_CONFLICT/);
+    });
+  });
+
+  it("applies and revokes an auditable enrollment waiver", async () => {
+    const adminEnrollment = (
+      await db.query<{ id: string; revision: number }>(
+        "select id,revision from enrollments where membership_id=$1",
+        [ADMIN_MEMBER],
+      )
+    ).rows[0];
+    const waived = await asUser(ADMIN, () =>
+      db.query<{ state: string; revision: number }>(
+        "select * from set_enrollment_waiver($1,$2,$3,$4,$5,$6)",
+        [TENANT, adminEnrollment.id, true, adminEnrollment.revision, "İzinli dış sertifika eşdeğerliği", null],
+      ),
+    );
+    expect(waived.rows[0].state).toBe("waived");
+    const revoked = await asUser(ADMIN, () =>
+      db.query<{ state: string; revision: number }>(
+        "select * from set_enrollment_waiver($1,$2,$3,$4,$5,$6)",
+        [TENANT, adminEnrollment.id, false, waived.rows[0].revision, "Eşdeğerlik kararı geri alındı", null],
+      ),
+    );
+    expect(revoked.rows[0].state).toBe("assigned");
+    const audit = await db.query<{ action: string }>(
+      "select action from audit_events where resource_id=$1 order by occurred_at",
+      [adminEnrollment.id],
+    );
+    expect(audit.rows.map((row) => row.action)).toEqual([
+      "enrollment.waived",
+      "enrollment.waiver_revoked",
+    ]);
   });
 
   it("blocks outsiders and direct browser writes", async () => {
@@ -167,6 +230,16 @@ describe("program, assignment and progress commands", () => {
           [TENANT, enrollmentId, ["x"], 1, null, 1],
         ),
       ).rejects.toThrow(/ENROLLMENT_PROGRESS_FORBIDDEN/);
+      await expect(
+        db.query("select * from set_enrollment_waiver($1,$2,$3,$4,$5,$6)", [
+          TENANT,
+          enrollmentId,
+          true,
+          1,
+          "Yetkisiz muafiyet denemesi",
+          null,
+        ]),
+      ).rejects.toThrow(/ENROLLMENT_WAIVER_FORBIDDEN/);
       await expect(
         db.query(
           "insert into programs(tenant_id,title,category) values($1,'x','x')",

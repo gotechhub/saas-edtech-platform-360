@@ -41,6 +41,7 @@ import { roleNavigation, type V2Role } from "@/lib/v2-experience";
 import { PeopleTable } from "./people-table";
 import { ProgramStudio } from "./program-studio";
 import { AssignedPrograms } from "./assigned-programs";
+import { ComplianceWorkspace } from "./compliance-workspace";
 
 type ModuleWorkspaceProps = {
   role: V2Role;
@@ -1291,6 +1292,8 @@ export function ModuleWorkspace({
     return <LearningAdminWorkspace basePath={basePath} />;
   if (role === "admin" && moduleId === "program-builder")
     return <ProgramStudio />;
+  if (role === "admin" && moduleId === "assignments")
+    return <ComplianceWorkspace />;
   if (
     role === "learner" &&
     ["calendar", "community", "achievements", "support"].includes(moduleId)

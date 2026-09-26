@@ -79,7 +79,8 @@ export async function GET(request: Request) {
   const context = await portalContext(request, new URL(request.url));
   if ("response" in context) return context.response;
   const { supabase, session } = context;
-  const [programs, versions, assignments, enrollments] = await Promise.all([
+  const [programs, versions, assignments, enrollments, memberships] =
+    await Promise.all([
     supabase
       .from("programs")
       .select(
@@ -95,7 +96,7 @@ export async function GET(request: Request) {
     supabase
       .from("learning_assignments")
       .select(
-        "id,program_id,audience_type,audience_rule,required,due_at,created_at,revision,status",
+        "id,program_id,title,audience_type,audience_rule,required,due_at,created_at,revision,status",
       )
       .eq("tenant_id", session.tenantId)
       .not("program_id", "is", null)
@@ -103,11 +104,16 @@ export async function GET(request: Request) {
     supabase
       .from("enrollments")
       .select(
-        "id,assignment_id,membership_id,state,progress,score,progress_detail,revision,last_activity_at",
+        "id,assignment_id,membership_id,state,progress,score,progress_detail,revision,last_activity_at,waived_at,waiver_reason,waiver_expires_at,state_before_waiver",
       )
       .eq("tenant_id", session.tenantId),
+    supabase
+      .from("memberships")
+      .select("id,display_name,job_title,professional_level,status")
+      .eq("tenant_id", session.tenantId)
+      .eq("status", "active"),
   ]);
-  const failed = [programs, versions, assignments, enrollments].find(
+  const failed = [programs, versions, assignments, enrollments, memberships].find(
     (result) => result.error,
   );
   if (failed?.error) return commandError(failed.error);
@@ -117,6 +123,7 @@ export async function GET(request: Request) {
       versions: versions.data ?? [],
       assignments: assignments.data ?? [],
       enrollments: enrollments.data ?? [],
+      memberships: memberships.data ?? [],
       membershipId: session.membershipId,
     },
     { headers: noStore },
@@ -173,6 +180,23 @@ export async function POST(request: Request) {
       total_steps: body.totalSteps,
       result_score: body.score ?? null,
       expected_revision: body.expectedRevision,
+    });
+  } else if (action === "rollback") {
+    result = await supabase.rpc("rollback_program_version", {
+      target_tenant: session.tenantId,
+      target_program: body.programId,
+      source_version: body.sourceVersion,
+      expected_revision: body.expectedRevision,
+      rollback_reason: body.reason,
+    });
+  } else if (action === "waiver") {
+    result = await supabase.rpc("set_enrollment_waiver", {
+      target_tenant: session.tenantId,
+      target_enrollment: body.enrollmentId,
+      waive: body.waive,
+      expected_revision: body.expectedRevision,
+      reason: body.reason,
+      expires_at: body.expiresAt ?? null,
     });
   } else {
     return NextResponse.json(

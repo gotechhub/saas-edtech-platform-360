@@ -2192,6 +2192,219 @@
 .rv2-table-footer button:disabled {
   opacity: 0.45;
 }
+.rv2-compliance {
+  display: grid;
+  gap: 18px;
+}
+.rv2-compliance-alert {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 15px;
+  border: 1px solid color-mix(in srgb, var(--rv2-danger), transparent 60%);
+  border-radius: var(--rv2-radius-control);
+  color: var(--rv2-danger);
+  background: color-mix(in srgb, var(--rv2-danger), transparent 93%);
+  font-size: 9px;
+}
+.rv2-mini-metric.is-risk {
+  border-color: color-mix(in srgb, var(--rv2-warning), transparent 45%);
+}
+.rv2-compliance-tools {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(180px, 0.45fr) minmax(160px, 0.35fr);
+  gap: 10px;
+  padding: 0 22px 14px;
+}
+.rv2-compliance-tools label {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11px;
+  border: 1px solid var(--rv2-border);
+  border-radius: var(--rv2-radius-control);
+  color: var(--rv2-text-soft);
+  background: var(--rv2-bg);
+}
+.rv2-compliance-tools input,
+.rv2-compliance-tools select {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  color: var(--rv2-text);
+  background: transparent;
+  font: inherit;
+}
+.rv2-compliance-table .rv2-person-cell > i {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  color: var(--rv2-primary);
+  background: var(--rv2-primary-soft);
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 800;
+}
+.rv2-cell-title {
+  display: block;
+  max-width: 240px;
+  overflow: hidden;
+  color: var(--rv2-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rv2-compliance-table td > small,
+.rv2-waiver-note {
+  display: block;
+  margin-top: 3px;
+  color: var(--rv2-text-soft);
+  font-size: 7px;
+}
+.rv2-waiver-note {
+  max-width: 170px;
+  color: var(--rv2-warning);
+}
+.rv2-compliance-complete {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--rv2-success);
+  font-size: 8px;
+  font-weight: 700;
+}
+.rv2-compliance-loading {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  color: var(--rv2-text-soft);
+  font-size: 9px;
+}
+.rv2-compliance-loading svg {
+  animation: rv2-spin 1s linear infinite;
+}
+@keyframes rv2-spin { to { transform: rotate(360deg); } }
+.rv2-version-list {
+  display: grid;
+  gap: 0;
+}
+.rv2-version-list > article {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) 1fr;
+  gap: 20px;
+  padding: 15px 0;
+  border-top: 1px solid var(--rv2-border);
+}
+.rv2-version-list > article > div:first-child,
+.rv2-version-list > article > div:last-child > span {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.rv2-version-list > article > div:first-child {
+  flex-direction: column;
+  gap: 3px;
+}
+.rv2-version-list > article > div:first-child small {
+  color: var(--rv2-text-soft);
+  font-size: 8px;
+}
+.rv2-version-list > article > div:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.rv2-version-list > article > div:last-child > span {
+  align-items: center;
+  padding: 4px;
+  border: 1px solid var(--rv2-border);
+  border-radius: 9px;
+  background: var(--rv2-bg);
+}
+.rv2-modal-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: color-mix(in srgb, #071b19, transparent 28%);
+  backdrop-filter: blur(5px);
+}
+.rv2-waiver-dialog {
+  position: relative;
+  width: min(480px, 100%);
+  display: grid;
+  gap: 14px;
+  padding: 26px;
+  border: 1px solid var(--rv2-border);
+  border-radius: var(--rv2-radius-panel);
+  color: var(--rv2-text);
+  background: var(--rv2-surface);
+  box-shadow: var(--rv2-shadow-lg);
+}
+.rv2-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--rv2-text-soft);
+}
+.rv2-dialog-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  color: var(--rv2-primary);
+  background: var(--rv2-primary-soft);
+}
+.rv2-waiver-dialog h2,
+.rv2-waiver-dialog p { margin: 0; }
+.rv2-waiver-dialog p {
+  color: var(--rv2-text-soft);
+  font-size: 9px;
+}
+.rv2-waiver-dialog > label {
+  display: grid;
+  gap: 6px;
+  color: var(--rv2-text);
+  font-size: 9px;
+  font-weight: 700;
+}
+.rv2-waiver-dialog > label small { color: var(--rv2-text-soft); font-weight: 500; }
+.rv2-waiver-dialog textarea,
+.rv2-waiver-dialog input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--rv2-border);
+  border-radius: var(--rv2-radius-control);
+  outline: 0;
+  color: var(--rv2-text);
+  background: var(--rv2-bg);
+  resize: vertical;
+}
+.rv2-waiver-dialog textarea:focus-visible,
+.rv2-waiver-dialog input:focus-visible {
+  border-color: var(--rv2-primary);
+  outline: 3px solid color-mix(in srgb, var(--rv2-primary), transparent 82%);
+}
+.rv2-waiver-dialog > div:last-child {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-top: 4px;
+}
 .rv2-program-row {
   display: grid;
   grid-template-columns: 38px minmax(0, 1fr) minmax(130px, 0.5fr) auto 20px;
@@ -2720,6 +2933,12 @@
   .rv2-grid--learning-admin {
     grid-template-columns: 1fr;
   }
+  .rv2-compliance-tools {
+    grid-template-columns: 1fr 1fr;
+  }
+  .rv2-compliance-tools > label:first-child {
+    grid-column: 1/-1;
+  }
 }
 
 @media (max-width: 760px) {
@@ -2770,6 +2989,26 @@
   }
   .rv2-page-header__actions .rv2-button {
     flex: 1;
+  }
+  .rv2-compliance-tools {
+    grid-template-columns: 1fr;
+    padding: 0 15px 14px;
+  }
+  .rv2-compliance-tools > label:first-child {
+    grid-column: auto;
+  }
+  .rv2-version-list > article {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .rv2-waiver-dialog {
+    padding: 22px 18px 18px;
+  }
+  .rv2-waiver-dialog > div:last-child {
+    flex-direction: column-reverse;
+  }
+  .rv2-waiver-dialog > div:last-child .rv2-button {
+    width: 100%;
   }
   .rv2-learner-hero {
     grid-template-columns: 1fr;

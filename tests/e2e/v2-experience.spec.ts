@@ -245,4 +245,41 @@ test.describe("Experience V2", () => {
       fullPage: true,
     });
   });
+
+  test("admin can inspect live compliance records and program version history", async ({
+    page,
+  }) => {
+    test.setTimeout(90000);
+    await page.setViewportSize({ width: 1440, height: 1100 });
+    const path = "/avukat/oguzlawacademy/v2/admin/assignments";
+    await signIn(page, path);
+    await expect(
+      page.getByRole("heading", { name: "Uyumluluk operasyon merkezi" }),
+    ).toBeVisible();
+    await expect(page.getByText("Kullanıcı ilerleme kayıtları")).toBeVisible();
+    await expect(page.getByText("Program yayın geçmişi")).toBeVisible();
+    await expect(page.getByText("Veri kaynağı: canlı Supabase")).toBeVisible();
+    await expect(page.locator(".rv2-compliance-table tbody tr").first()).toBeVisible();
+    await page.getByRole("button", { name: "Muafiyet", exact: true }).first().click();
+    await page.getByLabel("Gerekçe").fill("E2E kontrollü eşdeğerlik testi");
+    await page.getByRole("button", { name: "Muafiyeti kaydet" }).click();
+    await expect(page.getByText("Muafiyet kaydedildi ve audit günlüğüne işlendi.")).toBeVisible();
+    await page.getByRole("button", { name: "Muafiyeti kaldır", exact: true }).first().click();
+    await page.getByLabel("Gerekçe").fill("E2E testi sonrası karar geri alındı");
+    await page.getByRole("button", { name: "Muafiyeti kaldır", exact: true }).last().click();
+    await expect(page.getByText("Muafiyet kaldırıldı.")).toBeVisible();
+    const accessibility = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(accessibility.violations).toEqual([]);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= window.innerWidth,
+      ),
+    ).toBe(true);
+    await page.screenshot({
+      path: "test-results/v2-compliance-center-1440.png",
+      fullPage: true,
+    });
+  });
 });
