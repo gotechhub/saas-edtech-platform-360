@@ -157,34 +157,64 @@ test.describe("Experience V2", () => {
     await signIn(page, path);
 
     await expect(
-      page.getByRole("heading", { name: "Eğitim programı stüdyosu" }),
+      page.getByRole("heading", { name: "Eğitim programları" }),
     ).toBeVisible();
-    await expect(page.locator('input[value="ZENEFIT EGITIMI"]')).toBeVisible();
-    await expect(
-      page.getByText("SCORM 2004 4th Edition · 85 dosya"),
-    ).toBeVisible();
+    await expect(page.getByText("Zenefit Z Kuşağı ile Çalışmak")).toBeVisible();
+    await page.screenshot({
+      path: "test-results/v2-program-list-1440.png",
+      fullPage: true,
+    });
+    const listAccessibility = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .analyze();
+    expect(listAccessibility.violations).toEqual([]);
+    await page.getByRole("button", { name: "Yeni eğitim programı" }).click();
+    await page
+      .getByLabel("Program adı")
+      .fill("Yeni Avukat Dijital Uyum Programı");
+    await page
+      .getByLabel("Açıklama")
+      .fill(
+        "SCORM, sınav, anket, görev ve kaynaklardan oluşan zorunlu program.",
+      );
+
     if (process.env.SCORM_TEST_FILE) {
       await page
         .locator('input[type="file"][accept*=".zip"]')
         .setInputFiles(process.env.SCORM_TEST_FILE);
-      await expect(
-        page.getByText("ZENEFIT EGITIMI doğrulandı ve programa eklendi."),
-      ).toBeVisible();
+      await expect(page.getByText(/ZENEFIT EGITIMI doğrulandı/)).toBeVisible();
+      await page.getByRole("button", { name: /Kaydet ve devam et/ }).click();
     }
 
     await page.getByRole("button", { name: "Anket" }).click();
+    await page.getByLabel("İçerik adı").fill("Program deneyimi anketi");
+    await page.getByRole("button", { name: /Kaydet ve devam et/ }).click();
+    await page.getByRole("button", { name: "Sınav" }).click();
+    await page.getByLabel("İçerik adı").fill("Kapanış sınavı");
+    await page.getByRole("button", { name: /Kaydet ve devam et/ }).click();
     await page.getByRole("button", { name: "Görev" }).click();
+    await page.getByLabel("İçerik adı").fill("Vaka değerlendirme görevi");
+    await page.getByRole("button", { name: /Kaydet ve devam et/ }).click();
     await page.getByRole("button", { name: "Kaynak" }).click();
+    await page.getByLabel("İçerik adı").fill("Hukuk teknolojileri rehberi");
+    await page.getByRole("button", { name: /Kaydet ve devam et/ }).click();
     await expect(
-      page.getByText(`${process.env.SCORM_TEST_FILE ? 7 : 6} program adımı`),
+      page.getByText(`${process.env.SCORM_TEST_FILE ? 5 : 4} program adımı`),
     ).toBeVisible();
 
-    await page.getByRole("button", { name: "Yayınla" }).click();
+    await page.getByRole("button", { name: "Programı yayınla" }).click();
     await expect(
-      page.getByText("Program yayınlandı ve atamaya hazır."),
+      page.getByText("Program yayınlandı. Artık hedef kitleye atanabilir."),
     ).toBeVisible();
-    await page.getByRole("button", { name: "Programı ata" }).click();
-    await expect(page.getByText(/hedef kitlesine atandı/)).toBeVisible();
+    await page.getByRole("button", { name: "Atama oluştur" }).click();
+    await expect(
+      page.getByRole("heading", { name: "Yeni Avukat Dijital Uyum Programı" }),
+    ).toBeVisible();
+    await page.getByRole("button", { name: "Atamayı başlat" }).click();
+    await expect(
+      page.getByText("Atama oluşturuldu. Rapor ekranından izleyebilirsiniz."),
+    ).toBeVisible();
+    await expect(page.getByText("Program atamaları")).toBeVisible();
     await page.screenshot({
       path: "test-results/v2-program-studio-1440.png",
       fullPage: true,
