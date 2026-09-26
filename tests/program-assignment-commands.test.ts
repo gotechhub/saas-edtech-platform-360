@@ -14,6 +14,7 @@ const LEARNER_MEMBER = "23000000-0000-4000-8000-000000000002";
 let programId = "";
 let programRevision = 0;
 let enrollmentId = "";
+let assessmentId = "";
 
 beforeAll(async () => {
   db = new PGlite({ extensions: { pgcrypto } });
@@ -30,6 +31,7 @@ beforeAll(async () => {
     "supabase/migrations/202609260013_program_assignment_commands.sql",
     "supabase/migrations/202609260014_program_command_digest_fix.sql",
     "supabase/migrations/202609260015_program_compliance_controls.sql",
+    "supabase/migrations/202609260016_assessment_engine.sql",
   ])
     await db.exec(readFileSync(file, "utf8"));
   await db.exec(`
@@ -163,6 +165,71 @@ describe("program, assignment and progress commands", () => {
           [TENANT, enrollmentId, ["scorm"], 2, null, done.rows[0].revision],
         ),
       ).rejects.toThrow(/ENROLLMENT_PROGRESS_REGRESSION/);
+    });
+  });
+
+  it("publishes an assessment and grades two attempts only on the server", async () => {
+    const draft = await asUser(ADMIN, () =>
+      db.query<{ assessment_id: string; revision: number }>(
+        "select * from save_assessment_draft($1,$2,$3,$4,$5,$6,$7,$8,$9)",
+        [
+          TENANT,
+          null,
+          "Meslek Etiği Vaka Sınavı",
+          "Her soruyu dikkatle yanıtlayın.",
+          70,
+          2,
+          30,
+          [
+            { kind: "single_choice", prompt: "Çıkar çatışmasında ilk adım nedir?", options: [{ id: "check", label: "Çatışma kontrolü" }, { id: "continue", label: "İşe devam" }], correctAnswer: "check", points: 1, explanation: "Önce çatışma kontrolü yapılır." },
+            { kind: "true_false", prompt: "Müvekkil verisi izinsiz paylaşılabilir.", options: [{ id: "true", label: "Doğru" }, { id: "false", label: "Yanlış" }], correctAnswer: "false", points: 1 },
+          ],
+          0,
+        ],
+      ),
+    );
+    assessmentId = draft.rows[0].assessment_id;
+    await asUser(ADMIN, () =>
+      db.query("select * from publish_assessment($1,$2,$3)", [TENANT, assessmentId, draft.rows[0].revision]),
+    );
+
+    const first = await asUser(LEARNER, () =>
+      db.query<{ sitting_id: string; attempt_no: number; questions: Array<{ id: string; prompt: string }> }>(
+        "select * from begin_assessment($1,$2,$3)",
+        [TENANT, assessmentId, enrollmentId],
+      ),
+    );
+    expect(first.rows[0].attempt_no).toBe(1);
+    expect(first.rows[0].questions).toHaveLength(2);
+    expect(JSON.stringify(first.rows[0].questions)).not.toContain("correctAnswer");
+    const [q1, q2] = first.rows[0].questions;
+    const failed = await asUser(LEARNER, () =>
+      db.query<{ score: number; success: boolean; remaining_attempts: number }>(
+        "select * from submit_assessment($1,$2,$3,$4)",
+        [TENANT, first.rows[0].sitting_id, { [q1.id]: "continue", [q2.id]: "false" }, 1],
+      ),
+    );
+    expect(Number(failed.rows[0].score)).toBe(50);
+    expect(failed.rows[0]).toMatchObject({ success: false, remaining_attempts: 1 });
+
+    const second = await asUser(LEARNER, () =>
+      db.query<{ sitting_id: string; attempt_no: number; questions: Array<{ id: string }> }>(
+        "select * from begin_assessment($1,$2,$3)",
+        [TENANT, assessmentId, enrollmentId],
+      ),
+    );
+    const [secondQ1, secondQ2] = second.rows[0].questions;
+    const passed = await asUser(LEARNER, () =>
+      db.query<{ score: number; success: boolean; remaining_attempts: number }>(
+        "select * from submit_assessment($1,$2,$3,$4)",
+        [TENANT, second.rows[0].sitting_id, { [secondQ1.id]: "check", [secondQ2.id]: "false" }, 1],
+      ),
+    );
+    expect(Number(passed.rows[0].score)).toBe(100);
+    expect(passed.rows[0]).toMatchObject({ success: true, remaining_attempts: 0 });
+    await asUser(LEARNER, async () => {
+      await expect(db.query("select * from begin_assessment($1,$2,$3)", [TENANT, assessmentId, enrollmentId])).rejects.toThrow(/ASSESSMENT_ATTEMPT_LIMIT/);
+      await expect(db.query("select * from private.assessment_answer_keys")).rejects.toThrow(/permission denied/);
     });
   });
 

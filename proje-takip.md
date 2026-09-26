@@ -6,13 +6,13 @@
 
 | Gösterge | Değer |
 |---|---:|
-| Ürün yol haritası ilerlemesi | **%33** |
-| Kalan | **%67** |
+| Ürün yol haritası ilerlemesi | **%35** |
+| Kalan | **%65** |
 | Planlama baz çizgisi | **%100** |
 | Toplam izlenen kabul görevi | **261** |
-| Tamamlanan görev | **87** |
-| Devam eden görev | **32** |
-| Kalan görev | **174** |
+| Tamamlanan görev | **91** |
+| Devam eden görev | **34** |
+| Kalan görev | **170** |
 | Ana modül | **20** |
 | Bağımsız program | **1** |
 
@@ -22,23 +22,23 @@
 
 | Faz | Kapsam | Görev | İlerleme |
 |---|---|---:|---:|
-| B1 · İlk kullanılabilir beta | EP01–EP15 | 87/219 | **%40** |
+| B1 · İlk kullanılabilir beta | EP01–EP15 | 91/219 | **%42** |
 | B2 · Genişletilmiş beta | EP16–EP18 | 0/27 | **%0** |
 | G · Genel sürüm | EP19 | 0/9 | **%0** |
 | S · Sektör ölçekleme | EP20 | 0/6 | **%0** |
 
 ## UXV2 — SaaS EdTech UX/UI Design V2
 
-Ana modül: **EP03** · İlerleme: **%47** · Görev: **44/93** · Aktif: **18**
+Ana modül: **EP03** · İlerleme: **%48** · Görev: **45/93** · Aktif: **18**
 
 | İş paketi | Durum | Görev | İlerleme | Kabul kanıtı | Sıradaki |
 |---|---|---:|---:|---|---|
 | UXV2-00 · Mevcut sistemi koruma ve baseline | Devam ediyor | 4/6 | %67 | V1 erişimi korundu, codex/ux-ui-v2 dalı açıldı, V2 rotaları ayrıldı; 1440 koyu admin ve 390 mobil öğrenen görsel baseline kaydedildi | Beş rol × tema × ölçü baseline görüntüleri ve sorun envanteri |
 | UXV2-01 · 21st bağlantısı ve proje skill’i | Devam ediyor | 4/6 | %67 | Gizli anahtar içermeyen MCP yapılandırması, yedi referanslı proje skill’i ve kullanım sınırları | API_KEY_21ST ile bağlantı kabulü, üç tasarım yönü ve puan kartı |
 | UXV2-02 · Tokenlar ve temel bileşenler | Devam ediyor | 9/14 | %64 | Semantik tokenlar, web/native paketleri, Manrope tırnaksız tipografi, buton/yüzey/durum/ilerleme primitive’leri, erişilebilir form kontrolleri, açık-koyu tema, sekiz durum sözleşmesi ve Storybook 10 kataloğu | Overlay, tablo, tarih seçici ve combobox bileşenlerinin Storybook kabul matrisi |
-| UXV2-03 · Kabuk ve bilgi mimarisi | Devam ediyor | 6/10 | %60 | Paylaşılabilir V2 URL’leri, beş rol navigasyonu, drawer, mobil alt menü, arama komutu, yetki yükseltmeyen rol önizlemesi, breadcrumb ve rota odak yönetimi | Breadcrumb, tenant değişimi, route manifest testi ve focus kabulü |
+| UXV2-03 · Kabuk ve bilgi mimarisi | Devam ediyor | 7/10 | %70 | Paylaşılabilir V2 URL’leri, beş rol navigasyonu, drawer, mobil alt menü, arama komutu, yetki yükseltmeyen rol önizlemesi, breadcrumb ve rota odak yönetimi | Breadcrumb, tenant değişimi, route manifest testi ve focus kabulü |
 | UXV2-04 · Rol dashboardları | Devam ediyor | 3/10 | %30 | Beş rol için ayrı web/native dashboard düzeni; admin canlı metrik/kullanıcı bağlantısı ve loading/empty/error/offline/stale dahil sekiz durum desteği | Her rolü canlı read model, loading/empty/error/stale ve görsel regresyonla kabul et |
-| UXV2-05 · 26 ekran ailesi dönüşümü | Devam ediyor | 6/15 | %40 | Program listeleme, içerik ayrıntıları, immutable yayın, Supabase atama/enrollment, admin→öğrenen kalıcı ilerleme ve canlı kullanıcı bazlı uyum/muafiyet/sürüm geçmişi ekranı gerçek verilerle uçtan uca kabul edildi | Ekran ailelerini işlev, sekiz durum ve uçtan uca görev akışlarıyla tek tek kabul et |
+| UXV2-05 · 26 ekran ailesi dönüşümü | Devam ediyor | 6/15 | %40 | Program yaşam döngüsü, admin→öğrenen kalıcı ilerleme, canlı uyum/muafiyet/sürüm geçmişi ve eğitmen Sınav Stüdyosu gerçek Supabase verisiyle uçtan uca kabul edildi | Ekran ailelerini işlev, sekiz durum ve uçtan uca görev akışlarıyla tek tek kabul et |
 | UXV2-06 · Asset sistemi | Devam ediyor | 2/8 | %25 | Oguz Law Academy lacivert/beyaz logo varyantları ve hukuk hero varlığı bağlandı | Asset manifesti, eğitim kapakları, sentetik avatarlar, rozetler ve lisans kayıtları |
 | UXV2-07 · Native mobil uygulama | Devam ediyor | 3/10 | %30 | Expo Router SDK 57, beş rol kabuğu, tablet düzeni, SecureStore/PKCE oturumu ve modül listeleri | Gerçek deneyim API’si, push, deep link, offline, WebView editör ve Android/iOS smoke |
 | UXV2-08 · Paralel yayın ve geçiş | Devam ediyor | 1/6 | %17 | Experience version, tema, asset ve editör session migrationı uzak Supabase projesine uygulandı | Pilot grup feature flag, telemetri ve rollback tatbikatı |
@@ -54,7 +54,7 @@ Ana modül: **EP03** · İlerleme: **%47** · Görev: **44/93** · Aktif: **18**
 | EP04 · Portal ve lisans fabrikası | B1 | Planlandı | 0/7 | %0 | Plan ve veri sözleşmesi | Sektör seçimi, tenant kurulum işi, entitlement ve kota |
 | EP05 · Katalog, asset ve runtime | B1 | Devam ediyor | 3/10 | %30 | Sentetik eğitim kataloğu, kaynak görünümü, SCORM 1.2/2004 güvenli ZIP doğrulaması ve gerçek Zenefit 2004 paket kabulü | Storage karantina/yayın hattı, video/PDF runtime ve kalıcı paket deposu |
 | EP06 · Program, atama ve uyumluluk | B1 | Doğrulandı | 9/9 | %100 | Program/atama/enrollment şeması; program listeleme ve arama; içerik editörleri; immutable sürüm/yayın RPC'leri; idempotent atama; kullanıcı bazlı kalıcı ilerleme; admin→öğrenen yaşam döngüsü; geçmişi değiştirmeyen rollback taslağı; gerekçeli muafiyet yaşam döngüsü; canlı uyum merkezi; rol, kıdem ve ekip verisinden kesin hedef kitle önizlemesi ve denetlenebilir üye snapshot'ı | EP07 sunucu puanlama, deneme politikası ve değerlendirme yaşam döngüsü |
-| EP07 · Sınav, vaka ve yetkinlik | B1 | Planlandı | 0/8 | %0 | Plan ve veri sözleşmesi | Sunucu puanlama, deneme politikası, rubrik ve yetkinlik kanıtı |
+| EP07 · Sınav, vaka ve yetkinlik | B1 | Devam ediyor | 3/8 | %38 | Sürümlü sınav ve soru modeli; private cevap anahtarı; değişmez yayın; süre ve deneme politikası; sunucu taraflı puanlama; eğitmen Sınav Stüdyosu; canlı sonuç metrikleri | Öğrenen sınav oynatıcısı, program sınav adımı bağlantısı, vaka rubriği ve yetkinlik kanıtı |
 | EP08 · Sertifika ve gamification | B1 | Planlandı | 0/8 | %0 | Plan ve ekran akışları | Sertifika snapshot/PDF, doğrulama, XP, rozet ve leaderboard |
 | EP09 · GoAuthoring | B1 | Devam ediyor | 4/10 | %40 | Metin bölümleri, sıralama, quiz, yerel taslak, SCORM 1.2 ZIP export ve inceleme | Kalıcı yayın, blok editörü, medya, lisans ve etkileşim analitiği |
 | EP10 · LXP ve sosyal temel | B1 | Planlandı | 0/8 | %0 | Plan ve ekran sözleşmesi | Öneriler, akış, koleksiyonlar, topluluk, yorum ve moderasyon |
@@ -91,14 +91,15 @@ Ana modül: **EP03** · İlerleme: **%47** · Görev: **44/93** · Aktif: **18**
 
 ## Doğrulama kanıtı
 
-- Çekirdek/PostgreSQL testleri: **69 geçti**
-- Tarayıcı uçtan uca testleri: **21 geçti**
+- Çekirdek/PostgreSQL testleri: **70 geçti**
+- Tarayıcı uçtan uca testleri: **22 geçti**
 - TypeScript: **Web + mobil geçti**
 - Next.js üretim derlemesi: **Geçti · V2 API ve rotalar dahil**
 - Bağımlılık güvenliği: **Son taramada bildirilen açık yok**
 
 ## Son değişiklikler
 
+- **2026-09-26:** EP07 başlatıldı; sürümlü sınav motoru, private cevap anahtarı, sunucu puanlama, süre/deneme politikası ve eğitmen Sınav Stüdyosu gerçek Supabase üzerinde yayınlama ve WCAG kabulünden geçti.
 - **2026-09-26:** EP06 %100 kabul edildi: Atama ve Uyum Merkezi canlı Supabase verisine bağlandı; kullanıcı bazlı ilerleme, filtreleme, gecikme riski, audit kayıtlı muafiyet, geçmişi değiştirmeyen sürüm geri alma ve rol/kıdem/ekip tabanlı kesin hedef kitle önizlemesi E2E ve WCAG kabulünden geçti.
 - **2026-09-26:** EP06 program yaşam döngüsü Supabase'e taşındı; sürümlü taslak/yayın, idempotent atama, gerçek enrollment üretimi ve kullanıcı bazlı kalıcı ilerleme gerçek Zenefit SCORM paketiyle uçtan uca geçti.
 - **2026-09-26:** Admin program ataması öğrenen rolüne bağlandı; dashboard ve Öğrenmem alanında atanan program görünümü, SCORM önizleme, adım tamamlama ve kalıcı ilerleme akışı uçtan uca doğrulandı.

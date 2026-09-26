@@ -6,8 +6,8 @@
   "planningProgress": 100,
   "method": "Ürün yüzdesi, tamamlanmış kabul görevlerinin toplam izlenen kabul görevlerine oranıdır. Devam eden görevler tamamlanmış sayılmaz. Planlama yüzdesi ürün geliştirme yüzdesine dahil değildir.",
   "evidence": {
-    "unitAndDatabaseTests": 69,
-    "browserTests": 21,
+    "unitAndDatabaseTests": 70,
+    "browserTests": 22,
     "typecheck": "Web + mobil geçti",
     "productionBuild": "Geçti · V2 API ve rotalar dahil",
     "securityAudit": "Son taramada bildirilen açık yok"
@@ -105,12 +105,12 @@
       "id": "EP07",
       "phase": "B1",
       "name": "Sınav, vaka ve yetkinlik",
-      "status": "planned",
+      "status": "in_progress",
       "total": 8,
-      "done": 0,
-      "active": 0,
-      "delivered": "Plan ve veri sözleşmesi",
-      "next": "Sunucu puanlama, deneme politikası, rubrik ve yetkinlik kanıtı"
+      "done": 3,
+      "active": 2,
+      "delivered": "Sürümlü sınav ve soru modeli; private cevap anahtarı; değişmez yayın; süre ve deneme politikası; sunucu taraflı puanlama; eğitmen Sınav Stüdyosu; canlı sonuç metrikleri",
+      "next": "Öğrenen sınav oynatıcısı, program sınav adımı bağlantısı, vaka rubriği ve yetkinlik kanıtı"
     },
     {
       "id": "EP08",
@@ -297,6 +297,10 @@
   "recent": [
     {
       "date": "2026-09-26",
+      "text": "EP07 başlatıldı; sürümlü sınav motoru, private cevap anahtarı, sunucu puanlama, süre/deneme politikası ve eğitmen Sınav Stüdyosu gerçek Supabase üzerinde yayınlama ve WCAG kabulünden geçti."
+    },
+    {
+      "date": "2026-09-26",
       "text": "EP06 %100 kabul edildi: Atama ve Uyum Merkezi canlı Supabase verisine bağlandı; kullanıcı bazlı ilerleme, filtreleme, gecikme riski, audit kayıtlı muafiyet, geçmişi değiştirmeyen sürüm geri alma ve rol/kıdem/ekip tabanlı kesin hedef kitle önizlemesi E2E ve WCAG kabulünden geçti."
     },
     {
@@ -396,7 +400,7 @@
       "name": "SaaS EdTech UX/UI Design V2",
       "status": "in_progress",
       "total": 93,
-      "done": 44,
+      "done": 45,
       "active": 18,
       "delivered": "V1 korunarak bağımsız V2 dalı; resmî 21st skill paketi ve MCP kaydı; Respongo proje skilli; ortak design token, ui-web ve ui-native paketleri; gerçek URL mimarisi; beş rol dashboardu; responsive web kabuğu; asset manifest/SVG çekirdeği; güvenli deneyim APIleri; Expo SDK 57 native uygulama kabuğu; uzak Supabase V2 migrationı ve tarayıcı kabul baselineları",
       "next": "Görsel baseline ve regresyon; kalan ekran durumları; asset manifest/kapak seti; Storybook; canlı rol read modelleri; push/offline; pilot feature flag ve UAT",
@@ -435,7 +439,7 @@
           "id": "UXV2-03",
           "name": "Kabuk ve bilgi mimarisi",
           "total": 10,
-          "done": 6,
+          "done": 7,
           "active": 2,
           "status": "in_progress",
           "evidence": "Paylaşılabilir V2 URL’leri, beş rol navigasyonu, drawer, mobil alt menü, arama komutu, yetki yükseltmeyen rol önizlemesi, breadcrumb ve rota odak yönetimi",
@@ -458,7 +462,7 @@
           "done": 6,
           "active": 2,
           "status": "in_progress",
-          "evidence": "Program listeleme, içerik ayrıntıları, immutable yayın, Supabase atama/enrollment, admin→öğrenen kalıcı ilerleme ve canlı kullanıcı bazlı uyum/muafiyet/sürüm geçmişi ekranı gerçek verilerle uçtan uca kabul edildi",
+          "evidence": "Program yaşam döngüsü, admin→öğrenen kalıcı ilerleme, canlı uyum/muafiyet/sürüm geçmişi ve eğitmen Sınav Stüdyosu gerçek Supabase verisiyle uçtan uca kabul edildi",
           "next": "Ekran ailelerini işlev, sekiz durum ve uçtan uca görev akışlarıyla tek tek kabul et"
         },
         {

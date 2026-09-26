@@ -284,4 +284,32 @@ test.describe("Experience V2", () => {
       fullPage: true,
     });
   });
+
+  test("instructor can author and publish a server-graded assessment", async ({
+    page,
+  }) => {
+    test.setTimeout(90000);
+    await page.setViewportSize({ width: 1440, height: 1100 });
+    const path = "/avukat/oguzlawacademy/v2/instructor/assessments";
+    const title = `Meslek Etiği Güvenli Sınavı ${Date.now()}`;
+    await signIn(page, path);
+    await expect(page.getByRole("heading", { name: "Sınav ve değerlendirme merkezi" })).toBeVisible();
+    await page.getByRole("button", { name: "Yeni sınav" }).click();
+    await page.getByLabel("Sınav adı").fill(title);
+    const prompts = page.getByLabel("Soru metni");
+    await prompts.nth(0).fill("Çıkar çatışması şüphesinde ilk işlem nedir?");
+    await prompts.nth(1).fill("Müvekkil verisi izinsiz paylaşılabilir mi?");
+    const optionA = page.getByLabel("A seçeneği");
+    const optionB = page.getByLabel("B seçeneği");
+    await optionA.nth(0).fill("Çatışma kontrolü yapmak");
+    await optionB.nth(0).fill("Dosyaya doğrudan devam etmek");
+    await optionA.nth(1).fill("Hayır, paylaşılamaz");
+    await optionB.nth(1).fill("Evet, her zaman paylaşılabilir");
+    await page.getByRole("button", { name: "Kaydet ve yayınla" }).click();
+    await expect(page.getByText("Sınav yayınlandı. Cevap anahtarı güvenli sunucu katmanında saklandı.")).toBeVisible();
+    await expect(page.getByText(title)).toBeVisible();
+    const accessibility = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
+    expect(accessibility.violations).toEqual([]);
+    await page.screenshot({ path: "test-results/v2-assessment-center-1440.png", fullPage: true });
+  });
 });

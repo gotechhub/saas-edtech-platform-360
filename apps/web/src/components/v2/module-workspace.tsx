@@ -42,6 +42,7 @@ import { PeopleTable } from "./people-table";
 import { ProgramStudio } from "./program-studio";
 import { AssignedPrograms } from "./assigned-programs";
 import { ComplianceWorkspace } from "./compliance-workspace";
+import { AssessmentWorkspace } from "./assessment-workspace";
 
 type ModuleWorkspaceProps = {
   role: V2Role;
@@ -1294,6 +1295,8 @@ export function ModuleWorkspace({
     return <ProgramStudio />;
   if (role === "admin" && moduleId === "assignments")
     return <ComplianceWorkspace />;
+  if (role === "instructor" && moduleId === "assessments")
+    return <AssessmentWorkspace />;
   if (
     role === "learner" &&
     ["calendar", "community", "achievements", "support"].includes(moduleId)
