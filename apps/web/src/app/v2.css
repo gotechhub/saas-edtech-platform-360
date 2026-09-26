@@ -3191,6 +3191,204 @@
     grid-column: 2;
   }
 }
+
+/* Assigned program bridge: admin assignment to learner experience */
+.rv2-assigned-programs {
+  margin-bottom: 18px;
+}
+.rv2-assigned-programs--compact {
+  padding: 20px 22px;
+}
+.rv2-assigned-program-row {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--rv2-border);
+}
+.rv2-assigned-program-row > span {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  color: var(--rv2-warning);
+  background: var(--rv2-warning-soft);
+}
+.rv2-assigned-program-row > div {
+  display: grid;
+  gap: 3px;
+}
+.rv2-assigned-program-row strong {
+  font-size: 10px;
+}
+.rv2-assigned-program-row small {
+  color: var(--rv2-text-soft);
+  font-size: 8px;
+}
+.rv2-assigned-program-row .rv2-progress {
+  margin-top: 5px;
+}
+.rv2-assigned-program-row > a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--rv2-primary);
+  font-size: 9px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.rv2-assigned-program-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.rv2-assigned-program-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 265px;
+  padding: 20px;
+}
+.rv2-assigned-program-card > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rv2-assigned-program-card h3 {
+  margin: 17px 0 6px;
+  font-size: 14px;
+}
+.rv2-assigned-program-card p {
+  flex: 1;
+  margin: 0 0 12px;
+  color: var(--rv2-text-soft);
+  font-size: 9px;
+  line-height: 1.6;
+}
+.rv2-assigned-program-card > small {
+  margin-bottom: 12px;
+  color: var(--rv2-text-soft);
+  font-size: 8px;
+}
+.rv2-assigned-program-card .rv2-progress {
+  margin-bottom: 15px;
+}
+.rv2-assigned-program-card .rv2-button {
+  width: 100%;
+}
+.rv2-learner-program-player {
+  margin-bottom: 18px;
+  padding: 24px;
+}
+.rv2-learner-program-player > .rv2-progress {
+  margin: 16px 0;
+}
+.rv2-learner-program-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.25fr);
+  gap: 18px;
+  margin-top: 18px;
+}
+.rv2-learner-program-layout ol {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rv2-learner-program-layout li {
+  display: grid;
+  grid-template-columns: 30px 22px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  min-height: 58px;
+  padding: 10px;
+  border: 1px solid var(--rv2-border);
+  border-radius: 11px;
+  color: var(--rv2-text-soft);
+}
+.rv2-learner-program-layout li > span {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--rv2-bg);
+  font-size: 8px;
+}
+.rv2-learner-program-layout li > div {
+  display: flex;
+  flex-direction: column;
+}
+.rv2-learner-program-layout li strong {
+  color: var(--rv2-text);
+  font-size: 9px;
+}
+.rv2-learner-program-layout li small {
+  font-size: 7px;
+}
+.rv2-learner-program-layout li.is-current {
+  border-color: var(--rv2-primary);
+  background: var(--rv2-primary-soft);
+}
+.rv2-learner-program-layout li.is-done > span {
+  color: var(--rv2-success);
+  background: var(--rv2-success-soft);
+}
+.rv2-learner-program-content {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px;
+  border-radius: 16px;
+  background: var(--rv2-bg);
+}
+.rv2-learner-program-content > svg {
+  color: var(--rv2-success);
+}
+.rv2-learner-program-content h3 {
+  margin: 10px 0 6px;
+  font-size: 22px;
+}
+.rv2-learner-program-content p {
+  max-width: 560px;
+  margin: 0 0 18px;
+  color: var(--rv2-text-soft);
+  font-size: 10px;
+  line-height: 1.7;
+}
+.rv2-learner-program-content .rv2-button {
+  margin: 4px 8px 4px 0;
+}
+@media (max-width: 900px) {
+  .rv2-assigned-program-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .rv2-learner-program-layout {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .rv2-assigned-program-grid {
+    grid-template-columns: 1fr;
+  }
+  .rv2-assigned-program-row {
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+  .rv2-assigned-program-row > a {
+    grid-column: 2;
+  }
+  .rv2-learner-program-player {
+    padding: 16px;
+  }
+  .rv2-learner-program-content {
+    min-height: 230px;
+    padding: 20px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .rv2-state-skeleton::after {
     animation: none;

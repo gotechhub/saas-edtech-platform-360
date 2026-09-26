@@ -37,6 +37,7 @@ import { academyPrograms, complianceRows } from "@/lib/lms-data";
 import type { LiveAcademyUser, LiveAdminMetrics } from "@/lib/live-dashboard";
 import type { V2Role } from "@/lib/v2-experience";
 import { TrendChart } from "./trend-chart";
+import { AssignedPrograms } from "./assigned-programs";
 
 type DashboardProps = {
   role: V2Role;
@@ -56,53 +57,1129 @@ const activityTrend = [
   { label: "Paz", value: 22, secondary: 17 },
 ];
 
-function DashboardHeader({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children?: React.ReactNode }) {
-  return <header className="rv2-page-header"><div><span className="rv2-eyebrow">{eyebrow}</span><h1>{title}</h1><p>{description}</p></div>{children ? <div className="rv2-page-header__actions">{children}</div> : null}</header>;
+function DashboardHeader({
+  eyebrow,
+  title,
+  description,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <header className="rv2-page-header">
+      <div>
+        <span className="rv2-eyebrow">{eyebrow}</span>
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </div>
+      {children ? (
+        <div className="rv2-page-header__actions">{children}</div>
+      ) : null}
+    </header>
+  );
 }
 
-function Metric({ label, value, detail, tone = "neutral", icon: Icon }: { label: string; value: string | number; detail: string; tone?: "neutral" | "success" | "warning" | "danger" | "info"; icon: typeof Gauge }) {
-  return <Surface className={`rv2-metric rv2-metric--${tone}`}><div className="rv2-metric__top"><span>{label}</span><i><Icon size={18} /></i></div><strong>{value}</strong><small>{detail}</small></Surface>;
+function Metric({
+  label,
+  value,
+  detail,
+  tone = "neutral",
+  icon: Icon,
+}: {
+  label: string;
+  value: string | number;
+  detail: string;
+  tone?: "neutral" | "success" | "warning" | "danger" | "info";
+  icon: typeof Gauge;
+}) {
+  return (
+    <Surface className={`rv2-metric rv2-metric--${tone}`}>
+      <div className="rv2-metric__top">
+        <span>{label}</span>
+        <i>
+          <Icon size={18} />
+        </i>
+      </div>
+      <strong>{value}</strong>
+      <small>{detail}</small>
+    </Surface>
+  );
 }
 
 function LearnerDashboard({ basePath, accountLabel }: DashboardProps) {
-  const firstName = accountLabel.includes("@") ? "Selçuk" : accountLabel.split(" ")[0];
-  return <>
-    <DashboardHeader eyebrow="BUGÜN · 25 EYLÜL" title={`Merhaba ${firstName}, kaldığın yer hazır.`} description="Kısa bir adımla ilerlemeye devam et. Bugünkü planın yaklaşık 28 dakika." />
-    <section className="rv2-learner-hero">
-      <div className="rv2-learner-hero__image" aria-hidden="true"><div className="rv2-hero-orbit rv2-hero-orbit--one" /><div className="rv2-hero-orbit rv2-hero-orbit--two" /><BookOpen size={54} /></div>
-      <div className="rv2-learner-hero__content"><span className="rv2-kicker"><Play size={13} fill="currentColor" /> KALDIĞIN YERDEN DEVAM ET</span><h2>Dijital çalışma ve bilgi güvenliği</h2><p>Güvenli paylaşım · Bölüm 2/3</p><ProgressBar value={64} label="Dijital çalışma ve bilgi güvenliği ilerlemesi" /><div className="rv2-learner-hero__meta"><span><Clock3 size={15} /> 12 dakika kaldı</span><span><Award size={15} /> Sertifikalı</span></div><Link className="rv2-button rv2-button--primary rv2-button--lg" href={`${basePath}/learning`}><Play size={17} fill="currentColor" /> Öğrenmeye devam et</Link></div>
-      <div className="rv2-learner-hero__streak"><Flame size={23} /><strong>4 gün</strong><span>öğrenme serisi</span><div>{[1,2,3,4,5,6,7].map((day) => <i key={day} className={day < 5 ? "is-done" : ""}>{day < 5 ? "✓" : ""}</i>)}</div></div>
-    </section>
-    <div className="rv2-grid rv2-grid--learner">
-      <Surface className="rv2-panel rv2-required"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">ÖNCELİKLİ</span><h2>Yaklaşan zorunlular</h2></div><Link href={`${basePath}/learning`}>Tümünü gör <ArrowRight size={15} /></Link></div>{courses.filter((item) => item.required).slice(0,3).map((course, index) => <article className="rv2-required__item" key={course.id}><span className={`rv2-required__icon rv2-course-tone-${index+1}`}><ShieldCheck size={18} /></span><div><strong>{course.title}</strong><small>{course.duration} dk · Son tarih {course.dueDate}</small></div><StatusPill tone={index === 0 ? "danger" : "warning"}>{index === 0 ? "2 gün" : index === 1 ? "5 gün" : "9 gün"}</StatusPill><button aria-label={`${course.title} ayrıntıları`}><ChevronRight size={18} /></button></article>)}</Surface>
-      <Surface className="rv2-panel rv2-goal-card"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">HAFTALIK HEDEF</span><h2>3 eğitimin 2’si tamam</h2></div><Target size={22} /></div><div className="rv2-goal-ring" style={{ "--progress": "67" } as React.CSSProperties}><strong>%67</strong></div><p>Bir kısa içerik daha tamamladığında haftalık hedefin bitecek.</p><Link href={`${basePath}/catalog`}>12 dakikalık öneriyi aç <ArrowUpRight size={15} /></Link></Surface>
-    </div>
-    <section className="rv2-content-section"><div className="rv2-section-heading"><div><span className="rv2-eyebrow">SANA ÖZEL</span><h2>Pratiğini güçlendirecek seçimler</h2></div><Link href={`${basePath}/catalog`}>Kataloğu keşfet <ArrowRight size={16} /></Link></div><div className="rv2-course-row">{courses.slice(1,5).map((course,index) => <Link href={`${basePath}/catalog`} className="rv2-course-card" key={course.id}><div className={`rv2-course-card__art rv2-course-art-${index+1}`}><span>{course.category}</span><i>0{index+1}</i><button aria-label={`${course.title} listeme ekle`}><Star size={17} /></button></div><div className="rv2-course-card__body"><small>{course.format} · {course.duration} DK</small><h3>{course.title}</h3><p>{course.skill}</p><span className="rv2-course-card__action">İncele <ArrowUpRight size={14} /></span></div></Link>)}</div></section>
-    <div className="rv2-grid rv2-grid--half"><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">YOLCULUĞUN</span><h2>Avukatlık Masterclass</h2></div><StatusPill tone="info">3 / 8 adım</StatusPill></div><div className="rv2-journey-mini">{["Hukuki yazım","Vaka stratejisi","Müzakere","Liderlik"].map((step,index) => <div key={step} className={index < 2 ? "is-complete" : index === 2 ? "is-current" : ""}><i>{index < 2 ? <CheckCircle2 size={16} /> : index+1}</i><span><strong>{step}</strong><small>{index < 2 ? "Tamamlandı" : index === 2 ? "Sıradaki adım" : "Kilitli"}</small></span></div>)}</div><Link className="rv2-text-link" href={`${basePath}/journey`}>Yolculuğu aç <ArrowRight size={15} /></Link></Surface><Surface className="rv2-panel rv2-community-card"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">TOPLULUK</span><h2>Bugün akademide</h2></div><MessageCircleQuestion size={21} /></div><div className="rv2-community-people"><span>DA</span><span>EY</span><span>MK</span><i>+18</i></div><p><strong>Ece Yalın</strong>, “Etkili hukuki yazım” koleksiyonuna yeni bir kaynak ekledi.</p><div className="rv2-community-card__meta"><span>8 yorum</span><span>24 beğeni</span></div><Link className="rv2-text-link" href={`${basePath}/community`}>Akışa git <ArrowRight size={15} /></Link></Surface></div>
-  </>;
+  const firstName = accountLabel.includes("@")
+    ? "Selçuk"
+    : accountLabel.split(" ")[0];
+  return (
+    <>
+      <DashboardHeader
+        eyebrow="BUGÜN · 25 EYLÜL"
+        title={`Merhaba ${firstName}, kaldığın yer hazır.`}
+        description="Kısa bir adımla ilerlemeye devam et. Bugünkü planın yaklaşık 28 dakika."
+      />
+      <section className="rv2-learner-hero">
+        <div className="rv2-learner-hero__image" aria-hidden="true">
+          <div className="rv2-hero-orbit rv2-hero-orbit--one" />
+          <div className="rv2-hero-orbit rv2-hero-orbit--two" />
+          <BookOpen size={54} />
+        </div>
+        <div className="rv2-learner-hero__content">
+          <span className="rv2-kicker">
+            <Play size={13} fill="currentColor" /> KALDIĞIN YERDEN DEVAM ET
+          </span>
+          <h2>Dijital çalışma ve bilgi güvenliği</h2>
+          <p>Güvenli paylaşım · Bölüm 2/3</p>
+          <ProgressBar
+            value={64}
+            label="Dijital çalışma ve bilgi güvenliği ilerlemesi"
+          />
+          <div className="rv2-learner-hero__meta">
+            <span>
+              <Clock3 size={15} /> 12 dakika kaldı
+            </span>
+            <span>
+              <Award size={15} /> Sertifikalı
+            </span>
+          </div>
+          <Link
+            className="rv2-button rv2-button--primary rv2-button--lg"
+            href={`${basePath}/learning`}
+          >
+            <Play size={17} fill="currentColor" /> Öğrenmeye devam et
+          </Link>
+        </div>
+        <div className="rv2-learner-hero__streak">
+          <Flame size={23} />
+          <strong>4 gün</strong>
+          <span>öğrenme serisi</span>
+          <div>
+            {[1, 2, 3, 4, 5, 6, 7].map((day) => (
+              <i key={day} className={day < 5 ? "is-done" : ""}>
+                {day < 5 ? "✓" : ""}
+              </i>
+            ))}
+          </div>
+        </div>
+      </section>
+      <AssignedPrograms basePath={basePath} compact />
+      <div className="rv2-grid rv2-grid--learner">
+        <Surface className="rv2-panel rv2-required">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">ÖNCELİKLİ</span>
+              <h2>Yaklaşan zorunlular</h2>
+            </div>
+            <Link href={`${basePath}/learning`}>
+              Tümünü gör <ArrowRight size={15} />
+            </Link>
+          </div>
+          {courses
+            .filter((item) => item.required)
+            .slice(0, 3)
+            .map((course, index) => (
+              <article className="rv2-required__item" key={course.id}>
+                <span
+                  className={`rv2-required__icon rv2-course-tone-${index + 1}`}
+                >
+                  <ShieldCheck size={18} />
+                </span>
+                <div>
+                  <strong>{course.title}</strong>
+                  <small>
+                    {course.duration} dk · Son tarih {course.dueDate}
+                  </small>
+                </div>
+                <StatusPill tone={index === 0 ? "danger" : "warning"}>
+                  {index === 0 ? "2 gün" : index === 1 ? "5 gün" : "9 gün"}
+                </StatusPill>
+                <button aria-label={`${course.title} ayrıntıları`}>
+                  <ChevronRight size={18} />
+                </button>
+              </article>
+            ))}
+        </Surface>
+        <Surface className="rv2-panel rv2-goal-card">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">HAFTALIK HEDEF</span>
+              <h2>3 eğitimin 2’si tamam</h2>
+            </div>
+            <Target size={22} />
+          </div>
+          <div
+            className="rv2-goal-ring"
+            style={{ "--progress": "67" } as React.CSSProperties}
+          >
+            <strong>%67</strong>
+          </div>
+          <p>Bir kısa içerik daha tamamladığında haftalık hedefin bitecek.</p>
+          <Link href={`${basePath}/catalog`}>
+            12 dakikalık öneriyi aç <ArrowUpRight size={15} />
+          </Link>
+        </Surface>
+      </div>
+      <section className="rv2-content-section">
+        <div className="rv2-section-heading">
+          <div>
+            <span className="rv2-eyebrow">SANA ÖZEL</span>
+            <h2>Pratiğini güçlendirecek seçimler</h2>
+          </div>
+          <Link href={`${basePath}/catalog`}>
+            Kataloğu keşfet <ArrowRight size={16} />
+          </Link>
+        </div>
+        <div className="rv2-course-row">
+          {courses.slice(1, 5).map((course, index) => (
+            <Link
+              href={`${basePath}/catalog`}
+              className="rv2-course-card"
+              key={course.id}
+            >
+              <div
+                className={`rv2-course-card__art rv2-course-art-${index + 1}`}
+              >
+                <span>{course.category}</span>
+                <i>0{index + 1}</i>
+                <button aria-label={`${course.title} listeme ekle`}>
+                  <Star size={17} />
+                </button>
+              </div>
+              <div className="rv2-course-card__body">
+                <small>
+                  {course.format} · {course.duration} DK
+                </small>
+                <h3>{course.title}</h3>
+                <p>{course.skill}</p>
+                <span className="rv2-course-card__action">
+                  İncele <ArrowUpRight size={14} />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+      <div className="rv2-grid rv2-grid--half">
+        <Surface className="rv2-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">YOLCULUĞUN</span>
+              <h2>Avukatlık Masterclass</h2>
+            </div>
+            <StatusPill tone="info">3 / 8 adım</StatusPill>
+          </div>
+          <div className="rv2-journey-mini">
+            {["Hukuki yazım", "Vaka stratejisi", "Müzakere", "Liderlik"].map(
+              (step, index) => (
+                <div
+                  key={step}
+                  className={
+                    index < 2 ? "is-complete" : index === 2 ? "is-current" : ""
+                  }
+                >
+                  <i>{index < 2 ? <CheckCircle2 size={16} /> : index + 1}</i>
+                  <span>
+                    <strong>{step}</strong>
+                    <small>
+                      {index < 2
+                        ? "Tamamlandı"
+                        : index === 2
+                          ? "Sıradaki adım"
+                          : "Kilitli"}
+                    </small>
+                  </span>
+                </div>
+              ),
+            )}
+          </div>
+          <Link className="rv2-text-link" href={`${basePath}/journey`}>
+            Yolculuğu aç <ArrowRight size={15} />
+          </Link>
+        </Surface>
+        <Surface className="rv2-panel rv2-community-card">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">TOPLULUK</span>
+              <h2>Bugün akademide</h2>
+            </div>
+            <MessageCircleQuestion size={21} />
+          </div>
+          <div className="rv2-community-people">
+            <span>DA</span>
+            <span>EY</span>
+            <span>MK</span>
+            <i>+18</i>
+          </div>
+          <p>
+            <strong>Ece Yalın</strong>, “Etkili hukuki yazım” koleksiyonuna yeni
+            bir kaynak ekledi.
+          </p>
+          <div className="rv2-community-card__meta">
+            <span>8 yorum</span>
+            <span>24 beğeni</span>
+          </div>
+          <Link className="rv2-text-link" href={`${basePath}/community`}>
+            Akışa git <ArrowRight size={15} />
+          </Link>
+        </Surface>
+      </div>
+    </>
+  );
 }
 
 function AdminDashboard({ basePath, metrics, users }: DashboardProps) {
-  const m = metrics ?? { activeUsers: 42, publishedCourses: 8, publishedPrograms: 3, enrollments: 62, averageCompletion: 54, complianceRate: 78, overdueCount: 3 };
-  const people = users?.slice(0,4) ?? [];
-  return <>
-    <DashboardHeader eyebrow="AKADEMİ OPERASYONU" title="Bugünün önceliklerini netleştirelim." description="Uyum riskleri, içerik hazırlığı ve kullanıcı hareketleri tek operasyon görünümünde."><Link className="rv2-button rv2-button--secondary rv2-button--md" href={`${basePath}/reports`}><BarChart3 size={17} /> Rapor oluştur</Link><Link className="rv2-button rv2-button--primary rv2-button--md" href={`${basePath}/assignments`}><Plus size={17} /> Eğitim ata</Link></DashboardHeader>
-    <section className="rv2-metrics"><Metric label="Aktif öğrenen" value={m.activeUsers} detail="Son 30 günde +%12" tone="info" icon={UsersRound} /><Metric label="Ortalama ilerleme" value={`%${m.averageCompletion}`} detail={`${m.enrollments} aktif kayıt`} tone="success" icon={TrendingUp} /><Metric label="Zorunlu uyum" value={`%${m.complianceRate}`} detail={`${m.overdueCount} geciken kayıt`} tone={m.overdueCount ? "warning" : "success"} icon={ShieldCheck} /><Metric label="Hazır eğitim" value={m.publishedCourses} detail={`${m.publishedPrograms} program yayında`} icon={BookOpen} /></section>
-    <div className="rv2-grid rv2-grid--admin-main"><Surface className="rv2-panel rv2-action-queue"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">BUGÜN</span><h2>Eylem kuyruğu</h2></div><StatusPill tone="warning">7 işlem</StatusPill></div>{[{title:"3 öğrenenin zorunlu eğitimi gecikti",meta:"KVKK ve Bilgi Güvenliği",tone:"danger",icon:CircleAlert},{title:"4 dış sertifika onay bekliyor",meta:"Ekip yöneticilerinden gönderildi",tone:"warning",icon:FileCheck2},{title:"2 eğitim içeriği güncellenmeli",meta:"Politika sürümü değişti",tone:"info",icon:BellRing},{title:"Yeni kullanıcı importu hazır",meta:"18 geçerli · 2 düzeltilecek satır",tone:"success",icon:UserCheck}].map((item) => {const Icon=item.icon; return <Link href={`${basePath}/assignments`} className="rv2-action-row" key={item.title}><i className={`is-${item.tone}`}><Icon size={18} /></i><span><strong>{item.title}</strong><small>{item.meta}</small></span><ChevronRight size={18} /></Link>;})}</Surface><Surface className="rv2-panel rv2-activity-chart"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">SON 7 GÜN</span><h2>Öğrenme hareketi</h2></div><button className="rv2-more" aria-label="Grafik seçenekleri"><MoreHorizontal size={19} /></button></div><TrendChart data={activityTrend} label="Aktif öğrenen" secondaryLabel="Tamamlama" /><div className="rv2-chart-legend"><span><i className="is-primary" /> Aktif öğrenen</span><span><i className="is-accent" /> Tamamlama</span></div></Surface></div>
-    <div className="rv2-grid rv2-grid--admin-secondary"><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">UYUMLULUK</span><h2>Zorunlu eğitim görünümü</h2></div><Link href={`${basePath}/assignments`}>Ayrıntılar <ArrowRight size={15} /></Link></div><div className="rv2-compliance-list">{complianceRows.map((row) => {const percent=Math.round(row.complete/row.assigned*100);return <div key={row.title}><div><strong>{row.title}</strong><span>{row.complete}/{row.assigned} tamamlandı</span></div><ProgressBar value={percent} label={`${row.title} tamamlanma`} /><StatusPill tone={row.overdue ? "danger" : "success"}>{row.overdue ? `${row.overdue} geciken` : "Zamanında"}</StatusPill></div>;})}</div></Surface><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">KULLANICI HAREKETİ</span><h2>Son öğrenenler</h2></div><Link href={`${basePath}/users`}>Tüm kullanıcılar <ArrowRight size={15} /></Link></div><div className="rv2-people-list">{people.length ? people.map((person) => <div key={person.id}><span className="rv2-avatar rv2-avatar--soft">{person.initials}</span><span><strong>{person.name}</strong><small>{person.role} · {person.team}</small></span><div><b>%{person.completion}</b><small>{person.lastSeen}</small></div></div>) : ["Deniz Aras","Ece Yalın","Mert Kaya","Selin Gür"].map((name,index)=><div key={name}><span className="rv2-avatar rv2-avatar--soft">{name.split(" ").map(x=>x[0]).join("")}</span><span><strong>{name}</strong><small>{index%2?"Kıdemli Avukat":"Avukat"} · Oguz Law</small></span><div><b>%{[72,91,48,66][index]}</b><small>{index?"Dün":"8 dk önce"}</small></div></div>)}</div></Surface><Surface className="rv2-panel rv2-system-health"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">SİSTEM SAĞLIĞI</span><h2>Bağlantılar ve gönderimler</h2></div><StatusPill tone="success">Sorun yok</StatusPill></div>{[{name:"E-posta teslimatı",value:"%99,4",tone:"success"},{name:"Supabase veri bağlantısı",value:"Canlı",tone:"success"},{name:"Teams",value:"Kurulum gerekli",tone:"warning"},{name:"Son otomasyon",value:"12 dk önce",tone:"info"}].map(item=><div className="rv2-health-row" key={item.name}><span><i className={`is-${item.tone}`} />{item.name}</span><strong>{item.value}</strong></div>)}<Link className="rv2-text-link" href={`${basePath}/operations`}>Entegrasyonları yönet <ArrowRight size={15} /></Link></Surface></div>
-  </>;
+  const m = metrics ?? {
+    activeUsers: 42,
+    publishedCourses: 8,
+    publishedPrograms: 3,
+    enrollments: 62,
+    averageCompletion: 54,
+    complianceRate: 78,
+    overdueCount: 3,
+  };
+  const people = users?.slice(0, 4) ?? [];
+  return (
+    <>
+      <DashboardHeader
+        eyebrow="AKADEMİ OPERASYONU"
+        title="Bugünün önceliklerini netleştirelim."
+        description="Uyum riskleri, içerik hazırlığı ve kullanıcı hareketleri tek operasyon görünümünde."
+      >
+        <Link
+          className="rv2-button rv2-button--secondary rv2-button--md"
+          href={`${basePath}/reports`}
+        >
+          <BarChart3 size={17} /> Rapor oluştur
+        </Link>
+        <Link
+          className="rv2-button rv2-button--primary rv2-button--md"
+          href={`${basePath}/assignments`}
+        >
+          <Plus size={17} /> Eğitim ata
+        </Link>
+      </DashboardHeader>
+      <section className="rv2-metrics">
+        <Metric
+          label="Aktif öğrenen"
+          value={m.activeUsers}
+          detail="Son 30 günde +%12"
+          tone="info"
+          icon={UsersRound}
+        />
+        <Metric
+          label="Ortalama ilerleme"
+          value={`%${m.averageCompletion}`}
+          detail={`${m.enrollments} aktif kayıt`}
+          tone="success"
+          icon={TrendingUp}
+        />
+        <Metric
+          label="Zorunlu uyum"
+          value={`%${m.complianceRate}`}
+          detail={`${m.overdueCount} geciken kayıt`}
+          tone={m.overdueCount ? "warning" : "success"}
+          icon={ShieldCheck}
+        />
+        <Metric
+          label="Hazır eğitim"
+          value={m.publishedCourses}
+          detail={`${m.publishedPrograms} program yayında`}
+          icon={BookOpen}
+        />
+      </section>
+      <div className="rv2-grid rv2-grid--admin-main">
+        <Surface className="rv2-panel rv2-action-queue">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">BUGÜN</span>
+              <h2>Eylem kuyruğu</h2>
+            </div>
+            <StatusPill tone="warning">7 işlem</StatusPill>
+          </div>
+          {[
+            {
+              title: "3 öğrenenin zorunlu eğitimi gecikti",
+              meta: "KVKK ve Bilgi Güvenliği",
+              tone: "danger",
+              icon: CircleAlert,
+            },
+            {
+              title: "4 dış sertifika onay bekliyor",
+              meta: "Ekip yöneticilerinden gönderildi",
+              tone: "warning",
+              icon: FileCheck2,
+            },
+            {
+              title: "2 eğitim içeriği güncellenmeli",
+              meta: "Politika sürümü değişti",
+              tone: "info",
+              icon: BellRing,
+            },
+            {
+              title: "Yeni kullanıcı importu hazır",
+              meta: "18 geçerli · 2 düzeltilecek satır",
+              tone: "success",
+              icon: UserCheck,
+            },
+          ].map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                href={`${basePath}/assignments`}
+                className="rv2-action-row"
+                key={item.title}
+              >
+                <i className={`is-${item.tone}`}>
+                  <Icon size={18} />
+                </i>
+                <span>
+                  <strong>{item.title}</strong>
+                  <small>{item.meta}</small>
+                </span>
+                <ChevronRight size={18} />
+              </Link>
+            );
+          })}
+        </Surface>
+        <Surface className="rv2-panel rv2-activity-chart">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">SON 7 GÜN</span>
+              <h2>Öğrenme hareketi</h2>
+            </div>
+            <button className="rv2-more" aria-label="Grafik seçenekleri">
+              <MoreHorizontal size={19} />
+            </button>
+          </div>
+          <TrendChart
+            data={activityTrend}
+            label="Aktif öğrenen"
+            secondaryLabel="Tamamlama"
+          />
+          <div className="rv2-chart-legend">
+            <span>
+              <i className="is-primary" /> Aktif öğrenen
+            </span>
+            <span>
+              <i className="is-accent" /> Tamamlama
+            </span>
+          </div>
+        </Surface>
+      </div>
+      <div className="rv2-grid rv2-grid--admin-secondary">
+        <Surface className="rv2-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">UYUMLULUK</span>
+              <h2>Zorunlu eğitim görünümü</h2>
+            </div>
+            <Link href={`${basePath}/assignments`}>
+              Ayrıntılar <ArrowRight size={15} />
+            </Link>
+          </div>
+          <div className="rv2-compliance-list">
+            {complianceRows.map((row) => {
+              const percent = Math.round((row.complete / row.assigned) * 100);
+              return (
+                <div key={row.title}>
+                  <div>
+                    <strong>{row.title}</strong>
+                    <span>
+                      {row.complete}/{row.assigned} tamamlandı
+                    </span>
+                  </div>
+                  <ProgressBar
+                    value={percent}
+                    label={`${row.title} tamamlanma`}
+                  />
+                  <StatusPill tone={row.overdue ? "danger" : "success"}>
+                    {row.overdue ? `${row.overdue} geciken` : "Zamanında"}
+                  </StatusPill>
+                </div>
+              );
+            })}
+          </div>
+        </Surface>
+        <Surface className="rv2-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">KULLANICI HAREKETİ</span>
+              <h2>Son öğrenenler</h2>
+            </div>
+            <Link href={`${basePath}/users`}>
+              Tüm kullanıcılar <ArrowRight size={15} />
+            </Link>
+          </div>
+          <div className="rv2-people-list">
+            {people.length
+              ? people.map((person) => (
+                  <div key={person.id}>
+                    <span className="rv2-avatar rv2-avatar--soft">
+                      {person.initials}
+                    </span>
+                    <span>
+                      <strong>{person.name}</strong>
+                      <small>
+                        {person.role} · {person.team}
+                      </small>
+                    </span>
+                    <div>
+                      <b>%{person.completion}</b>
+                      <small>{person.lastSeen}</small>
+                    </div>
+                  </div>
+                ))
+              : ["Deniz Aras", "Ece Yalın", "Mert Kaya", "Selin Gür"].map(
+                  (name, index) => (
+                    <div key={name}>
+                      <span className="rv2-avatar rv2-avatar--soft">
+                        {name
+                          .split(" ")
+                          .map((x) => x[0])
+                          .join("")}
+                      </span>
+                      <span>
+                        <strong>{name}</strong>
+                        <small>
+                          {index % 2 ? "Kıdemli Avukat" : "Avukat"} · Oguz Law
+                        </small>
+                      </span>
+                      <div>
+                        <b>%{[72, 91, 48, 66][index]}</b>
+                        <small>{index ? "Dün" : "8 dk önce"}</small>
+                      </div>
+                    </div>
+                  ),
+                )}
+          </div>
+        </Surface>
+        <Surface className="rv2-panel rv2-system-health">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">SİSTEM SAĞLIĞI</span>
+              <h2>Bağlantılar ve gönderimler</h2>
+            </div>
+            <StatusPill tone="success">Sorun yok</StatusPill>
+          </div>
+          {[
+            { name: "E-posta teslimatı", value: "%99,4", tone: "success" },
+            {
+              name: "Supabase veri bağlantısı",
+              value: "Canlı",
+              tone: "success",
+            },
+            { name: "Teams", value: "Kurulum gerekli", tone: "warning" },
+            { name: "Son otomasyon", value: "12 dk önce", tone: "info" },
+          ].map((item) => (
+            <div className="rv2-health-row" key={item.name}>
+              <span>
+                <i className={`is-${item.tone}`} />
+                {item.name}
+              </span>
+              <strong>{item.value}</strong>
+            </div>
+          ))}
+          <Link className="rv2-text-link" href={`${basePath}/operations`}>
+            Entegrasyonları yönet <ArrowRight size={15} />
+          </Link>
+        </Surface>
+      </div>
+    </>
+  );
 }
 
 function InstructorDashboard({ basePath }: DashboardProps) {
-  return <><DashboardHeader eyebrow="EĞİTMEN ÇALIŞMA ALANI" title="Bilgiyi etkili bir deneyime dönüştür." description="Oturumların, değerlendirme kuyruğun ve güncellenecek içeriklerin hazır."><Link className="rv2-button rv2-button--primary rv2-button--md" href="/lab/authoring"><WandSparkles size={17} /> Yeni eğitim oluştur</Link></DashboardHeader><section className="rv2-metrics"><Metric label="Bugünkü oturum" value="2" detail="İlki 10:30’da" tone="info" icon={CalendarDays} /><Metric label="Değerlendirilecek" value="12" detail="4 tanesi öncelikli" tone="warning" icon={FileCheck2} /><Metric label="Yanıt bekleyen" value="5" detail="Ortalama 3 saat" icon={MessageCircleQuestion} /><Metric label="Sınıf ilerlemesi" value="%74" detail="Geçen haftaya göre +6" tone="success" icon={TrendingUp} /></section><div className="rv2-grid rv2-grid--instructor"><Surface className="rv2-panel rv2-session-feature"><span className="rv2-eyebrow">SIRADAKİ OTURUM</span><div className="rv2-session-feature__time"><strong>10:30</strong><span>45 dakika sonra</span></div><h2>Hukuki yazım atölyesi</h2><p>Avukatlık Masterclass · 18 katılımcı</p><div><span><UsersRound size={16} /> 16 onaylı</span><span><RadioTower size={16} /> Microsoft Teams</span></div><Button size="lg">Oturuma hazırlan <ArrowRight size={16} /></Button></Surface><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">DEĞERLENDİRME</span><h2>Öncelikli teslimler</h2></div><Link href={`${basePath}/assessments`}>Kuyruğu aç <ArrowRight size={15} /></Link></div>{["Vaka analizi · Deniz Aras","Müzakere planı · Mert Kaya","Hukuki yazım · Selin Gür","Etik ikilem · Ece Yalın"].map((title,index)=><Link className="rv2-assessment-row" href={`${basePath}/assessments`} key={title}><span className="rv2-avatar rv2-avatar--soft">{title.split(" · ")[1].split(" ").map(x=>x[0]).join("")}</span><div><strong>{title.split(" · ")[0]}</strong><small>{title.split(" · ")[1]} · {index<2?"Bugün":"Dün"}</small></div><StatusPill tone={index<2?"warning":"neutral"}>{index<2?"Öncelikli":"Bekliyor"}</StatusPill></Link>)}</Surface></div><div className="rv2-grid rv2-grid--half"><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">İÇERİK SAĞLIĞI</span><h2>Güncellenmesi gerekenler</h2></div><StatusPill tone="warning">2 içerik</StatusPill></div>{courses.slice(0,3).map((course,index)=><div className="rv2-content-health" key={course.id}><span className={`rv2-course-dot rv2-course-art-${index+1}`} /><div><strong>{course.title}</strong><small>{index===0?"Politika bağlantısı güncellenmeli":index===1?"Altyazı incelemesi bekliyor":"Son kontrol 5 gün önce"}</small></div><ChevronRight size={17} /></div>)}</Surface><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">SINIF EĞİLİMİ</span><h2>Haftalık katılım</h2></div><StatusPill tone="success">+%8</StatusPill></div><TrendChart data={activityTrend.map(item=>({...item,value:item.value+26}))} label="Katılım" /></Surface></div></>;
+  return (
+    <>
+      <DashboardHeader
+        eyebrow="EĞİTMEN ÇALIŞMA ALANI"
+        title="Bilgiyi etkili bir deneyime dönüştür."
+        description="Oturumların, değerlendirme kuyruğun ve güncellenecek içeriklerin hazır."
+      >
+        <Link
+          className="rv2-button rv2-button--primary rv2-button--md"
+          href="/lab/authoring"
+        >
+          <WandSparkles size={17} /> Yeni eğitim oluştur
+        </Link>
+      </DashboardHeader>
+      <section className="rv2-metrics">
+        <Metric
+          label="Bugünkü oturum"
+          value="2"
+          detail="İlki 10:30’da"
+          tone="info"
+          icon={CalendarDays}
+        />
+        <Metric
+          label="Değerlendirilecek"
+          value="12"
+          detail="4 tanesi öncelikli"
+          tone="warning"
+          icon={FileCheck2}
+        />
+        <Metric
+          label="Yanıt bekleyen"
+          value="5"
+          detail="Ortalama 3 saat"
+          icon={MessageCircleQuestion}
+        />
+        <Metric
+          label="Sınıf ilerlemesi"
+          value="%74"
+          detail="Geçen haftaya göre +6"
+          tone="success"
+          icon={TrendingUp}
+        />
+      </section>
+      <div className="rv2-grid rv2-grid--instructor">
+        <Surface className="rv2-panel rv2-session-feature">
+          <span className="rv2-eyebrow">SIRADAKİ OTURUM</span>
+          <div className="rv2-session-feature__time">
+            <strong>10:30</strong>
+            <span>45 dakika sonra</span>
+          </div>
+          <h2>Hukuki yazım atölyesi</h2>
+          <p>Avukatlık Masterclass · 18 katılımcı</p>
+          <div>
+            <span>
+              <UsersRound size={16} /> 16 onaylı
+            </span>
+            <span>
+              <RadioTower size={16} /> Microsoft Teams
+            </span>
+          </div>
+          <Button size="lg">
+            Oturuma hazırlan <ArrowRight size={16} />
+          </Button>
+        </Surface>
+        <Surface className="rv2-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">DEĞERLENDİRME</span>
+              <h2>Öncelikli teslimler</h2>
+            </div>
+            <Link href={`${basePath}/assessments`}>
+              Kuyruğu aç <ArrowRight size={15} />
+            </Link>
+          </div>
+          {[
+            "Vaka analizi · Deniz Aras",
+            "Müzakere planı · Mert Kaya",
+            "Hukuki yazım · Selin Gür",
+            "Etik ikilem · Ece Yalın",
+          ].map((title, index) => (
+            <Link
+              className="rv2-assessment-row"
+              href={`${basePath}/assessments`}
+              key={title}
+            >
+              <span className="rv2-avatar rv2-avatar--soft">
+                {title
+                  .split(" · ")[1]
+                  .split(" ")
+                  .map((x) => x[0])
+                  .join("")}
+              </span>
+              <div>
+                <strong>{title.split(" · ")[0]}</strong>
+                <small>
+                  {title.split(" · ")[1]} · {index < 2 ? "Bugün" : "Dün"}
+                </small>
+              </div>
+              <StatusPill tone={index < 2 ? "warning" : "neutral"}>
+                {index < 2 ? "Öncelikli" : "Bekliyor"}
+              </StatusPill>
+            </Link>
+          ))}
+        </Surface>
+      </div>
+      <div className="rv2-grid rv2-grid--half">
+        <Surface className="rv2-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">İÇERİK SAĞLIĞI</span>
+              <h2>Güncellenmesi gerekenler</h2>
+            </div>
+            <StatusPill tone="warning">2 içerik</StatusPill>
+          </div>
+          {courses.slice(0, 3).map((course, index) => (
+            <div className="rv2-content-health" key={course.id}>
+              <span className={`rv2-course-dot rv2-course-art-${index + 1}`} />
+              <div>
+                <strong>{course.title}</strong>
+                <small>
+                  {index === 0
+                    ? "Politika bağlantısı güncellenmeli"
+                    : index === 1
+                      ? "Altyazı incelemesi bekliyor"
+                      : "Son kontrol 5 gün önce"}
+                </small>
+              </div>
+              <ChevronRight size={17} />
+            </div>
+          ))}
+        </Surface>
+        <Surface className="rv2-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">SINIF EĞİLİMİ</span>
+              <h2>Haftalık katılım</h2>
+            </div>
+            <StatusPill tone="success">+%8</StatusPill>
+          </div>
+          <TrendChart
+            data={activityTrend.map((item) => ({
+              ...item,
+              value: item.value + 26,
+            }))}
+            label="Katılım"
+          />
+        </Surface>
+      </div>
+    </>
+  );
 }
 
 function ManagerDashboard({ basePath }: DashboardProps) {
-  return <><DashboardHeader eyebrow="EKİP GELİŞİMİ" title="Ekibinin gelişim nabzı burada." description="Riskli zorunluluklara müdahale et, onayları tamamla ve doğru gelişim adımını öner."><Link className="rv2-button rv2-button--primary rv2-button--md" href={`${basePath}/skills`}><Sparkles size={17} /> Gelişim öner</Link></DashboardHeader><section className="rv2-metrics"><Metric label="Ekip üyesi" value="8" detail="7 aktif · 1 izinde" icon={UsersRound} /><Metric label="Uyum riski" value="3" detail="48 saat içinde" tone="danger" icon={CircleAlert} /><Metric label="Bekleyen onay" value="4" detail="2 dış sertifika" tone="warning" icon={FileCheck2} /><Metric label="Ekip ilerlemesi" value="%68" detail="Şirket ortalaması %54" tone="success" icon={TrendingUp} /></section><div className="rv2-grid rv2-grid--manager"><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">ÖNCELİKLİ EYLEMLER</span><h2>Bu hafta dikkat isteyenler</h2></div><StatusPill tone="danger">3 risk</StatusPill></div>{["Mert Kaya · Bilgi güvenliği gecikti","Deniz Aras · KVKK son 2 gün","Bora Işık · Davet kabul edilmedi","Selin Gür · Dış sertifika onayı"].map((title,index)=><Link className="rv2-team-risk" href={`${basePath}/${index===3?"approvals":"compliance"}`} key={title}><span className="rv2-avatar rv2-avatar--soft">{title.split(" · ")[0].split(" ").map(x=>x[0]).join("")}</span><div><strong>{title.split(" · ")[0]}</strong><small>{title.split(" · ")[1]}</small></div><StatusPill tone={index<2?"danger":index===2?"warning":"info"}>{index<2?"Müdahale":"İncele"}</StatusPill><ChevronRight size={17} /></Link>)}</Surface><Surface className="rv2-panel rv2-skill-gap"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">YETKİNLİK AÇIĞI</span><h2>Ekip gelişim odağı</h2></div><Link href={`${basePath}/skills`}>Ayrıntı <ArrowRight size={15} /></Link></div>{[{name:"Hukuki yazım",value:72},{name:"Müvekkil iletişimi",value:64},{name:"Müzakere",value:51},{name:"Dijital güvenlik",value:83}].map(item=><div key={item.name}><span><strong>{item.name}</strong><small>%{item.value}</small></span><ProgressBar value={item.value} label={`${item.name} yetkinliği`} /></div>)}<div className="rv2-insight"><Sparkles size={18} /><p><strong>Öneri:</strong> Ekip için “Müzakere stratejileri” yolculuğu en yüksek gelişim etkisini sağlar.</p></div></Surface></div><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">EKİP GÖRÜNÜMÜ</span><h2>Öğrenme ilerlemesi</h2></div><Link href={`${basePath}/team`}>Tüm ekip <ArrowRight size={15} /></Link></div><div className="rv2-team-table" role="table" aria-label="Ekip ilerlemesi"><div role="row" className="rv2-team-table__head"><span>Kişi</span><span>Aktif öğrenme</span><span>Uyum</span><span>İlerleme</span><span>Son etkinlik</span></div>{["Deniz Aras","Ece Yalın","Mert Kaya","Selin Gür","Bora Işık"].map((name,index)=><div role="row" key={name}><span><i className="rv2-avatar rv2-avatar--soft">{name.split(" ").map(x=>x[0]).join("")}</i><b>{name}</b></span><span>{[3,2,4,2,0][index]} eğitim</span><span><StatusPill tone={index===2?"danger":index===4?"warning":"success"}>{index===2?"Gecikti":index===4?"Bekliyor":"Uygun"}</StatusPill></span><span><ProgressBar value={[72,91,48,66,0][index]} label={`${name} ilerlemesi`} /></span><span>{["8 dk önce","Bugün","Dün","Dün","Davet bekliyor"][index]}</span></div>)}</div></Surface></>;
+  return (
+    <>
+      <DashboardHeader
+        eyebrow="EKİP GELİŞİMİ"
+        title="Ekibinin gelişim nabzı burada."
+        description="Riskli zorunluluklara müdahale et, onayları tamamla ve doğru gelişim adımını öner."
+      >
+        <Link
+          className="rv2-button rv2-button--primary rv2-button--md"
+          href={`${basePath}/skills`}
+        >
+          <Sparkles size={17} /> Gelişim öner
+        </Link>
+      </DashboardHeader>
+      <section className="rv2-metrics">
+        <Metric
+          label="Ekip üyesi"
+          value="8"
+          detail="7 aktif · 1 izinde"
+          icon={UsersRound}
+        />
+        <Metric
+          label="Uyum riski"
+          value="3"
+          detail="48 saat içinde"
+          tone="danger"
+          icon={CircleAlert}
+        />
+        <Metric
+          label="Bekleyen onay"
+          value="4"
+          detail="2 dış sertifika"
+          tone="warning"
+          icon={FileCheck2}
+        />
+        <Metric
+          label="Ekip ilerlemesi"
+          value="%68"
+          detail="Şirket ortalaması %54"
+          tone="success"
+          icon={TrendingUp}
+        />
+      </section>
+      <div className="rv2-grid rv2-grid--manager">
+        <Surface className="rv2-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">ÖNCELİKLİ EYLEMLER</span>
+              <h2>Bu hafta dikkat isteyenler</h2>
+            </div>
+            <StatusPill tone="danger">3 risk</StatusPill>
+          </div>
+          {[
+            "Mert Kaya · Bilgi güvenliği gecikti",
+            "Deniz Aras · KVKK son 2 gün",
+            "Bora Işık · Davet kabul edilmedi",
+            "Selin Gür · Dış sertifika onayı",
+          ].map((title, index) => (
+            <Link
+              className="rv2-team-risk"
+              href={`${basePath}/${index === 3 ? "approvals" : "compliance"}`}
+              key={title}
+            >
+              <span className="rv2-avatar rv2-avatar--soft">
+                {title
+                  .split(" · ")[0]
+                  .split(" ")
+                  .map((x) => x[0])
+                  .join("")}
+              </span>
+              <div>
+                <strong>{title.split(" · ")[0]}</strong>
+                <small>{title.split(" · ")[1]}</small>
+              </div>
+              <StatusPill
+                tone={index < 2 ? "danger" : index === 2 ? "warning" : "info"}
+              >
+                {index < 2 ? "Müdahale" : "İncele"}
+              </StatusPill>
+              <ChevronRight size={17} />
+            </Link>
+          ))}
+        </Surface>
+        <Surface className="rv2-panel rv2-skill-gap">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">YETKİNLİK AÇIĞI</span>
+              <h2>Ekip gelişim odağı</h2>
+            </div>
+            <Link href={`${basePath}/skills`}>
+              Ayrıntı <ArrowRight size={15} />
+            </Link>
+          </div>
+          {[
+            { name: "Hukuki yazım", value: 72 },
+            { name: "Müvekkil iletişimi", value: 64 },
+            { name: "Müzakere", value: 51 },
+            { name: "Dijital güvenlik", value: 83 },
+          ].map((item) => (
+            <div key={item.name}>
+              <span>
+                <strong>{item.name}</strong>
+                <small>%{item.value}</small>
+              </span>
+              <ProgressBar
+                value={item.value}
+                label={`${item.name} yetkinliği`}
+              />
+            </div>
+          ))}
+          <div className="rv2-insight">
+            <Sparkles size={18} />
+            <p>
+              <strong>Öneri:</strong> Ekip için “Müzakere stratejileri”
+              yolculuğu en yüksek gelişim etkisini sağlar.
+            </p>
+          </div>
+        </Surface>
+      </div>
+      <Surface className="rv2-panel">
+        <div className="rv2-panel__head">
+          <div>
+            <span className="rv2-eyebrow">EKİP GÖRÜNÜMÜ</span>
+            <h2>Öğrenme ilerlemesi</h2>
+          </div>
+          <Link href={`${basePath}/team`}>
+            Tüm ekip <ArrowRight size={15} />
+          </Link>
+        </div>
+        <div
+          className="rv2-team-table"
+          role="table"
+          aria-label="Ekip ilerlemesi"
+        >
+          <div role="row" className="rv2-team-table__head">
+            <span>Kişi</span>
+            <span>Aktif öğrenme</span>
+            <span>Uyum</span>
+            <span>İlerleme</span>
+            <span>Son etkinlik</span>
+          </div>
+          {[
+            "Deniz Aras",
+            "Ece Yalın",
+            "Mert Kaya",
+            "Selin Gür",
+            "Bora Işık",
+          ].map((name, index) => (
+            <div role="row" key={name}>
+              <span>
+                <i className="rv2-avatar rv2-avatar--soft">
+                  {name
+                    .split(" ")
+                    .map((x) => x[0])
+                    .join("")}
+                </i>
+                <b>{name}</b>
+              </span>
+              <span>{[3, 2, 4, 2, 0][index]} eğitim</span>
+              <span>
+                <StatusPill
+                  tone={
+                    index === 2 ? "danger" : index === 4 ? "warning" : "success"
+                  }
+                >
+                  {index === 2 ? "Gecikti" : index === 4 ? "Bekliyor" : "Uygun"}
+                </StatusPill>
+              </span>
+              <span>
+                <ProgressBar
+                  value={[72, 91, 48, 66, 0][index]}
+                  label={`${name} ilerlemesi`}
+                />
+              </span>
+              <span>
+                {["8 dk önce", "Bugün", "Dün", "Dün", "Davet bekliyor"][index]}
+              </span>
+            </div>
+          ))}
+        </div>
+      </Surface>
+    </>
+  );
 }
 
 function PlatformDashboard({ basePath }: DashboardProps) {
-  return <><DashboardHeader eyebrow="PLATFORM KONTROL MERKEZİ" title="Tüm akademiler için tek operasyon resmi." description="Portal sağlığı, destek SLA’sı, kapasite ve güvenlik sinyallerini birlikte yönetin."><Link className="rv2-button rv2-button--secondary rv2-button--md" href={`${basePath}/releases`}><RadioTower size={17} /> Sürüm merkezi</Link><Link className="rv2-button rv2-button--primary rv2-button--md" href={`${basePath}/provisioning`}><Plus size={17} /> Portal oluştur</Link></DashboardHeader><section className="rv2-platform-health"><div><span className="rv2-live-dot" /><strong>Platform operasyonel</strong><small>Son kontrol 34 sn önce</small></div><div><span>API</span><strong>142 ms</strong></div><div><span>Başarılı işler</span><strong>%99,8</strong></div><div><span>Açık P1</span><strong>0</strong></div><div><span>Aktif portal</span><strong>24</strong></div></section><section className="rv2-metrics"><Metric label="Aktif portal" value="24" detail="3 demo · 21 müşteri" tone="info" icon={Building2} /><Metric label="Toplam öğrenen" value="6.482" detail="Bu ay +312" tone="success" icon={UsersRound} /><Metric label="Açık destek" value="9" detail="1 SLA riski" tone="warning" icon={TicketCheck} /><Metric label="Aylık kullanım" value="%61" detail="Planlanan kapasite" icon={Gauge} /></section><div className="rv2-grid rv2-grid--platform"><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">PORTAL FİLOSU</span><h2>Dikkat isteyen müşteriler</h2></div><Link href={`${basePath}/portals`}>Tüm portallar <ArrowRight size={15} /></Link></div>{[{name:"Oguz Law Academy",industry:"Hukuk",status:"Pilot V2",health:"İyi",tone:"success"},{name:"Meridian Hotels Academy",industry:"Otelcilik",status:"Demo",health:"Kurulum",tone:"info"},{name:"Atlas Finans Akademi",industry:"Finans",status:"Canlı",health:"SLA riski",tone:"warning"},{name:"Northstar Retail",industry:"Perakende",status:"Canlı",health:"İyi",tone:"success"}].map((portal,index)=><Link href={`${basePath}/portals`} className="rv2-portal-row" key={portal.name}><span className={`rv2-portal-logo rv2-portal-logo--${index+1}`}>{portal.name.split(" ").slice(0,2).map(x=>x[0]).join("")}</span><div><strong>{portal.name}</strong><small>{portal.industry} · {portal.status}</small></div><StatusPill tone={portal.tone as "success"|"info"|"warning"}>{portal.health}</StatusPill><span>{[842,126,1940,1105][index].toLocaleString("tr-TR")} kullanıcı</span><ChevronRight size={17} /></Link>)}</Surface><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">PLATFORM KULLANIMI</span><h2>Son 7 gün</h2></div><StatusPill tone="success">+%11,2</StatusPill></div><TrendChart data={activityTrend.map((item,index)=>({...item,value:item.value*42+index*18,secondary:(item.secondary??0)*31}))} label="Oturum" secondaryLabel="Tamamlama" /><div className="rv2-chart-summary"><div><span>Öğrenme oturumu</span><strong>9.842</strong></div><div><span>Tamamlama</span><strong>2.418</strong></div><div><span>İçerik dakikası</span><strong>184K</strong></div></div></Surface></div><div className="rv2-grid rv2-grid--thirds"><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">DESTEK SLA</span><h2>Açık talepler</h2></div><StatusPill tone="warning">9 açık</StatusPill></div>{[{label:"P1 Kritik",value:"0",tone:"success"},{label:"P2 Yüksek",value:"2",tone:"warning"},{label:"SLA riski",value:"1",tone:"danger"},{label:"Bugün çözülen",value:"7",tone:"info"}].map(x=><div className="rv2-health-row" key={x.label}><span><i className={`is-${x.tone}`} />{x.label}</span><strong>{x.value}</strong></div>)}<Link className="rv2-text-link" href={`${basePath}/support`}>Destek merkezini aç <ArrowRight size={15} /></Link></Surface><Surface className="rv2-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">İŞ KUYRUĞU</span><h2>Sistem işlemleri</h2></div><StatusPill tone="success">Sağlıklı</StatusPill></div>{[{name:"E-posta gönderimi",value:"1.204",meta:"kuyrukta 18"},{name:"Rapor üretimi",value:"42",meta:"kuyrukta 3"},{name:"SCORM işleme",value:"18",meta:"kuyrukta 1"},{name:"Portal kurulum",value:"2",meta:"kuyrukta 0"}].map(x=><div className="rv2-job-row" key={x.name}><span><strong>{x.name}</strong><small>{x.meta}</small></span><b>{x.value}</b><i /></div>)}<Link className="rv2-text-link" href={`${basePath}/operations`}>İşleri incele <ArrowRight size={15} /></Link></Surface><Surface className="rv2-panel rv2-security-panel"><div className="rv2-panel__head"><div><span className="rv2-eyebrow">GÜVENLİK</span><h2>Son sinyaller</h2></div><ShieldCheck size={22} /></div><div className="rv2-security-score"><strong>98</strong><span>/100</span><small>Platform güven skoru</small></div><p>Kritik bulgu yok. İki portalda MFA kapsamı genişletilmeli.</p><Link className="rv2-text-link" href={`${basePath}/security`}>Güvenlik merkezine git <ArrowRight size={15} /></Link></Surface></div></>;
+  return (
+    <>
+      <DashboardHeader
+        eyebrow="PLATFORM KONTROL MERKEZİ"
+        title="Tüm akademiler için tek operasyon resmi."
+        description="Portal sağlığı, destek SLA’sı, kapasite ve güvenlik sinyallerini birlikte yönetin."
+      >
+        <Link
+          className="rv2-button rv2-button--secondary rv2-button--md"
+          href={`${basePath}/releases`}
+        >
+          <RadioTower size={17} /> Sürüm merkezi
+        </Link>
+        <Link
+          className="rv2-button rv2-button--primary rv2-button--md"
+          href={`${basePath}/provisioning`}
+        >
+          <Plus size={17} /> Portal oluştur
+        </Link>
+      </DashboardHeader>
+      <section className="rv2-platform-health">
+        <div>
+          <span className="rv2-live-dot" />
+          <strong>Platform operasyonel</strong>
+          <small>Son kontrol 34 sn önce</small>
+        </div>
+        <div>
+          <span>API</span>
+          <strong>142 ms</strong>
+        </div>
+        <div>
+          <span>Başarılı işler</span>
+          <strong>%99,8</strong>
+        </div>
+        <div>
+          <span>Açık P1</span>
+          <strong>0</strong>
+        </div>
+        <div>
+          <span>Aktif portal</span>
+          <strong>24</strong>
+        </div>
+      </section>
+      <section className="rv2-metrics">
+        <Metric
+          label="Aktif portal"
+          value="24"
+          detail="3 demo · 21 müşteri"
+          tone="info"
+          icon={Building2}
+        />
+        <Metric
+          label="Toplam öğrenen"
+          value="6.482"
+          detail="Bu ay +312"
+          tone="success"
+          icon={UsersRound}
+        />
+        <Metric
+          label="Açık destek"
+          value="9"
+          detail="1 SLA riski"
+          tone="warning"
+          icon={TicketCheck}
+        />
+        <Metric
+          label="Aylık kullanım"
+          value="%61"
+          detail="Planlanan kapasite"
+          icon={Gauge}
+        />
+      </section>
+      <div className="rv2-grid rv2-grid--platform">
+        <Surface className="rv2-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">PORTAL FİLOSU</span>
+              <h2>Dikkat isteyen müşteriler</h2>
+            </div>
+            <Link href={`${basePath}/portals`}>
+              Tüm portallar <ArrowRight size={15} />
+            </Link>
+          </div>
+          {[
+            {
+              name: "Oguz Law Academy",
+              industry: "Hukuk",
+              status: "Pilot V2",
+              health: "İyi",
+              tone: "success",
+            },
+            {
+              name: "Meridian Hotels Academy",
+              industry: "Otelcilik",
+              status: "Demo",
+              health: "Kurulum",
+              tone: "info",
+            },
+            {
+              name: "Atlas Finans Akademi",
+              industry: "Finans",
+              status: "Canlı",
+              health: "SLA riski",
+              tone: "warning",
+            },
+            {
+              name: "Northstar Retail",
+              industry: "Perakende",
+              status: "Canlı",
+              health: "İyi",
+              tone: "success",
+            },
+          ].map((portal, index) => (
+            <Link
+              href={`${basePath}/portals`}
+              className="rv2-portal-row"
+              key={portal.name}
+            >
+              <span className={`rv2-portal-logo rv2-portal-logo--${index + 1}`}>
+                {portal.name
+                  .split(" ")
+                  .slice(0, 2)
+                  .map((x) => x[0])
+                  .join("")}
+              </span>
+              <div>
+                <strong>{portal.name}</strong>
+                <small>
+                  {portal.industry} · {portal.status}
+                </small>
+              </div>
+              <StatusPill tone={portal.tone as "success" | "info" | "warning"}>
+                {portal.health}
+              </StatusPill>
+              <span>
+                {[842, 126, 1940, 1105][index].toLocaleString("tr-TR")}{" "}
+                kullanıcı
+              </span>
+              <ChevronRight size={17} />
+            </Link>
+          ))}
+        </Surface>
+        <Surface className="rv2-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">PLATFORM KULLANIMI</span>
+              <h2>Son 7 gün</h2>
+            </div>
+            <StatusPill tone="success">+%11,2</StatusPill>
+          </div>
+          <TrendChart
+            data={activityTrend.map((item, index) => ({
+              ...item,
+              value: item.value * 42 + index * 18,
+              secondary: (item.secondary ?? 0) * 31,
+            }))}
+            label="Oturum"
+            secondaryLabel="Tamamlama"
+          />
+          <div className="rv2-chart-summary">
+            <div>
+              <span>Öğrenme oturumu</span>
+              <strong>9.842</strong>
+            </div>
+            <div>
+              <span>Tamamlama</span>
+              <strong>2.418</strong>
+            </div>
+            <div>
+              <span>İçerik dakikası</span>
+              <strong>184K</strong>
+            </div>
+          </div>
+        </Surface>
+      </div>
+      <div className="rv2-grid rv2-grid--thirds">
+        <Surface className="rv2-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">DESTEK SLA</span>
+              <h2>Açık talepler</h2>
+            </div>
+            <StatusPill tone="warning">9 açık</StatusPill>
+          </div>
+          {[
+            { label: "P1 Kritik", value: "0", tone: "success" },
+            { label: "P2 Yüksek", value: "2", tone: "warning" },
+            { label: "SLA riski", value: "1", tone: "danger" },
+            { label: "Bugün çözülen", value: "7", tone: "info" },
+          ].map((x) => (
+            <div className="rv2-health-row" key={x.label}>
+              <span>
+                <i className={`is-${x.tone}`} />
+                {x.label}
+              </span>
+              <strong>{x.value}</strong>
+            </div>
+          ))}
+          <Link className="rv2-text-link" href={`${basePath}/support`}>
+            Destek merkezini aç <ArrowRight size={15} />
+          </Link>
+        </Surface>
+        <Surface className="rv2-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">İŞ KUYRUĞU</span>
+              <h2>Sistem işlemleri</h2>
+            </div>
+            <StatusPill tone="success">Sağlıklı</StatusPill>
+          </div>
+          {[
+            { name: "E-posta gönderimi", value: "1.204", meta: "kuyrukta 18" },
+            { name: "Rapor üretimi", value: "42", meta: "kuyrukta 3" },
+            { name: "SCORM işleme", value: "18", meta: "kuyrukta 1" },
+            { name: "Portal kurulum", value: "2", meta: "kuyrukta 0" },
+          ].map((x) => (
+            <div className="rv2-job-row" key={x.name}>
+              <span>
+                <strong>{x.name}</strong>
+                <small>{x.meta}</small>
+              </span>
+              <b>{x.value}</b>
+              <i />
+            </div>
+          ))}
+          <Link className="rv2-text-link" href={`${basePath}/operations`}>
+            İşleri incele <ArrowRight size={15} />
+          </Link>
+        </Surface>
+        <Surface className="rv2-panel rv2-security-panel">
+          <div className="rv2-panel__head">
+            <div>
+              <span className="rv2-eyebrow">GÜVENLİK</span>
+              <h2>Son sinyaller</h2>
+            </div>
+            <ShieldCheck size={22} />
+          </div>
+          <div className="rv2-security-score">
+            <strong>98</strong>
+            <span>/100</span>
+            <small>Platform güven skoru</small>
+          </div>
+          <p>Kritik bulgu yok. İki portalda MFA kapsamı genişletilmeli.</p>
+          <Link className="rv2-text-link" href={`${basePath}/security`}>
+            Güvenlik merkezine git <ArrowRight size={15} />
+          </Link>
+        </Surface>
+      </div>
+    </>
+  );
 }
 
 export function V2Dashboard(props: DashboardProps) {
@@ -112,4 +1189,3 @@ export function V2Dashboard(props: DashboardProps) {
   if (props.role === "manager") return <ManagerDashboard {...props} />;
   return <PlatformDashboard {...props} />;
 }
-

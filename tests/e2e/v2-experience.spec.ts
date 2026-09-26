@@ -215,6 +215,33 @@ test.describe("Experience V2", () => {
       page.getByText("Atama oluşturuldu. Rapor ekranından izleyebilirsiniz."),
     ).toBeVisible();
     await expect(page.getByText("Program atamaları")).toBeVisible();
+    await page.goto("/avukat/oguzlawacademy/v2/learner/dashboard");
+    await expect(page.getByText("Atanan eğitim programların")).toBeVisible();
+    await expect(
+      page.getByText("Yeni Avukat Dijital Uyum Programı"),
+    ).toBeVisible();
+    await page
+      .locator(".rv2-assigned-program-row")
+      .filter({ hasText: "Yeni Avukat Dijital Uyum Programı" })
+      .getByRole("link", { name: /Atamayı aç/ })
+      .click();
+    await expect(
+      page.getByText("Zorunlu ve planlı öğrenmelerin"),
+    ).toBeVisible();
+    await page
+      .locator(".rv2-assigned-program-card")
+      .filter({ hasText: "Yeni Avukat Dijital Uyum Programı" })
+      .getByRole("button", { name: "Programa başla" })
+      .click();
+    await expect(
+      page.getByRole("button", { name: /Adımı tamamla ve devam et/ }),
+    ).toBeVisible();
+    await page
+      .getByRole("button", { name: /Adımı tamamla ve devam et/ })
+      .click();
+    await expect(
+      page.getByText(/tamamlandı. Sonraki adım açıldı/),
+    ).toBeVisible();
     await page.screenshot({
       path: "test-results/v2-program-studio-1440.png",
       fullPage: true,

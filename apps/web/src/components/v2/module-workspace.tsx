@@ -40,6 +40,7 @@ import type { LiveAcademyUser } from "@/lib/live-dashboard";
 import { roleNavigation, type V2Role } from "@/lib/v2-experience";
 import { PeopleTable } from "./people-table";
 import { ProgramStudio } from "./program-studio";
+import { AssignedPrograms } from "./assigned-programs";
 
 type ModuleWorkspaceProps = {
   role: V2Role;
@@ -151,6 +152,7 @@ function LearningWorkspace({ basePath }: { basePath: string }) {
           <Filter size={16} /> Filtrele
         </Button>
       </WorkspaceHeader>
+      <AssignedPrograms basePath={basePath} />
       <div className="rv2-tabs">
         <button className="is-active">
           Atananlar <span>4</span>

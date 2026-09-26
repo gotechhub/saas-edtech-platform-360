@@ -6,13 +6,13 @@
 
 | Gösterge | Değer |
 |---|---:|
-| Ürün yol haritası ilerlemesi | **%30** |
-| Kalan | **%70** |
+| Ürün yol haritası ilerlemesi | **%31** |
+| Kalan | **%69** |
 | Planlama baz çizgisi | **%100** |
 | Toplam izlenen kabul görevi | **261** |
-| Tamamlanan görev | **79** |
+| Tamamlanan görev | **81** |
 | Devam eden görev | **34** |
-| Kalan görev | **182** |
+| Kalan görev | **180** |
 | Ana modül | **20** |
 | Bağımsız program | **1** |
 
@@ -22,14 +22,14 @@
 
 | Faz | Kapsam | Görev | İlerleme |
 |---|---|---:|---:|
-| B1 · İlk kullanılabilir beta | EP01–EP15 | 79/219 | **%36** |
+| B1 · İlk kullanılabilir beta | EP01–EP15 | 81/219 | **%37** |
 | B2 · Genişletilmiş beta | EP16–EP18 | 0/27 | **%0** |
 | G · Genel sürüm | EP19 | 0/9 | **%0** |
 | S · Sektör ölçekleme | EP20 | 0/6 | **%0** |
 
 ## UXV2 — SaaS EdTech UX/UI Design V2
 
-Ana modül: **EP03** · İlerleme: **%44** · Görev: **41/93** · Aktif: **18**
+Ana modül: **EP03** · İlerleme: **%45** · Görev: **42/93** · Aktif: **18**
 
 | İş paketi | Durum | Görev | İlerleme | Kabul kanıtı | Sıradaki |
 |---|---|---:|---:|---|---|
@@ -38,7 +38,7 @@ Ana modül: **EP03** · İlerleme: **%44** · Görev: **41/93** · Aktif: **18**
 | UXV2-02 · Tokenlar ve temel bileşenler | Devam ediyor | 9/14 | %64 | Semantik tokenlar, web/native paketleri, Manrope tırnaksız tipografi, buton/yüzey/durum/ilerleme primitive’leri, erişilebilir form kontrolleri, açık-koyu tema, sekiz durum sözleşmesi ve Storybook 10 kataloğu | Overlay, tablo, tarih seçici ve combobox bileşenlerinin Storybook kabul matrisi |
 | UXV2-03 · Kabuk ve bilgi mimarisi | Devam ediyor | 6/10 | %60 | Paylaşılabilir V2 URL’leri, beş rol navigasyonu, drawer, mobil alt menü, arama komutu, yetki yükseltmeyen rol önizlemesi, breadcrumb ve rota odak yönetimi | Breadcrumb, tenant değişimi, route manifest testi ve focus kabulü |
 | UXV2-04 · Rol dashboardları | Devam ediyor | 3/10 | %30 | Beş rol için ayrı web/native dashboard düzeni; admin canlı metrik/kullanıcı bağlantısı ve loading/empty/error/offline/stale dahil sekiz durum desteği | Her rolü canlı read model, loading/empty/error/stale ve görsel regresyonla kabul et |
-| UXV2-05 · 26 ekran ailesi dönüşümü | Devam ediyor | 3/15 | %20 | Ana modül çalışma alanları ve program listeleme, içerik ayrıntıları, yayın, atama ve raporlama yaşam döngüsü uçtan uca kabul edildi | Ekran ailelerini işlev, sekiz durum ve uçtan uca görev akışlarıyla tek tek kabul et |
+| UXV2-05 · 26 ekran ailesi dönüşümü | Devam ediyor | 4/15 | %27 | Program listeleme, içerik ayrıntıları, yayın, atama, rapor ve admin→öğrenen atama/ilerleme yaşam döngüsü uçtan uca kabul edildi | Ekran ailelerini işlev, sekiz durum ve uçtan uca görev akışlarıyla tek tek kabul et |
 | UXV2-06 · Asset sistemi | Devam ediyor | 2/8 | %25 | Oguz Law Academy lacivert/beyaz logo varyantları ve hukuk hero varlığı bağlandı | Asset manifesti, eğitim kapakları, sentetik avatarlar, rozetler ve lisans kayıtları |
 | UXV2-07 · Native mobil uygulama | Devam ediyor | 3/10 | %30 | Expo Router SDK 57, beş rol kabuğu, tablet düzeni, SecureStore/PKCE oturumu ve modül listeleri | Gerçek deneyim API’si, push, deep link, offline, WebView editör ve Android/iOS smoke |
 | UXV2-08 · Paralel yayın ve geçiş | Devam ediyor | 1/6 | %17 | Experience version, tema, asset ve editör session migrationı uzak Supabase projesine uygulandı | Pilot grup feature flag, telemetri ve rollback tatbikatı |
@@ -53,7 +53,7 @@ Ana modül: **EP03** · İlerleme: **%44** · Görev: **41/93** · Aktif: **18**
 | EP03 · UI sistemi ve marka | B1 | Devam ediyor | 8/10 | %80 | Beş rol navigasyonu, öğrenen ve admin çalışma alanları, responsive açık/koyu tema, Manrope tırnaksız tipografi sistemi, hukuk akademisi hero varlığı, canlı dashboard metrikleri, gerçek kullanıcı tablosu ve yetkili rol görünümü önizlemesi | Overlay ve ileri veri bileşenleri ile gerçek marka editörü |
 | EP04 · Portal ve lisans fabrikası | B1 | Planlandı | 0/7 | %0 | Plan ve veri sözleşmesi | Sektör seçimi, tenant kurulum işi, entitlement ve kota |
 | EP05 · Katalog, asset ve runtime | B1 | Devam ediyor | 3/10 | %30 | Sentetik eğitim kataloğu, kaynak görünümü, SCORM 1.2/2004 güvenli ZIP doğrulaması ve gerçek Zenefit 2004 paket kabulü | Storage karantina/yayın hattı, video/PDF runtime ve kalıcı paket deposu |
-| EP06 · Program, atama ve uyumluluk | B1 | Devam ediyor | 4/9 | %44 | Program/atama/enrollment şeması; program listeleme ve arama; boş program oluşturma; SCORM, anket, sınav, görev ve kaynak ayrıntı editörleri; sıralama, zorunluluk, yayın, atama ve program raporu | Supabase komut RPC'leri, kalıcı hedef kitle çözümleme ve sürüm motoru |
+| EP06 · Program, atama ve uyumluluk | B1 | Devam ediyor | 5/9 | %56 | Program/atama/enrollment şeması; program listeleme ve arama; içerik editörleri; yayın ve rapor; admin atamasının öğrenen dashboardu/Öğrenmem alanında görünmesi ve adım bazlı ilerleme testi | Supabase komut RPC'leri, kullanıcı bazlı kalıcı enrollment ve sürüm motoru |
 | EP07 · Sınav, vaka ve yetkinlik | B1 | Planlandı | 0/8 | %0 | Plan ve veri sözleşmesi | Sunucu puanlama, deneme politikası, rubrik ve yetkinlik kanıtı |
 | EP08 · Sertifika ve gamification | B1 | Planlandı | 0/8 | %0 | Plan ve ekran akışları | Sertifika snapshot/PDF, doğrulama, XP, rozet ve leaderboard |
 | EP09 · GoAuthoring | B1 | Devam ediyor | 4/10 | %40 | Metin bölümleri, sıralama, quiz, yerel taslak, SCORM 1.2 ZIP export ve inceleme | Kalıcı yayın, blok editörü, medya, lisans ve etkileşim analitiği |
@@ -99,6 +99,7 @@ Ana modül: **EP03** · İlerleme: **%44** · Görev: **41/93** · Aktif: **18**
 
 ## Son değişiklikler
 
+- **2026-09-26:** Admin program ataması öğrenen rolüne bağlandı; dashboard ve Öğrenmem alanında atanan program görünümü, SCORM önizleme, adım tamamlama ve kalıcı ilerleme akışı uçtan uca doğrulandı.
 - **2026-09-26:** Program modülü listeleme → yeni program → içerik ayrıntıları → yayın → atama → rapor yaşam döngüsüne dönüştürüldü; gerçek Zenefit SCORM yüklemesi ve WCAG A/AA kontrollü Playwright kabulü geçti.
 - **2026-09-26:** V2 tipografisi Manrope tırnaksız sisteme taşındı; SCORM 2004 4th Edition Zenefit paketi 85 dosyayla doğrulandı ve program stüdyosunda içerik sıralama, zorunluluk, yayın ve atama akışı Playwright ile geçti.
 - **2026-09-26:** UI Web paketine erişilebilir TextField, SelectField ve ToggleField eklendi; hata, açıklama, zorunluluk ve klavye odağı durumları Storybook üretim derlemesinde doğrulandı.
