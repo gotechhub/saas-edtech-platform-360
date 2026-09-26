@@ -40,10 +40,13 @@ type Program = {
   status: string;
   steps: ProgramStep[];
   assignments: Assignment[];
+  serverId?: string;
+  enrollment?: { id: string; revision: number };
 };
 type ProgressRecord = { completedIds: string[]; updatedAt: string };
 const programsKey = "respongo:oguz-law:programs:v3";
 const progressKey = "respongo:oguz-law:learner-progress:v1";
+const programsApi = "/api/v2/programs";
 const icons = {
   scorm: FileArchive,
   survey: FileQuestion,
@@ -74,6 +77,114 @@ export function AssignedPrograms({
   useEffect(() => {
     setPrograms(read<Program[]>(programsKey, []));
     setProgress(read<Record<string, ProgressRecord>>(progressKey, {}));
+    fetch(`${programsApi}?industry=avukat&tenant=oguzlawacademy`, {
+      cache: "no-store",
+    })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("PROGRAM_READ_FAILED");
+        return response.json();
+      })
+      .then(
+        (payload: {
+          membershipId: string;
+          programs: Array<Record<string, unknown>>;
+          versions: Array<Record<string, unknown>>;
+          assignments: Array<Record<string, unknown>>;
+          enrollments: Array<Record<string, unknown>>;
+        }) => {
+          const ownEnrollments = payload.enrollments.filter(
+            (item) => item.membership_id === payload.membershipId,
+          );
+          const liveProgress: Record<string, ProgressRecord> = {};
+          const live = payload.programs.flatMap((row) => {
+            if (row.status !== "published") return [];
+            const assignment = payload.assignments.find(
+              (item) =>
+                item.program_id === row.id &&
+                ownEnrollments.some(
+                  (enrollment) => enrollment.assignment_id === item.id,
+                ),
+            );
+            if (!assignment) return [];
+            const enrollment = ownEnrollments.find(
+              (item) => item.assignment_id === assignment.id,
+            );
+            const version = payload.versions.find(
+              (item) =>
+                item.program_id === row.id && item.state === "published",
+            );
+            const definition = (version?.definition ?? {}) as {
+              items?: Array<Record<string, unknown>>;
+            };
+            const completedIds =
+              (
+                enrollment?.progress_detail as
+                  | { completed_step_ids?: string[] }
+                  | undefined
+              )?.completed_step_ids ?? [];
+            liveProgress[String(row.id)] = {
+              completedIds,
+              updatedAt: String(enrollment?.last_activity_at ?? ""),
+            };
+            return [
+              {
+                id: String(row.id),
+                serverId: String(row.id),
+                title: String(row.title ?? ""),
+                description: String(row.description ?? ""),
+                status: "published",
+                enrollment: enrollment
+                  ? {
+                      id: String(enrollment.id),
+                      revision: Number(enrollment.revision ?? 1),
+                    }
+                  : undefined,
+                steps: (definition.items ?? []).map((item, index) => ({
+                  id: String(item.id ?? `step-${index + 1}`),
+                  kind: ([
+                    "scorm",
+                    "survey",
+                    "exam",
+                    "task",
+                    "resource",
+                  ].includes(String(item.kind))
+                    ? item.kind
+                    : String(item.sourceType).startsWith("scorm")
+                      ? "scorm"
+                      : "resource") as StepKind,
+                  title: String(item.title ?? `İçerik ${index + 1}`),
+                  required: item.required !== false,
+                  detail: String(item.detail ?? "Öğrenme içeriği"),
+                  description: String(item.description ?? ""),
+                })),
+                assignments: [
+                  {
+                    id: String(assignment.id),
+                    audience:
+                      assignment.audience_type === "everyone"
+                        ? ["Tüm avukatlar"]
+                        : ["Rol hedef kitlesi"],
+                    dueDate: String(assignment.due_at ?? "").slice(0, 10),
+                    required: assignment.required === true,
+                    assignedAt: String(assignment.created_at ?? "").slice(
+                      0,
+                      10,
+                    ),
+                    learners: 1,
+                    completed: enrollment?.state === "completed" ? 1 : 0,
+                  },
+                ],
+              } satisfies Program,
+            ];
+          });
+          if (live.length) {
+            setPrograms(live);
+            setProgress(liveProgress);
+            localStorage.setItem(progressKey, JSON.stringify(liveProgress));
+          }
+        },
+      )
+      .catch(() => undefined);
   }, []);
   const assigned = useMemo(
     () =>
@@ -90,13 +201,45 @@ export function AssignedPrograms({
     [programs],
   );
   const active = assigned.find((p) => p.id === activeId);
-  const saveProgress = (programId: string, completedIds: string[]) => {
+  const saveProgress = async (programId: string, completedIds: string[]) => {
     const next = {
       ...progress,
       [programId]: { completedIds, updatedAt: new Date().toISOString() },
     };
     setProgress(next);
     localStorage.setItem(progressKey, JSON.stringify(next));
+    const program = programs.find((item) => item.id === programId);
+    if (!program?.enrollment) return;
+    const response = await fetch(programsApi, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        industry: "avukat",
+        tenant: "oguzlawacademy",
+        action: "progress",
+        enrollmentId: program.enrollment.id,
+        completedStepIds: completedIds,
+        totalSteps: program.steps.length,
+        expectedRevision: program.enrollment.revision,
+      }),
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || "PROGRESS_SAVE_FAILED");
+    setPrograms((items) =>
+      items.map((item) =>
+        item.id === programId && item.enrollment
+          ? {
+              ...item,
+              enrollment: {
+                ...item.enrollment,
+                revision: Number(
+                  result.data?.revision ?? item.enrollment.revision,
+                ),
+              },
+            }
+          : item,
+      ),
+    );
   };
   if (!assigned.length) return null;
   if (active) {
@@ -188,14 +331,20 @@ export function AssignedPrograms({
                   </Link>
                 ) : null}
                 <Button
-                  onClick={() => {
-                    saveProgress(active.id, [
-                      ...record.completedIds,
-                      nextStep.id,
-                    ]);
-                    setNotice(
-                      `${nextStep.title} tamamlandı. Sonraki adım açıldı.`,
-                    );
+                  onClick={async () => {
+                    try {
+                      await saveProgress(active.id, [
+                        ...record.completedIds,
+                        nextStep.id,
+                      ]);
+                      setNotice(
+                        `${nextStep.title} tamamlandı. Sonraki adım açıldı.`,
+                      );
+                    } catch {
+                      setNotice(
+                        "İlerleme bu cihazda korundu; sunucu senkronizasyonu tekrar denenecek.",
+                      );
+                    }
                   }}
                 >
                   <CheckCircle2 size={16} /> Adımı tamamla ve devam et

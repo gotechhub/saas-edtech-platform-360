@@ -6,7 +6,7 @@
   "planningProgress": 100,
   "method": "Ürün yüzdesi, tamamlanmış kabul görevlerinin toplam izlenen kabul görevlerine oranıdır. Devam eden görevler tamamlanmış sayılmaz. Planlama yüzdesi ürün geliştirme yüzdesine dahil değildir.",
   "evidence": {
-    "unitAndDatabaseTests": 63,
+    "unitAndDatabaseTests": 67,
     "browserTests": 20,
     "typecheck": "Web + mobil geçti",
     "productionBuild": "Geçti · V2 API ve rotalar dahil",
@@ -96,10 +96,10 @@
       "name": "Program, atama ve uyumluluk",
       "status": "in_progress",
       "total": 9,
-      "done": 5,
+      "done": 6,
       "active": 2,
-      "delivered": "Program/atama/enrollment şeması; program listeleme ve arama; içerik editörleri; yayın ve rapor; admin atamasının öğrenen dashboardu/Öğrenmem alanında görünmesi ve adım bazlı ilerleme testi",
-      "next": "Supabase komut RPC'leri, kullanıcı bazlı kalıcı enrollment ve sürüm motoru"
+      "delivered": "Program/atama/enrollment şeması; program listeleme ve arama; içerik editörleri; immutable sürüm/yayın RPC'leri; idempotent hedef kitle ataması; kullanıcı bazlı kalıcı enrollment ve ilerleme; admin→öğrenen yaşam döngüsü",
+      "next": "Program rollback, gelişmiş dinamik hedef kitle, muafiyet ve ayrıntılı uyumluluk raporu"
     },
     {
       "id": "EP07",
@@ -297,6 +297,10 @@
   "recent": [
     {
       "date": "2026-09-26",
+      "text": "EP06 program yaşam döngüsü Supabase'e taşındı; sürümlü taslak/yayın, idempotent atama, gerçek enrollment üretimi ve kullanıcı bazlı kalıcı ilerleme gerçek Zenefit SCORM paketiyle uçtan uca geçti."
+    },
+    {
+      "date": "2026-09-26",
       "text": "Admin program ataması öğrenen rolüne bağlandı; dashboard ve Öğrenmem alanında atanan program görünümü, SCORM önizleme, adım tamamlama ve kalıcı ilerleme akışı uçtan uca doğrulandı."
     },
     {
@@ -388,7 +392,7 @@
       "name": "SaaS EdTech UX/UI Design V2",
       "status": "in_progress",
       "total": 93,
-      "done": 42,
+      "done": 43,
       "active": 18,
       "delivered": "V1 korunarak bağımsız V2 dalı; resmî 21st skill paketi ve MCP kaydı; Respongo proje skilli; ortak design token, ui-web ve ui-native paketleri; gerçek URL mimarisi; beş rol dashboardu; responsive web kabuğu; asset manifest/SVG çekirdeği; güvenli deneyim APIleri; Expo SDK 57 native uygulama kabuğu; uzak Supabase V2 migrationı ve tarayıcı kabul baselineları",
       "next": "Görsel baseline ve regresyon; kalan ekran durumları; asset manifest/kapak seti; Storybook; canlı rol read modelleri; push/offline; pilot feature flag ve UAT",
@@ -447,10 +451,10 @@
           "id": "UXV2-05",
           "name": "26 ekran ailesi dönüşümü",
           "total": 15,
-          "done": 4,
+          "done": 5,
           "active": 2,
           "status": "in_progress",
-          "evidence": "Program listeleme, içerik ayrıntıları, yayın, atama, rapor ve admin→öğrenen atama/ilerleme yaşam döngüsü uçtan uca kabul edildi",
+          "evidence": "Program listeleme, içerik ayrıntıları, immutable yayın, Supabase atama/enrollment, rapor ve admin→öğrenen kalıcı ilerleme yaşam döngüsü gerçek SCORM paketiyle uçtan uca kabul edildi",
           "next": "Ekran ailelerini işlev, sekiz durum ve uçtan uca görev akışlarıyla tek tek kabul et"
         },
         {

@@ -154,12 +154,12 @@ test.describe("Experience V2", () => {
     test.setTimeout(90000);
     await page.setViewportSize({ width: 1440, height: 1100 });
     const path = "/avukat/oguzlawacademy/v2/admin/program-builder";
+    const programTitle = `Yeni Avukat Dijital Uyum Programı ${Date.now()}`;
     await signIn(page, path);
 
     await expect(
       page.getByRole("heading", { name: "Eğitim programları" }),
     ).toBeVisible();
-    await expect(page.getByText("Zenefit Z Kuşağı ile Çalışmak")).toBeVisible();
     await page.screenshot({
       path: "test-results/v2-program-list-1440.png",
       fullPage: true,
@@ -169,9 +169,7 @@ test.describe("Experience V2", () => {
       .analyze();
     expect(listAccessibility.violations).toEqual([]);
     await page.getByRole("button", { name: "Yeni eğitim programı" }).click();
-    await page
-      .getByLabel("Program adı")
-      .fill("Yeni Avukat Dijital Uyum Programı");
+    await page.getByLabel("Program adı").fill(programTitle);
     await page
       .getByLabel("Açıklama")
       .fill(
@@ -204,11 +202,13 @@ test.describe("Experience V2", () => {
 
     await page.getByRole("button", { name: "Programı yayınla" }).click();
     await expect(
-      page.getByText("Program yayınlandı. Artık hedef kitleye atanabilir."),
+      page.getByText(
+        "Program yayınlandı. Değişmez sürüm oluşturuldu ve atamaya hazır.",
+      ),
     ).toBeVisible();
     await page.getByRole("button", { name: "Atama oluştur" }).click();
     await expect(
-      page.getByRole("heading", { name: "Yeni Avukat Dijital Uyum Programı" }),
+      page.getByRole("heading", { name: programTitle }),
     ).toBeVisible();
     await page.getByRole("button", { name: "Atamayı başlat" }).click();
     await expect(
@@ -217,12 +217,10 @@ test.describe("Experience V2", () => {
     await expect(page.getByText("Program atamaları")).toBeVisible();
     await page.goto("/avukat/oguzlawacademy/v2/learner/dashboard");
     await expect(page.getByText("Atanan eğitim programların")).toBeVisible();
-    await expect(
-      page.getByText("Yeni Avukat Dijital Uyum Programı"),
-    ).toBeVisible();
+    await expect(page.getByText(programTitle)).toBeVisible();
     await page
       .locator(".rv2-assigned-program-row")
-      .filter({ hasText: "Yeni Avukat Dijital Uyum Programı" })
+      .filter({ hasText: programTitle })
       .getByRole("link", { name: /Atamayı aç/ })
       .click();
     await expect(
@@ -230,7 +228,7 @@ test.describe("Experience V2", () => {
     ).toBeVisible();
     await page
       .locator(".rv2-assigned-program-card")
-      .filter({ hasText: "Yeni Avukat Dijital Uyum Programı" })
+      .filter({ hasText: programTitle })
       .getByRole("button", { name: "Programa başla" })
       .click();
     await expect(

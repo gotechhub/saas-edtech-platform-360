@@ -70,10 +70,15 @@ type Program = {
   steps: ProgramStep[];
   assignments: Assignment[];
   updatedAt: string;
+  serverId?: string;
+  revision?: number;
+  currentVersion?: number;
 };
 type View = "list" | "editor" | "assign" | "report";
 
 const programsKey = "respongo:oguz-law:programs:v3";
+const programsApi = "/api/v2/programs";
+const portalQuery = "industry=avukat&tenant=oguzlawacademy";
 const meta: Record<
   StepKind,
   { label: string; icon: typeof FileArchive; detail: string }
@@ -175,6 +180,118 @@ function readPrograms() {
   return seeded;
 }
 
+async function programCommand(payload: Record<string, unknown>) {
+  const response = await fetch(programsApi, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      industry: "avukat",
+      tenant: "oguzlawacademy",
+      ...payload,
+    }),
+  });
+  const result = await response.json();
+  if (!response.ok)
+    throw new Error(result.detail || result.error || "PROGRAM_COMMAND_FAILED");
+  return result.data as {
+    program_id?: string;
+    revision?: number;
+    version?: number;
+    assignment_id?: string;
+    enrollment_count?: number;
+  };
+}
+
+function programsFromApi(payload: {
+  programs?: Array<Record<string, unknown>>;
+  versions?: Array<Record<string, unknown>>;
+  assignments?: Array<Record<string, unknown>>;
+  enrollments?: Array<Record<string, unknown>>;
+}): Program[] {
+  const versions = payload.versions ?? [];
+  const assignments = payload.assignments ?? [];
+  const enrollments = payload.enrollments ?? [];
+  return (payload.programs ?? []).map((row) => {
+    const currentVersion = Number(row.current_version ?? 1);
+    const version = versions.find(
+      (item) =>
+        item.program_id === row.id && Number(item.version) === currentVersion,
+    );
+    const definition = (version?.definition ?? {}) as {
+      items?: Array<Record<string, unknown>>;
+    };
+    const programAssignments = assignments.filter(
+      (item) => item.program_id === row.id,
+    );
+    return {
+      id: String(row.id),
+      serverId: String(row.id),
+      title: String(row.title ?? ""),
+      description: String(row.description ?? ""),
+      ordered: row.mode === "ordered",
+      passScore: 70,
+      status:
+        row.status === "published"
+          ? "published"
+          : row.status === "retired"
+            ? "retired"
+            : "draft",
+      revision: Number(row.revision ?? 1),
+      currentVersion,
+      updatedAt: String(row.updated_at ?? new Date().toISOString()),
+      steps: (definition.items ?? []).map((item, index) => {
+        const rawKind = String(item.kind ?? "resource");
+        const sourceType = String(item.sourceType ?? "");
+        const kind: StepKind =
+          rawKind === "scorm" || sourceType.startsWith("scorm")
+            ? "scorm"
+            : ["survey", "exam", "task", "resource"].includes(rawKind)
+              ? (rawKind as StepKind)
+              : "resource";
+        return {
+          ...step(kind, String(item.title ?? `İçerik ${index + 1}`)),
+          id: String(item.id ?? crypto.randomUUID()),
+          required: item.required !== false,
+          detail: String(item.detail ?? meta[kind].detail),
+          description: String(item.description ?? ""),
+          passScore: Number(item.passScore ?? 70),
+          questionCount: Number(
+            item.questionCount ?? (kind === "survey" ? 5 : 10),
+          ),
+          attempts: Number(item.attempts ?? 2),
+          resourceUrl: String(item.resourceUrl ?? ""),
+          approvalRequired: item.approvalRequired !== false,
+          profile: typeof item.profile === "string" ? item.profile : undefined,
+        };
+      }),
+      assignments: programAssignments.map((item) => {
+        const related = enrollments.filter(
+          (enrollment) => enrollment.assignment_id === item.id,
+        );
+        return {
+          id: String(item.id),
+          audience:
+            item.audience_type === "everyone"
+              ? ["Tüm avukatlar"]
+              : [
+                  String(
+                    (item.audience_rule as { label?: string } | undefined)
+                      ?.label ?? "Hedef kitle",
+                  ),
+                ],
+          dueDate: String(item.due_at ?? "").slice(0, 10),
+          required: item.required === true,
+          assignedAt: String(item.created_at ?? "").slice(0, 10),
+          learners: related.length,
+          completed: related.filter(
+            (enrollment) => enrollment.state === "completed",
+          ).length,
+        };
+      }),
+    };
+  });
+}
+
 export function ProgramStudio() {
   const [programs, setPrograms] = useState<Program[]>(seeded);
   const [view, setView] = useState<View>("list");
@@ -189,7 +306,23 @@ export function ProgramStudio() {
   const [dueDate, setDueDate] = useState("2026-10-31");
   const [assignmentRequired, setAssignmentRequired] = useState(true);
   const fileRef = useRef<HTMLInputElement>(null);
-  useEffect(() => setPrograms(readPrograms()), []);
+  useEffect(() => {
+    setPrograms(readPrograms());
+    fetch(`${programsApi}?${portalQuery}`, { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("PROGRAM_READ_FAILED");
+        return response.json();
+      })
+      .then((payload) => {
+        const live = programsFromApi(payload);
+        if (live.length) {
+          setPrograms(live);
+          setCurrentId(live[0].id);
+          localStorage.setItem(programsKey, JSON.stringify(live));
+        }
+      })
+      .catch(() => undefined);
+  }, []);
   const current = programs.find((p) => p.id === currentId) ?? programs[0];
   const selectedStep =
     current?.steps.find((item) => item.id === selectedStepId) ?? null;
@@ -207,13 +340,30 @@ export function ProgramStudio() {
     localStorage.setItem(programsKey, JSON.stringify(next));
   };
   const update = (change: Partial<Program>) =>
-    persist(
-      programs.map((p) =>
+    setPrograms((previous) => {
+      const next = previous.map((p) =>
         p.id === currentId
           ? { ...p, ...change, updatedAt: new Date().toISOString() }
           : p,
-      ),
-    );
+      );
+      localStorage.setItem(programsKey, JSON.stringify(next));
+      return next;
+    });
+  const appendStep = (item: ProgramStep) =>
+    setPrograms((previous) => {
+      const next = previous.map((program) =>
+        program.id === currentId
+          ? {
+              ...program,
+              steps: [...program.steps, item],
+              status: "draft" as const,
+              updatedAt: new Date().toISOString(),
+            }
+          : program,
+      );
+      localStorage.setItem(programsKey, JSON.stringify(next));
+      return next;
+    });
   const updateStep = (id: string, change: Partial<ProgramStep>) =>
     update({
       steps: current.steps.map((item) =>
@@ -253,16 +403,53 @@ export function ProgramStudio() {
     persist(programs.filter((p) => p.id !== program.id));
     setNotice("Taslak program silindi.");
   };
-  const save = () => {
+  const syncDraft = async (program: Program) => {
+    const result = await programCommand({
+      action: "save_draft",
+      programId: program.serverId ?? null,
+      title: program.title,
+      description: program.description,
+      mode: program.ordered ? "ordered" : "flexible",
+      definition: { items: program.steps },
+      expectedRevision: program.revision ?? 0,
+    });
+    const serverId = result.program_id ?? program.serverId;
+    const next = programs.map((item) =>
+      item.id === program.id
+        ? {
+            ...item,
+            serverId,
+            revision: result.revision ?? item.revision,
+            currentVersion: result.version ?? item.currentVersion,
+            updatedAt: new Date().toISOString(),
+          }
+        : item,
+    );
+    persist(next);
+    return {
+      ...program,
+      serverId,
+      revision: result.revision ?? program.revision,
+      currentVersion: result.version ?? program.currentVersion,
+    };
+  };
+  const save = async () => {
     if (!current.title.trim()) {
       setNotice("Program adı zorunludur.");
       return false;
     }
     update({});
-    setNotice("Taslak ve bütün içerik ayarları kaydedildi.");
+    try {
+      await syncDraft(current);
+      setNotice("Taslak güvenli biçimde kaydedildi ve sürümlendi.");
+    } catch {
+      setNotice(
+        "Supabase senkronizasyonu bekliyor; taslak bu cihazda korundu.",
+      );
+    }
     return true;
   };
-  const publish = () => {
+  const publish = async () => {
     if (!current.title.trim() || !current.steps.length) {
       setNotice("Yayın için program adı ve en az bir içerik gerekli.");
       return;
@@ -271,12 +458,38 @@ export function ProgramStudio() {
       setNotice("Tüm program adımlarının adı olmalı.");
       return;
     }
-    update({ status: "published" });
-    setNotice("Program yayınlandı. Artık hedef kitleye atanabilir.");
+    try {
+      const synced = await syncDraft(current);
+      const result = await programCommand({
+        action: "publish",
+        programId: synced.serverId,
+        expectedRevision: synced.revision,
+      });
+      const next = programs.map((item) =>
+        item.id === current.id
+          ? {
+              ...item,
+              serverId: synced.serverId,
+              revision: result.revision ?? synced.revision,
+              currentVersion: result.version ?? synced.currentVersion,
+              status: "published" as const,
+              updatedAt: new Date().toISOString(),
+            }
+          : item,
+      );
+      persist(next);
+      setNotice(
+        "Program yayınlandı. Değişmez sürüm oluşturuldu ve atamaya hazır.",
+      );
+    } catch {
+      setNotice(
+        "Program yayınlanamadı. Bağlantıyı ve güncel sürümü kontrol edin.",
+      );
+    }
   };
   const add = (kind: Exclude<StepKind, "scorm">) => {
     const item = step(kind);
-    update({ steps: [...current.steps, item], status: "draft" });
+    appendStep(item);
     setSelectedStepId(item.id);
     setNotice(
       `${meta[kind].label} eklendi. Ayrıntıları tamamlayıp Kaydet ve devam et seçin.`,
@@ -305,7 +518,7 @@ export function ProgramStudio() {
         detail: `${result.profile.includes("2004") ? "SCORM 2004" : "SCORM 1.2"} · ${result.fileCount} dosya`,
         profile: result.profile,
       };
-      update({ steps: [...current.steps, item], status: "draft" });
+      appendStep(item);
       setSelectedStepId(item.id);
       setNotice(
         `${result.title} doğrulandı. Ayarlarını kontrol edip Kaydet ve devam et seçin.`,
@@ -317,7 +530,7 @@ export function ProgramStudio() {
       if (fileRef.current) fileRef.current.value = "";
     }
   };
-  const assign = () => {
+  const assign = async () => {
     if (current.status !== "published") {
       setNotice("Atamadan önce programı yayınlayın.");
       return;
@@ -326,15 +539,44 @@ export function ProgramStudio() {
       setNotice("Hedef kitle ve son tarih zorunludur.");
       return;
     }
+    const idempotencyKey = crypto.randomUUID();
+    let assignmentId = idempotencyKey;
+    let learnerCount = selectedAudience.has("Tüm avukatlar")
+      ? 42
+      : selectedAudience.size * 8;
+    try {
+      if (!current.serverId) throw new Error("PROGRAM_NOT_SYNCED");
+      const audienceType = selectedAudience.has("Tüm avukatlar")
+        ? "everyone"
+        : "role";
+      const result = await programCommand({
+        action: "assign",
+        programId: current.serverId,
+        audienceType,
+        audienceRule:
+          audienceType === "everyone"
+            ? {}
+            : { role: "learner", label: [...selectedAudience].join(", ") },
+        required: assignmentRequired,
+        dueAt: new Date(`${dueDate}T23:59:59.000Z`).toISOString(),
+        passScore: current.passScore,
+        idempotencyKey,
+      });
+      assignmentId = result.assignment_id ?? assignmentId;
+      learnerCount = result.enrollment_count ?? learnerCount;
+    } catch (error) {
+      const code =
+        error instanceof Error ? error.message : "PROGRAM_ASSIGNMENT_FAILED";
+      setNotice(`Atama sunucuya kaydedilemedi: ${code}`);
+      return;
+    }
     const record: Assignment = {
-      id: crypto.randomUUID(),
+      id: assignmentId,
       audience: [...selectedAudience],
       dueDate,
       required: assignmentRequired,
       assignedAt: new Date().toISOString().slice(0, 10),
-      learners: selectedAudience.has("Tüm avukatlar")
-        ? 42
-        : selectedAudience.size * 8,
+      learners: learnerCount,
       completed: 0,
     };
     update({ assignments: [...current.assignments, record] });
@@ -615,9 +857,9 @@ function EditorView({
   uploading: boolean;
   fileRef: React.RefObject<HTMLInputElement | null>;
   back: () => void;
-  save: () => boolean;
-  publish: () => void;
-  assign: () => void;
+  save: () => boolean | Promise<boolean>;
+  publish: () => void | Promise<void>;
+  assign: () => void | Promise<void>;
   report: () => void;
   add: (k: Exclude<StepKind, "scorm">) => void;
   upload: (f: File) => void;
@@ -1057,7 +1299,7 @@ function AssignmentView({
   setRequired: (v: boolean) => void;
   notice: string;
   back: () => void;
-  assign: () => void;
+  assign: () => void | Promise<void>;
 }) {
   const audiences = [
     "Tüm avukatlar",
