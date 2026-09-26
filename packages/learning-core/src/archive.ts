@@ -12,7 +12,7 @@ const limits = {
   manifest: 256 * 1024,
 };
 export type InspectedPackage = {
-  profile: "scorm12_single_v1";
+  profile: "scorm12_single_v1" | "scorm2004_single_v1";
   title: string;
   launchPath: string;
   sha256: string;
@@ -30,7 +30,7 @@ const array = (value: any): any[] =>
 export function inspectManifest(
   xml: string,
   files: Set<string>,
-): { title: string; launchPath: string } {
+): { title: string; launchPath: string; profile: InspectedPackage["profile"] } {
   if (
     Buffer.byteLength(xml) > limits.manifest ||
     /<!DOCTYPE|<!ENTITY/i.test(xml)
@@ -49,8 +49,25 @@ export function inspectManifest(
   }).parse(xml);
   const m = doc.manifest;
   if (!m || m.manifest) throw new Error("Tek bir kök manifest gerekli.");
-  if (m.metadata?.schema !== "ADL SCORM" || m.metadata?.schemaversion !== "1.2")
-    throw new Error("Yalnızca SCORM 1.2 tek-SCO profili destekleniyor.");
+  const schema =
+    typeof m.metadata?.schema === "string" ? m.metadata.schema.trim() : "";
+  const schemaVersion =
+    typeof m.metadata?.schemaversion === "string"
+      ? m.metadata.schemaversion.trim()
+      : "";
+  const profile: InspectedPackage["profile"] =
+    schema === "ADL SCORM" && schemaVersion === "1.2"
+      ? "scorm12_single_v1"
+      : schema === "ADL SCORM" &&
+          /^(?:2004(?:\s+(?:2nd|3rd|4th)\s+Edition)?|CAM\s+1\.3)$/i.test(
+            schemaVersion,
+          )
+        ? "scorm2004_single_v1"
+        : (() => {
+            throw new Error(
+              "Yalnızca SCORM 1.2 veya SCORM 2004 tek-SCO paketi destekleniyor.",
+            );
+          })();
   const organizations = array(m.organizations?.organization);
   if (organizations.length !== 1) throw new Error("Tek organizasyon gerekli.");
   const org = organizations[0],
@@ -60,7 +77,7 @@ export function inspectManifest(
   const resources = array(m.resources?.resource);
   if (
     resources.length !== 1 ||
-    resources[0]["@scormtype"] !== "sco" ||
+    (resources[0]["@scormtype"] ?? resources[0]["@scormType"]) !== "sco" ||
     resources[0]["@type"] !== "webcontent" ||
     resources[0].dependency
   )
@@ -91,7 +108,7 @@ export function inspectManifest(
   }
   const title = typeof org.title === "string" ? org.title : "SCORM eğitimi";
   if (title.length > 500) throw new Error("Manifest başlığı çok uzun.");
-  return { title, launchPath };
+  return { title, launchPath, profile };
 }
 
 /** Bounded in-memory quarantine inspection. Never writes package paths to disk or publishes a package. */
@@ -161,9 +178,9 @@ export async function inspectScormZip(
             total + entry.uncompressedSize > limits.total
           )
             throw new Error("Açılmış paket boyut sınırı aşıldı.");
-          // No nested archives, executables, SVG or media in this deliberately narrow proof profile.
+          // No nested archives, executables or SVG. Standard SCORM schemas, fonts and MP4 assets are data-only.
           if (
-            !/\.(html?|css|js|json|xml|txt|png|jpe?g|webp|gif|woff2?)$/i.test(
+            !/\.(html?|css|js|json|xml|xsd|dtd|txt|png|jpe?g|webp|gif|woff2?|mp4)$/i.test(
               name,
             )
           )
@@ -214,7 +231,7 @@ export async function inspectScormZip(
     );
     return {
       ...projection,
-      profile: "scorm12_single_v1",
+      profile: projection.profile,
       sha256: createHash("sha256").update(bytes).digest("hex"),
       files,
       scanStatus: "not_scanned",

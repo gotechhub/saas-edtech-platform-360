@@ -1,6 +1,10 @@
 :root {
-  --rv2-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --rv2-font-editorial: "Source Serif 4", Georgia, serif;
+  --rv2-font-sans:
+    "Manrope Variable", Manrope, ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --rv2-font-editorial:
+    "Manrope Variable", Manrope, ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
   --rv2-bg: #f4f5f7;
   --rv2-bg-subtle: #eceff2;
   --rv2-surface: #ffffff;

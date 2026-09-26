@@ -13,5 +13,6 @@ docs/planning/research/*.png
 docs/planning/research/*.jpg
 supabase/.temp/
 .codex/*.log
+.codex-logs/
 saas-edtech-platform-360.txt
 apps/web/storybook-static/

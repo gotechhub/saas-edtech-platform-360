@@ -44,6 +44,24 @@ describe("bounded authoring and package proof", () => {
     expect(result.scanStatus).toBe("not_scanned");
     expect(result.sha256).toMatch(/^[a-f0-9]{64}$/);
   });
+  it("accepts a bounded SCORM 2004 single-SCO package", async () => {
+    const manifest = `<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="m1" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3">
+  <metadata><schema>ADL SCORM</schema><schemaversion>2004 4th Edition</schemaversion></metadata>
+  <organizations default="org1"><organization identifier="org1"><title>SCORM 2004 Hukuk Eğitimi</title><item identifier="item1" identifierref="res1"><title>Modül</title></item></organization></organizations>
+  <resources><resource identifier="res1" type="webcontent" adlcp:scormType="sco" href="index.html"><file href="index.html"/></resource></resources>
+</manifest>`;
+    const result = await inspectScormZip(
+      pack({
+        "imsmanifest.xml": manifest,
+        "index.html": "<!doctype html><title>SCORM 2004</title>",
+      }),
+    );
+    expect(result.profile).toBe("scorm2004_single_v1");
+    expect(result.title).toBe("SCORM 2004 Hukuk Eğitimi");
+    expect(result.launchPath).toBe("index.html");
+  });
+
   it("keeps author strings inert in HTML, XML and JavaScript", async () => {
     const title = 'Vaka <script>alert("x")</script> & hukuk';
     const course = { ...sampleCourse, title };
@@ -104,7 +122,7 @@ describe("bounded authoring and package proof", () => {
         'href="https://attacker.example/index.html"',
       ),
       manifest.replace('href="index.html"', 'href="missing.html"'),
-      manifest.replace("<schemaversion>1.2", "<schemaversion>2004"),
+      manifest.replace("<schemaversion>1.2", "<schemaversion>3.0"),
       manifest.replace(
         "</resources>",
         '<resource identifier="sco2" type="webcontent" adlcp:scormtype="sco" href="index.html"/></resources>',

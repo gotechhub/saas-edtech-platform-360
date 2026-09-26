@@ -6,13 +6,13 @@
 
 | Gösterge | Değer |
 |---|---:|
-| Ürün yol haritası ilerlemesi | **%28** |
-| Kalan | **%72** |
+| Ürün yol haritası ilerlemesi | **%30** |
+| Kalan | **%70** |
 | Planlama baz çizgisi | **%100** |
 | Toplam izlenen kabul görevi | **261** |
-| Tamamlanan görev | **72** |
+| Tamamlanan görev | **77** |
 | Devam eden görev | **34** |
-| Kalan görev | **189** |
+| Kalan görev | **184** |
 | Ana modül | **20** |
 | Bağımsız program | **1** |
 
@@ -22,23 +22,23 @@
 
 | Faz | Kapsam | Görev | İlerleme |
 |---|---|---:|---:|
-| B1 · İlk kullanılabilir beta | EP01–EP15 | 72/219 | **%33** |
+| B1 · İlk kullanılabilir beta | EP01–EP15 | 77/219 | **%35** |
 | B2 · Genişletilmiş beta | EP16–EP18 | 0/27 | **%0** |
 | G · Genel sürüm | EP19 | 0/9 | **%0** |
 | S · Sektör ölçekleme | EP20 | 0/6 | **%0** |
 
 ## UXV2 — SaaS EdTech UX/UI Design V2
 
-Ana modül: **EP03** · İlerleme: **%41** · Görev: **38/93** · Aktif: **18**
+Ana modül: **EP03** · İlerleme: **%43** · Görev: **40/93** · Aktif: **18**
 
 | İş paketi | Durum | Görev | İlerleme | Kabul kanıtı | Sıradaki |
 |---|---|---:|---:|---|---|
 | UXV2-00 · Mevcut sistemi koruma ve baseline | Devam ediyor | 4/6 | %67 | V1 erişimi korundu, codex/ux-ui-v2 dalı açıldı, V2 rotaları ayrıldı; 1440 koyu admin ve 390 mobil öğrenen görsel baseline kaydedildi | Beş rol × tema × ölçü baseline görüntüleri ve sorun envanteri |
 | UXV2-01 · 21st bağlantısı ve proje skill’i | Devam ediyor | 4/6 | %67 | Gizli anahtar içermeyen MCP yapılandırması, yedi referanslı proje skill’i ve kullanım sınırları | API_KEY_21ST ile bağlantı kabulü, üç tasarım yönü ve puan kartı |
-| UXV2-02 · Tokenlar ve temel bileşenler | Devam ediyor | 8/14 | %57 | Semantik tokenlar, web/native paketleri, buton/yüzey/durum/ilerleme primitive’leri, erişilebilir metin/seçim/toggle kontrolleri, açık-koyu tema, sekiz durum sözleşmesi ve Storybook 10 kataloğu | Overlay, tablo, tarih seçici ve combobox bileşenlerinin Storybook kabul matrisi |
+| UXV2-02 · Tokenlar ve temel bileşenler | Devam ediyor | 9/14 | %64 | Semantik tokenlar, web/native paketleri, Manrope tırnaksız tipografi, buton/yüzey/durum/ilerleme primitive’leri, erişilebilir form kontrolleri, açık-koyu tema, sekiz durum sözleşmesi ve Storybook 10 kataloğu | Overlay, tablo, tarih seçici ve combobox bileşenlerinin Storybook kabul matrisi |
 | UXV2-03 · Kabuk ve bilgi mimarisi | Devam ediyor | 6/10 | %60 | Paylaşılabilir V2 URL’leri, beş rol navigasyonu, drawer, mobil alt menü, arama komutu, yetki yükseltmeyen rol önizlemesi, breadcrumb ve rota odak yönetimi | Breadcrumb, tenant değişimi, route manifest testi ve focus kabulü |
 | UXV2-04 · Rol dashboardları | Devam ediyor | 3/10 | %30 | Beş rol için ayrı web/native dashboard düzeni; admin canlı metrik/kullanıcı bağlantısı ve loading/empty/error/offline/stale dahil sekiz durum desteği | Her rolü canlı read model, loading/empty/error/stale ve görsel regresyonla kabul et |
-| UXV2-05 · 26 ekran ailesi dönüşümü | Devam ediyor | 1/15 | %7 | Ana modül çalışma alanları ve örnek dolu veri görünümleri oluşturuldu | Ekran ailelerini işlev, sekiz durum ve uçtan uca görev akışlarıyla tek tek kabul et |
+| UXV2-05 · 26 ekran ailesi dönüşümü | Devam ediyor | 2/15 | %13 | Ana modül çalışma alanları, örnek dolu veri görünümleri ve uçtan uca kabul edilen admin eğitim programı stüdyosu oluşturuldu | Ekran ailelerini işlev, sekiz durum ve uçtan uca görev akışlarıyla tek tek kabul et |
 | UXV2-06 · Asset sistemi | Devam ediyor | 2/8 | %25 | Oguz Law Academy lacivert/beyaz logo varyantları ve hukuk hero varlığı bağlandı | Asset manifesti, eğitim kapakları, sentetik avatarlar, rozetler ve lisans kayıtları |
 | UXV2-07 · Native mobil uygulama | Devam ediyor | 3/10 | %30 | Expo Router SDK 57, beş rol kabuğu, tablet düzeni, SecureStore/PKCE oturumu ve modül listeleri | Gerçek deneyim API’si, push, deep link, offline, WebView editör ve Android/iOS smoke |
 | UXV2-08 · Paralel yayın ve geçiş | Devam ediyor | 1/6 | %17 | Experience version, tema, asset ve editör session migrationı uzak Supabase projesine uygulandı | Pilot grup feature flag, telemetri ve rollback tatbikatı |
@@ -50,10 +50,10 @@ Ana modül: **EP03** · İlerleme: **%41** · Görev: **38/93** · Aktif: **18**
 |---|---|---|---:|---:|---|---|
 | EP01 · Teknik temel ve monorepo | B1 | Devam ediyor | 8/10 | %80 | Tenant/RLS temeli, LMS veri tabloları, güvenli attempt/session/event deposu, job kanıtı, izole SCORM runtime, güvenli ZIP inceleme ve gerçek Supabase üzerinde doğrulanmış migration geçmişi | Hosted veri DAL/route adaptörü, karantina worker ve harici paket kanıtı |
 | EP02 · Kimlik ve organizasyon | B1 | Devam ediyor | 7/8 | %88 | Üyelik/rol temeli; hash'li davet/kabul; güvenli rol/statü RPC'leri; doğrudan ekip kapsamı; CSV preview; Supabase SSR cookie/getClaims, login, PKCE, DB rol çözümleme, MFA challenge, logout, gerçek proje bağlantısı ve tarayıcıdan doğrulanmış hosted Auth kabulü | MFA yönetimi/kritik işlem AAL2 ve CSV worker |
-| EP03 · UI sistemi ve marka | B1 | Devam ediyor | 7/10 | %70 | Beş rol navigasyonu, öğrenen ve admin çalışma alanları, responsive açık/koyu tema, hukuk akademisi hero varlığı ve RLS üzerinden canlı admin dashboard metrikleri, gerçek kullanıcı tablosu ve yetkili rol görünümü önizlemesi | Bileşen kütüphanesi, erişilebilirlik denetimi ve gerçek marka editörü |
+| EP03 · UI sistemi ve marka | B1 | Devam ediyor | 8/10 | %80 | Beş rol navigasyonu, öğrenen ve admin çalışma alanları, responsive açık/koyu tema, Manrope tırnaksız tipografi sistemi, hukuk akademisi hero varlığı, canlı dashboard metrikleri, gerçek kullanıcı tablosu ve yetkili rol görünümü önizlemesi | Overlay ve ileri veri bileşenleri ile gerçek marka editörü |
 | EP04 · Portal ve lisans fabrikası | B1 | Planlandı | 0/7 | %0 | Plan ve veri sözleşmesi | Sektör seçimi, tenant kurulum işi, entitlement ve kota |
-| EP05 · Katalog, asset ve runtime | B1 | Devam ediyor | 2/10 | %20 | Sentetik eğitim kataloğu, kaynak görünümü ve SCORM proof | Storage upload güvenliği, video/PDF runtime ve gerçek kalıcılık |
-| EP06 · Program, atama ve uyumluluk | B1 | Devam ediyor | 2/9 | %22 | Program/atama/enrollment şeması ve dört adımlı admin atama demosu | Sunucu komutları, hedef kitle çözümleme, sürüm ve zorunluluk motoru |
+| EP05 · Katalog, asset ve runtime | B1 | Devam ediyor | 3/10 | %30 | Sentetik eğitim kataloğu, kaynak görünümü, SCORM 1.2/2004 güvenli ZIP doğrulaması ve gerçek Zenefit 2004 paket kabulü | Storage karantina/yayın hattı, video/PDF runtime ve kalıcı paket deposu |
+| EP06 · Program, atama ve uyumluluk | B1 | Devam ediyor | 3/9 | %33 | Program/atama/enrollment şeması; SCORM, anket, sınav, görev ve kaynak eklemeli program stüdyosu; sıralama, zorunluluk, yayın ve atama kabulü | Sunucu komutları, kalıcı hedef kitle çözümleme ve sürüm motoru |
 | EP07 · Sınav, vaka ve yetkinlik | B1 | Planlandı | 0/8 | %0 | Plan ve veri sözleşmesi | Sunucu puanlama, deneme politikası, rubrik ve yetkinlik kanıtı |
 | EP08 · Sertifika ve gamification | B1 | Planlandı | 0/8 | %0 | Plan ve ekran akışları | Sertifika snapshot/PDF, doğrulama, XP, rozet ve leaderboard |
 | EP09 · GoAuthoring | B1 | Devam ediyor | 4/10 | %40 | Metin bölümleri, sıralama, quiz, yerel taslak, SCORM 1.2 ZIP export ve inceleme | Kalıcı yayın, blok editörü, medya, lisans ve etkileşim analitiği |
@@ -91,14 +91,15 @@ Ana modül: **EP03** · İlerleme: **%41** · Görev: **38/93** · Aktif: **18**
 
 ## Doğrulama kanıtı
 
-- Çekirdek/PostgreSQL testleri: **62 geçti**
-- Tarayıcı uçtan uca testleri: **19 geçti**
+- Çekirdek/PostgreSQL testleri: **63 geçti**
+- Tarayıcı uçtan uca testleri: **20 geçti**
 - TypeScript: **Web + mobil geçti**
 - Next.js üretim derlemesi: **Geçti · V2 API ve rotalar dahil**
 - Bağımlılık güvenliği: **Son taramada bildirilen açık yok**
 
 ## Son değişiklikler
 
+- **2026-09-26:** V2 tipografisi Manrope tırnaksız sisteme taşındı; SCORM 2004 4th Edition Zenefit paketi 85 dosyayla doğrulandı ve program stüdyosunda içerik sıralama, zorunluluk, yayın ve atama akışı Playwright ile geçti.
 - **2026-09-26:** UI Web paketine erişilebilir TextField, SelectField ve ToggleField eklendi; hata, açıklama, zorunluluk ve klavye odağı durumları Storybook üretim derlemesinde doğrulandı.
 - **2026-09-26:** Next.js Vite tabanlı Storybook 10 ve resmî a11y eklentisi kuruldu; V2 kontrolleri, durumları, kartları ve sekiz ekran durumu için açık/koyu tema kataloğu üretim derlemesinden geçti.
 - **2026-09-26:** V2 genelinde sekiz ekran durumu, breadcrumb ve rota odak yönetimi tamamlandı; birincil eylem ve uyarı kontrastları düzeltildi, Playwright/axe kabul paketi 4/4 geçti.
