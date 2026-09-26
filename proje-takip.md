@@ -10,9 +10,9 @@
 | Kalan | **%73** |
 | Planlama baz çizgisi | **%100** |
 | Toplam izlenen kabul görevi | **261** |
-| Tamamlanan görev | **70** |
+| Tamamlanan görev | **71** |
 | Devam eden görev | **34** |
-| Kalan görev | **191** |
+| Kalan görev | **190** |
 | Ana modül | **20** |
 | Bağımsız program | **1** |
 
@@ -22,20 +22,20 @@
 
 | Faz | Kapsam | Görev | İlerleme |
 |---|---|---:|---:|
-| B1 · İlk kullanılabilir beta | EP01–EP15 | 70/219 | **%32** |
+| B1 · İlk kullanılabilir beta | EP01–EP15 | 71/219 | **%32** |
 | B2 · Genişletilmiş beta | EP16–EP18 | 0/27 | **%0** |
 | G · Genel sürüm | EP19 | 0/9 | **%0** |
 | S · Sektör ölçekleme | EP20 | 0/6 | **%0** |
 
 ## UXV2 — SaaS EdTech UX/UI Design V2
 
-Ana modül: **EP03** · İlerleme: **%39** · Görev: **36/93** · Aktif: **18**
+Ana modül: **EP03** · İlerleme: **%40** · Görev: **37/93** · Aktif: **18**
 
 | İş paketi | Durum | Görev | İlerleme | Kabul kanıtı | Sıradaki |
 |---|---|---:|---:|---|---|
 | UXV2-00 · Mevcut sistemi koruma ve baseline | Devam ediyor | 4/6 | %67 | V1 erişimi korundu, codex/ux-ui-v2 dalı açıldı, V2 rotaları ayrıldı; 1440 koyu admin ve 390 mobil öğrenen görsel baseline kaydedildi | Beş rol × tema × ölçü baseline görüntüleri ve sorun envanteri |
 | UXV2-01 · 21st bağlantısı ve proje skill’i | Devam ediyor | 4/6 | %67 | Gizli anahtar içermeyen MCP yapılandırması, yedi referanslı proje skill’i ve kullanım sınırları | API_KEY_21ST ile bağlantı kabulü, üç tasarım yönü ve puan kartı |
-| UXV2-02 · Tokenlar ve temel bileşenler | Devam ediyor | 6/14 | %43 | Semantik tokenlar, web/native paketleri, buton/yüzey/durum/ilerleme primitive’leri, açık-koyu tema ve sekiz durumlu ortak ekran sözleşmesi | Form, overlay, tablo, state ve Storybook kabul matrisi |
+| UXV2-02 · Tokenlar ve temel bileşenler | Devam ediyor | 7/14 | %50 | Semantik tokenlar, web/native paketleri, buton/yüzey/durum/ilerleme primitive’leri, açık-koyu tema, sekiz durumlu ortak ekran sözleşmesi ve Storybook 10 bileşen kataloğu | Form, overlay, tablo ve kalan bileşenlerin Storybook kabul matrisi |
 | UXV2-03 · Kabuk ve bilgi mimarisi | Devam ediyor | 6/10 | %60 | Paylaşılabilir V2 URL’leri, beş rol navigasyonu, drawer, mobil alt menü, arama komutu, yetki yükseltmeyen rol önizlemesi, breadcrumb ve rota odak yönetimi | Breadcrumb, tenant değişimi, route manifest testi ve focus kabulü |
 | UXV2-04 · Rol dashboardları | Devam ediyor | 3/10 | %30 | Beş rol için ayrı web/native dashboard düzeni; admin canlı metrik/kullanıcı bağlantısı ve loading/empty/error/offline/stale dahil sekiz durum desteği | Her rolü canlı read model, loading/empty/error/stale ve görsel regresyonla kabul et |
 | UXV2-05 · 26 ekran ailesi dönüşümü | Devam ediyor | 1/15 | %7 | Ana modül çalışma alanları ve örnek dolu veri görünümleri oluşturuldu | Ekran ailelerini işlev, sekiz durum ve uçtan uca görev akışlarıyla tek tek kabul et |
@@ -99,6 +99,7 @@ Ana modül: **EP03** · İlerleme: **%39** · Görev: **36/93** · Aktif: **18**
 
 ## Son değişiklikler
 
+- **2026-09-26:** Next.js Vite tabanlı Storybook 10 ve resmî a11y eklentisi kuruldu; V2 kontrolleri, durumları, kartları ve sekiz ekran durumu için açık/koyu tema kataloğu üretim derlemesinden geçti.
 - **2026-09-26:** V2 genelinde sekiz ekran durumu, breadcrumb ve rota odak yönetimi tamamlandı; birincil eylem ve uyarı kontrastları düzeltildi, Playwright/axe kabul paketi 4/4 geçti.
 - **2026-09-25:** V2 temel migrationı uzak Supabase projesine uygulandı; beş rol, koyu tema ve 390 px mobil görünüm için Playwright kabul paketi 2/2 geçti ve görsel baselinelar kaydedildi.
 - **2026-09-25:** Expo Doctor 21/21, web ve mobil typecheck, Next.js üretim derlemesi, 62/62 test ve proje skill doğrulaması geçti; resmî yedi 21st skill’i kuruldu.

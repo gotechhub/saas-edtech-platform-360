@@ -14,7 +14,9 @@
     "tracker:update": "node scripts/update-project-tracker.mjs",
     "tracker:check": "node scripts/update-project-tracker.mjs --check",
     "format": "prettier --write apps/web/src packages tests",
-    "check": "corepack pnpm test && corepack pnpm typecheck && corepack pnpm build"
+    "check": "corepack pnpm test && corepack pnpm typecheck && corepack pnpm build",
+    "storybook": "corepack pnpm --filter @respongo/web storybook",
+    "storybook:build": "corepack pnpm --filter @respongo/web storybook:build"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

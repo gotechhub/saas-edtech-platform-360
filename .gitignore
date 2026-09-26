@@ -14,3 +14,4 @@ docs/planning/research/*.jpg
 supabase/.temp/
 .codex/*.log
 saas-edtech-platform-360.txt
+apps/web/storybook-static/
