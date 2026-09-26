@@ -297,6 +297,10 @@
   "recent": [
     {
       "date": "2026-09-26",
+      "text": "UI Web paketine erişilebilir TextField, SelectField ve ToggleField eklendi; hata, açıklama, zorunluluk ve klavye odağı durumları Storybook üretim derlemesinde doğrulandı."
+    },
+    {
+      "date": "2026-09-26",
       "text": "Next.js Vite tabanlı Storybook 10 ve resmî a11y eklentisi kuruldu; V2 kontrolleri, durumları, kartları ve sekiz ekran durumu için açık/koyu tema kataloğu üretim derlemesinden geçti."
     },
     {
@@ -372,7 +376,7 @@
       "name": "SaaS EdTech UX/UI Design V2",
       "status": "in_progress",
       "total": 93,
-      "done": 37,
+      "done": 38,
       "active": 18,
       "delivered": "V1 korunarak bağımsız V2 dalı; resmî 21st skill paketi ve MCP kaydı; Respongo proje skilli; ortak design token, ui-web ve ui-native paketleri; gerçek URL mimarisi; beş rol dashboardu; responsive web kabuğu; asset manifest/SVG çekirdeği; güvenli deneyim APIleri; Expo SDK 57 native uygulama kabuğu; uzak Supabase V2 migrationı ve tarayıcı kabul baselineları",
       "next": "Görsel baseline ve regresyon; kalan ekran durumları; asset manifest/kapak seti; Storybook; canlı rol read modelleri; push/offline; pilot feature flag ve UAT",
@@ -401,11 +405,11 @@
           "id": "UXV2-02",
           "name": "Tokenlar ve temel bileşenler",
           "total": 14,
-          "done": 7,
+          "done": 8,
           "active": 2,
           "status": "in_progress",
-          "evidence": "Semantik tokenlar, web/native paketleri, buton/yüzey/durum/ilerleme primitive’leri, açık-koyu tema, sekiz durumlu ortak ekran sözleşmesi ve Storybook 10 bileşen kataloğu",
-          "next": "Form, overlay, tablo ve kalan bileşenlerin Storybook kabul matrisi"
+          "evidence": "Semantik tokenlar, web/native paketleri, buton/yüzey/durum/ilerleme primitive’leri, erişilebilir metin/seçim/toggle kontrolleri, açık-koyu tema, sekiz durum sözleşmesi ve Storybook 10 kataloğu",
+          "next": "Overlay, tablo, tarih seçici ve combobox bileşenlerinin Storybook kabul matrisi"
         },
         {
           "id": "UXV2-03",

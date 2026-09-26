@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Award, Download, ShieldCheck } from "lucide-react";
-import { Button, ProgressBar, StatusPill, Surface } from "@respongo/ui-web";
+import { Button, ProgressBar, SelectField, StatusPill, Surface, TextField, ToggleField } from "@respongo/ui-web";
 import { ExperienceState, type ExperienceViewState } from "./experience-state";
 
 const meta = {
@@ -67,5 +67,20 @@ export const StateContract: Story = {
         </div>
       ))}
     </div>
+  ),
+};
+
+
+export const FormControls: Story = {
+  render: () => (
+    <Surface className="rv2-panel" style={{ display: "grid", gap: 18, maxWidth: 620 }}>
+      <div><span className="rv2-eyebrow">FORM SÖZLEŞMESİ</span><h2>Portal ve kullanıcı ayarları</h2></div>
+      <TextField label="Portal adı" defaultValue="Oguz Law Academy" hint="Kullanıcıların başlık alanında göreceği ad." required />
+      <TextField label="Destek e-postası" defaultValue="destek@oguzlaw.com" error="Doğrulanmış bir kurum adresi kullanın." />
+      <SelectField label="Varsayılan dil" defaultValue="tr" options={[{ value: "tr", label: "Türkçe" },{ value: "en", label: "English" }]} />
+      <ToggleField label="Zorunlu eğitim hatırlatmaları" description="Son tarihten 7, 3 ve 1 gün önce otomatik bildirim gönder." defaultChecked />
+      <ToggleField label="Topluluk akışını etkinleştir" description="Öğrenenler gönderi ve kaynak paylaşabilir." />
+      <div style={rowStyle}><Button>Değişiklikleri kaydet</Button><Button variant="secondary">Önizle</Button></div>
+    </Surface>
   ),
 };

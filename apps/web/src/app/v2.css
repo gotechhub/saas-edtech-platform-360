@@ -235,3 +235,24 @@
 }
 
 .rv2-app[data-v2-theme="light"] .rv2-button--primary { color: #ffffff; }
+
+/* Accessible form controls */
+.rv2-field { display: grid; gap: 7px; color: var(--rv2-text); }
+.rv2-field__label { display: flex; gap: 3px; font-size: 9px; font-weight: 800; }
+.rv2-field__label b { color: var(--rv2-danger); }
+.rv2-field input,.rv2-field select { width: 100%; min-height: 42px; padding: 0 12px; border: 1px solid var(--rv2-border); border-radius: var(--rv2-radius-control); outline: none; color: var(--rv2-text); background: var(--rv2-surface); box-shadow: var(--rv2-shadow-sm); }
+.rv2-field input::placeholder { color: var(--rv2-text-soft); }
+.rv2-field input:focus-visible,.rv2-field select:focus-visible { border-color: var(--rv2-primary); outline: 3px solid color-mix(in srgb,var(--rv2-primary),transparent 82%); outline-offset: 1px; }
+.rv2-field small { color: var(--rv2-text-soft); font-size: 8px; line-height: 1.45; }
+.rv2-field.is-error input,.rv2-field.is-error select { border-color: var(--rv2-danger); }
+.rv2-field.is-error small { color: var(--rv2-danger); }
+.rv2-toggle { position: relative; display: grid; grid-template-columns: 42px minmax(0,1fr); align-items: center; gap: 11px; cursor: pointer; }
+.rv2-toggle > input { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
+.rv2-toggle__control { width: 42px; height: 24px; display: flex; align-items: center; padding: 3px; border: 1px solid var(--rv2-border-strong); border-radius: 20px; background: var(--rv2-bg-subtle); transition: background var(--rv2-motion-interface),border-color var(--rv2-motion-interface); }
+.rv2-toggle__control i { width: 16px; height: 16px; border-radius: 50%; background: var(--rv2-surface); box-shadow: var(--rv2-shadow-sm); transition: transform var(--rv2-motion-interface); }
+.rv2-toggle > input:checked + .rv2-toggle__control { border-color: var(--rv2-primary); background: var(--rv2-primary); }
+.rv2-toggle > input:checked + .rv2-toggle__control i { transform: translateX(18px); }
+.rv2-toggle > input:focus-visible + .rv2-toggle__control { outline: 3px solid color-mix(in srgb,var(--rv2-primary),transparent 72%); outline-offset: 3px; }
+.rv2-toggle__copy { display: flex; flex-direction: column; gap: 2px; }
+.rv2-toggle__copy strong { font-size: 9px; }
+.rv2-toggle__copy small { color: var(--rv2-text-soft); font-size: 8px; }
