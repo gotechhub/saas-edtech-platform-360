@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { test, expect, type Page } from "@playwright/test";
 import { existsSync, readFileSync } from "node:fs";
 
@@ -48,6 +49,7 @@ test.describe("Experience V2", () => {
       await page.goto("/avukat/oguzlawacademy/v2/" + role + "/dashboard");
       await expect(page.getByRole("heading", { name: heading })).toBeVisible();
       await expect(page.getByText(role === "admin" ? "CANLI V2" : "V2 ÖNİZLEME", { exact: true })).toBeVisible();
+      await expect(page.getByRole("navigation", { name: "Sayfa yolu" })).toBeVisible();
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     }
     expect(errors).toEqual([]);
@@ -68,5 +70,25 @@ test.describe("Experience V2", () => {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await page.screenshot({ path: "test-results/v2-learner-mobile-390.png", fullPage: true });
   });
-});
 
+  test("all eight screen states have a stable accessible contract", async ({ page }) => {
+    test.setTimeout(120000);
+    const path = "/avukat/oguzlawacademy/v2/admin/users";
+    await signIn(page, path);
+    for (const state of ["loaded", "loading", "empty", "filtered_empty", "error", "forbidden", "offline", "stale"]) {
+      await page.goto(`${path}?state=${state}`);
+      await expect(page.locator(`[data-experience-state="${state}"]`)).toBeVisible();
+    }
+  });
+
+  test("admin dashboard passes automated WCAG A and AA checks", async ({ page }) => {
+    test.setTimeout(90000);
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await signIn(page, "/avukat/oguzlawacademy/v2/admin/dashboard");
+    const result = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa"])
+      .exclude(".recharts-responsive-container")
+      .analyze();
+    expect(result.violations).toEqual([]);
+  });
+});

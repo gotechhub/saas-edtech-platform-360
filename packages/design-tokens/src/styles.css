@@ -18,7 +18,7 @@
   --rv2-accent-soft: #f6f0e4;
   --rv2-success: #167257;
   --rv2-success-soft: #e4f4ee;
-  --rv2-warning: #a85c16;
+  --rv2-warning: #96500f;
   --rv2-warning-soft: #fff1dc;
   --rv2-danger: #b43a45;
   --rv2-danger-soft: #fde9eb;
@@ -69,4 +69,3 @@
     --rv2-motion-emphasis: 0ms;
   }
 }
-

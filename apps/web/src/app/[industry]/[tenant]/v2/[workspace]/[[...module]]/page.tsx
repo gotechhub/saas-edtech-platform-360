@@ -1,5 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import { ExperienceShell } from "@/components/v2/experience-shell";
+import { ExperienceState, isExperienceViewState } from "@/components/v2/experience-state";
 import { V2Dashboard } from "@/components/v2/dashboards";
 import { ModuleWorkspace } from "@/components/v2/module-workspace";
 import { getPortalSession } from "@/lib/auth/session";
@@ -9,8 +10,14 @@ import { defaultModule, isV2Role, roleNavigation, type V2Role } from "@/lib/v2-e
 
 export const dynamic = "force-dynamic";
 
-export default async function V2Workspace({ params }: { params: Promise<{ industry: string; tenant: string; workspace: string; module?: string[] }> }) {
+type WorkspacePageProps = {
+  params: Promise<{ industry: string; tenant: string; workspace: string; module?: string[] }>;
+  searchParams: Promise<{ state?: string }>;
+};
+
+export default async function V2Workspace({ params, searchParams }: WorkspacePageProps) {
   const { industry, tenant, workspace, module: moduleSegments } = await params;
+  const query = await searchParams;
   if (industry !== "avukat" || tenant !== "oguzlawacademy" || !isV2Role(workspace)) notFound();
   const role = workspace as V2Role;
   const moduleId = moduleSegments?.[0] || defaultModule(role);
@@ -23,8 +30,9 @@ export default async function V2Workspace({ params }: { params: Promise<{ indust
   let previewRoles: V2Role[] = ["learner", "admin", "instructor", "manager", "platform"];
   let tenantId: string | undefined;
   let canReadAdminData = false;
+  const publicConfig = readSupabasePublicConfig();
 
-  if (readSupabasePublicConfig()) {
+  if (publicConfig) {
     const result = await getPortalSession(industry, tenant);
     if (result.kind === "unauthenticated") redirect(`${portalBase}/giris?next=${encodeURIComponent(`${portalBase}/v2/${role}/${moduleId}`)}`);
     if (result.kind === "mfa_required") redirect(`${portalBase}/mfa`);
@@ -48,13 +56,20 @@ export default async function V2Workspace({ params }: { params: Promise<{ indust
     ? await Promise.all([getLiveAdminMetrics(tenantId), getLiveAdminUsers(tenantId)])
     : [undefined, undefined];
   const basePath = `${portalBase}/v2/${role}`;
+  const moduleLabel = moduleId === "profile"
+    ? "Profil ve tercihler"
+    : roleNavigation[role].find((item) => item.id === moduleId)?.label ?? "Çalışma alanı";
+  const requestedState = isExperienceViewState(query.state) ? query.state : "loaded";
+  const viewState = canReadAdminData || !publicConfig ? requestedState : "loaded";
+  const currentHref = `${basePath}/${moduleId}`;
 
   return (
     <ExperienceShell role={role} moduleId={moduleId} industry={industry} tenant={tenant} accountLabel={accountLabel} previewRoles={previewRoles} preview={preview}>
-      {moduleId === "dashboard"
-        ? <V2Dashboard role={role} basePath={basePath} accountLabel={accountLabel} metrics={metrics} users={users} />
-        : <ModuleWorkspace role={role} moduleId={moduleId} basePath={basePath} users={users} />}
+      <ExperienceState state={viewState} moduleLabel={moduleLabel} retryHref={currentHref} dashboardHref={`${basePath}/dashboard`}>
+        {moduleId === "dashboard"
+          ? <V2Dashboard role={role} basePath={basePath} accountLabel={accountLabel} metrics={metrics} users={users} />
+          : <ModuleWorkspace role={role} moduleId={moduleId} basePath={basePath} users={users} />}
+      </ExperienceState>
     </ExperienceShell>
   );
 }
-

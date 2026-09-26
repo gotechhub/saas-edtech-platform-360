@@ -7,7 +7,7 @@ export function cn(...values: ClassValue[]) {
   return twMerge(clsx(values));
 }
 
-const buttonVariants = cva("rv2-button", {
+export const buttonVariants = cva("rv2-button", {
   variants: {
     variant: {
       primary: "rv2-button--primary",
@@ -52,4 +52,3 @@ export function ProgressBar({ value, label }: { value: number; label: string }) 
     </div>
   );
 }
-

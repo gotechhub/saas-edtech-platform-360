@@ -17,6 +17,7 @@
     "check": "corepack pnpm test && corepack pnpm typecheck && corepack pnpm build"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
     "@electric-sql/pglite": "0.5.8",
     "@playwright/test": "1.63.0",
     "@types/node": "24.10.1",

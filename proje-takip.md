@@ -1,18 +1,18 @@
 # Proje Takibi — Respongo Learning · Oguz Law Academy
 
-> Son güncelleme: **2026-09-25** · Sürüm: **0.3.0** · Aşama: **Geliştirme · UX/UI V2 programı**
+> Son güncelleme: **2026-09-26** · Sürüm: **0.3.0** · Aşama: **Geliştirme · UX/UI V2 programı**
 
 ## Genel durum
 
 | Gösterge | Değer |
 |---|---:|
-| Ürün yol haritası ilerlemesi | **%25** |
-| Kalan | **%75** |
+| Ürün yol haritası ilerlemesi | **%27** |
+| Kalan | **%73** |
 | Planlama baz çizgisi | **%100** |
 | Toplam izlenen kabul görevi | **261** |
-| Tamamlanan görev | **66** |
+| Tamamlanan görev | **70** |
 | Devam eden görev | **34** |
-| Kalan görev | **195** |
+| Kalan görev | **191** |
 | Ana modül | **20** |
 | Bağımsız program | **1** |
 
@@ -22,27 +22,27 @@
 
 | Faz | Kapsam | Görev | İlerleme |
 |---|---|---:|---:|
-| B1 · İlk kullanılabilir beta | EP01–EP15 | 66/219 | **%30** |
+| B1 · İlk kullanılabilir beta | EP01–EP15 | 70/219 | **%32** |
 | B2 · Genişletilmiş beta | EP16–EP18 | 0/27 | **%0** |
 | G · Genel sürüm | EP19 | 0/9 | **%0** |
 | S · Sektör ölçekleme | EP20 | 0/6 | **%0** |
 
 ## UXV2 — SaaS EdTech UX/UI Design V2
 
-Ana modül: **EP03** · İlerleme: **%34** · Görev: **32/93** · Aktif: **18**
+Ana modül: **EP03** · İlerleme: **%39** · Görev: **36/93** · Aktif: **18**
 
 | İş paketi | Durum | Görev | İlerleme | Kabul kanıtı | Sıradaki |
 |---|---|---:|---:|---|---|
 | UXV2-00 · Mevcut sistemi koruma ve baseline | Devam ediyor | 4/6 | %67 | V1 erişimi korundu, codex/ux-ui-v2 dalı açıldı, V2 rotaları ayrıldı; 1440 koyu admin ve 390 mobil öğrenen görsel baseline kaydedildi | Beş rol × tema × ölçü baseline görüntüleri ve sorun envanteri |
 | UXV2-01 · 21st bağlantısı ve proje skill’i | Devam ediyor | 4/6 | %67 | Gizli anahtar içermeyen MCP yapılandırması, yedi referanslı proje skill’i ve kullanım sınırları | API_KEY_21ST ile bağlantı kabulü, üç tasarım yönü ve puan kartı |
-| UXV2-02 · Tokenlar ve temel bileşenler | Devam ediyor | 5/14 | %36 | Semantik tokenlar, web/native paketleri, buton/yüzey/durum/ilerleme primitive’leri, açık-koyu tema | Form, overlay, tablo, state ve Storybook kabul matrisi |
-| UXV2-03 · Kabuk ve bilgi mimarisi | Devam ediyor | 5/10 | %50 | Paylaşılabilir V2 URL’leri, beş rol navigasyonu, drawer, mobil alt menü, arama komutu ve yetki yükseltmeyen rol önizlemesi | Breadcrumb, tenant değişimi, route manifest testi ve focus kabulü |
-| UXV2-04 · Rol dashboardları | Devam ediyor | 2/10 | %20 | Beş rol için ayrı web/native dashboard düzeni; admin canlı metrik/kullanıcı bağlantısı | Her rolü canlı read model, loading/empty/error/stale ve görsel regresyonla kabul et |
+| UXV2-02 · Tokenlar ve temel bileşenler | Devam ediyor | 6/14 | %43 | Semantik tokenlar, web/native paketleri, buton/yüzey/durum/ilerleme primitive’leri, açık-koyu tema ve sekiz durumlu ortak ekran sözleşmesi | Form, overlay, tablo, state ve Storybook kabul matrisi |
+| UXV2-03 · Kabuk ve bilgi mimarisi | Devam ediyor | 6/10 | %60 | Paylaşılabilir V2 URL’leri, beş rol navigasyonu, drawer, mobil alt menü, arama komutu, yetki yükseltmeyen rol önizlemesi, breadcrumb ve rota odak yönetimi | Breadcrumb, tenant değişimi, route manifest testi ve focus kabulü |
+| UXV2-04 · Rol dashboardları | Devam ediyor | 3/10 | %30 | Beş rol için ayrı web/native dashboard düzeni; admin canlı metrik/kullanıcı bağlantısı ve loading/empty/error/offline/stale dahil sekiz durum desteği | Her rolü canlı read model, loading/empty/error/stale ve görsel regresyonla kabul et |
 | UXV2-05 · 26 ekran ailesi dönüşümü | Devam ediyor | 1/15 | %7 | Ana modül çalışma alanları ve örnek dolu veri görünümleri oluşturuldu | Ekran ailelerini işlev, sekiz durum ve uçtan uca görev akışlarıyla tek tek kabul et |
 | UXV2-06 · Asset sistemi | Devam ediyor | 2/8 | %25 | Oguz Law Academy lacivert/beyaz logo varyantları ve hukuk hero varlığı bağlandı | Asset manifesti, eğitim kapakları, sentetik avatarlar, rozetler ve lisans kayıtları |
 | UXV2-07 · Native mobil uygulama | Devam ediyor | 3/10 | %30 | Expo Router SDK 57, beş rol kabuğu, tablet düzeni, SecureStore/PKCE oturumu ve modül listeleri | Gerçek deneyim API’si, push, deep link, offline, WebView editör ve Android/iOS smoke |
 | UXV2-08 · Paralel yayın ve geçiş | Devam ediyor | 1/6 | %17 | Experience version, tema, asset ve editör session migrationı uzak Supabase projesine uygulandı | Pilot grup feature flag, telemetri ve rollback tatbikatı |
-| UXV2-QA · Kalite ve ürün kabulü | Devam ediyor | 5/8 | %63 | Web/mobil strict TypeScript, Expo Doctor 21/21, Next.js üretim derlemesi, 62/62 test ve beş rol/tema/responsive Playwright kabulü geçti | Axe tam matris, performans, Android/iOS cihaz smoke ve beş kullanıcı UAT |
+| UXV2-QA · Kalite ve ürün kabulü | Devam ediyor | 6/8 | %75 | Web/mobil strict TypeScript, Expo Doctor 21/21, Next.js üretim derlemesi, 62/62 test; beş rol, tema, responsive, sekiz durum ve axe WCAG A/AA Playwright kabulü geçti | Axe tam matris, performans, Android/iOS cihaz smoke ve beş kullanıcı UAT |
 
 ## 20 ana modül
 
@@ -62,7 +62,7 @@ Ana modül: **EP03** · İlerleme: **%34** · Görev: **32/93** · Aktif: **18**
 | EP12 · Destek ve bilgi bankası | B1 | Devam ediyor | 1/7 | %14 | Yerel kullanıcı → admin → platform ticket eskalasyon akışı | Kalıcı ticket, iç not, SLA, erişim grant'i ve bilgi bankası |
 | EP13 · Rapor ve içerik operasyonu | B1 | Devam ediyor | 1/8 | %13 | Admin rapor, uyumluluk ve içerik sağlığı arayüzleri | Rapor datasetleri, özel rapor builder, planlı gönderim ve içerik checklist'i |
 | EP14 · Manuel canlı eğitim | B1 | Planlandı | 0/6 | %0 | Plan ve entegrasyon sözleşmesi | Takvim, kontenjan, kayıt, oturum ve manuel yoklama |
-| EP15 · Pilot sertleştirme | B1 | Devam ediyor | 2/10 | %20 | 28 çekirdek/PostgreSQL ve 17 tarayıcı testi; üretim derlemesi | UAT, erişilebilirlik, yük, restore, gözlemleme ve release kapıları |
+| EP15 · Pilot sertleştirme | B1 | Devam ediyor | 2/10 | %20 | 28 çekirdek/PostgreSQL ve 19 tarayıcı testi; üretim derlemesi | UAT, erişilebilirlik, yük, restore, gözlemleme ve release kapıları |
 | EP16 · Canlı API, SSO ve bağlayıcılar | B2 | Planlandı | 0/9 | %0 | Mimari ve sağlayıcı planı | Teams, Zoom, GoTo, SAML/OIDC ve kurum bağlayıcıları |
 | EP17 · Rapor/workflow/AI ve sosyal genişleme | B2 | Planlandı | 0/10 | %0 | Kapsam ve güvenlik sınırları | Builder, workflow, push, sohbet, form/anket ve kontrollü AI raporları |
 | EP18 · Geniş öğrenme standartları | B2 | Planlandı | 0/8 | %0 | SCORM Cloud yaklaşımı ve kabul planı | SCORM 2004, multi-SCO, xAPI/LRS ve cmi5 sağlayıcı adaptörü |
@@ -92,13 +92,14 @@ Ana modül: **EP03** · İlerleme: **%34** · Görev: **32/93** · Aktif: **18**
 ## Doğrulama kanıtı
 
 - Çekirdek/PostgreSQL testleri: **62 geçti**
-- Tarayıcı uçtan uca testleri: **17 geçti**
+- Tarayıcı uçtan uca testleri: **19 geçti**
 - TypeScript: **Web + mobil geçti**
 - Next.js üretim derlemesi: **Geçti · V2 API ve rotalar dahil**
 - Bağımlılık güvenliği: **Son taramada bildirilen açık yok**
 
 ## Son değişiklikler
 
+- **2026-09-26:** V2 genelinde sekiz ekran durumu, breadcrumb ve rota odak yönetimi tamamlandı; birincil eylem ve uyarı kontrastları düzeltildi, Playwright/axe kabul paketi 4/4 geçti.
 - **2026-09-25:** V2 temel migrationı uzak Supabase projesine uygulandı; beş rol, koyu tema ve 390 px mobil görünüm için Playwright kabul paketi 2/2 geçti ve görsel baselinelar kaydedildi.
 - **2026-09-25:** Expo Doctor 21/21, web ve mobil typecheck, Next.js üretim derlemesi, 62/62 test ve proje skill doğrulaması geçti; resmî yedi 21st skill’i kuruldu.
 - **2026-09-25:** UXV2 programı açıldı; proje skill’i, ortak tasarım paketleri, beş rol web dashboardu, gerçek URL mimarisi, deneyim API temeli ve Expo SDK 57 mobil kabuk tamamlandı.

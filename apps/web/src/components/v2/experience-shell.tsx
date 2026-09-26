@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import {
   Bell,
   ChevronDown,
+  ChevronRight,
   CircleHelp,
   Command,
   LogOut,
@@ -67,7 +68,9 @@ export function ExperienceShell(props: ExperienceShellProps) {
   const [commandOpen, setCommandOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const previousPath = useRef(pathname);
   const initials = useMemo(() => accountLabel.split(/\s+|@/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toLocaleUpperCase("tr"), [accountLabel]);
+  const currentLabel = moduleId === "profile" ? "Profil ve tercihler" : roleNavigation[role].find((item) => item.id === moduleId)?.label ?? "Çalışma alanı";
 
   useEffect(() => {
     const saved = localStorage.getItem(themeKey);
@@ -85,6 +88,13 @@ export function ExperienceShell(props: ExperienceShellProps) {
     addEventListener("keydown", onKey);
     return () => removeEventListener("keydown", onKey);
   }, []);
+
+  useEffect(() => {
+    if (previousPath.current !== pathname) {
+      requestAnimationFrame(() => document.getElementById("rv2-main")?.focus({ preventScroll: true }));
+      previousPath.current = pathname;
+    }
+  }, [pathname]);
 
   const changeTheme = () => {
     const next = theme === "light" ? "dark" : "light";
@@ -154,7 +164,12 @@ export function ExperienceShell(props: ExperienceShellProps) {
 
         {preview ? <div className="rv2-preview-banner"><strong>Güvenli tasarım önizlemesi</strong><span>Rol görünümü yalnızca arayüzü değiştirir; hesap yetkinizi değiştirmez.</span><Link href={`/${industry}/${tenant}`}>V1 portala dön</Link></div> : null}
         <AnimatePresence mode="wait">
-          <motion.main id="rv2-main" key={pathname} className="rv2-main" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}>
+          <motion.main id="rv2-main" key={pathname} className="rv2-main" tabIndex={-1} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}>
+            <nav className="rv2-breadcrumb" aria-label="Sayfa yolu">
+              <Link href={`/${industry}/${tenant}/v2/${role}/dashboard`}>{roleMeta[role].label}</Link>
+              <ChevronRight size={13} aria-hidden="true" />
+              <span aria-current="page">{currentLabel}</span>
+            </nav>
             {children}
           </motion.main>
         </AnimatePresence>
@@ -178,4 +193,3 @@ export function ExperienceShell(props: ExperienceShellProps) {
     </div>
   );
 }
-
